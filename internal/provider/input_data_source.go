@@ -68,7 +68,7 @@ func (i *inputDataSource) Read(ctx context.Context, req datasource.ReadRequest, 
 		resp.Diagnostics.AddError("id cannot be null for this datasource", "id cannot be null for this datasource")
 	}
 
-	apiResp, err := i.cl.GetPipelineNodesGetOneWithResponse(ctx, &client.GetPipelineNodesGetOneParams{Id: data.ID.ValueString(), Kind: "input"})
+	apiResp, err := i.cl.GetPipelineNodesOneWithResponse(ctx, &client.GetPipelineNodesOneParams{Id: data.ID.ValueString(), Kind: "input"})
 	if err != nil {
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("API client error in GET Input: id: %s \nerr: %s", data.ID.String(), err))
 		return

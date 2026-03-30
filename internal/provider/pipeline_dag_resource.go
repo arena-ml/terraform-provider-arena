@@ -73,7 +73,7 @@ func (r *pipelineDagResource) Read(ctx context.Context, req resource.ReadRequest
 	}
 
 	id := data.PipelineID.ValueString()
-	apiResp, err := r.cl.GetPipelineDagGetWithResponse(ctx, &client.GetPipelineDagGetParams{
+	apiResp, err := r.cl.GetPipelineDagWithResponse(ctx, &client.GetPipelineDagParams{
 		Id: &id,
 	})
 	if err != nil {
@@ -99,11 +99,15 @@ func (r *pipelineDagResource) Read(ctx context.Context, req resource.ReadRequest
 
 func (r *pipelineDagResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data schema.PipelineDag
+	var stateData schema.PipelineDag
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &stateData)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	data.PipelineID = stateData.PipelineID
 
 	created, err := r.upsertResource(ctx, &data)
 	if err != nil {

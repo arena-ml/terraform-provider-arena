@@ -128,8 +128,10 @@ func (r *teamResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 
 func (r *teamResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data schema.Team
+	var stateData schema.Team
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &stateData)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -140,30 +142,32 @@ func (r *teamResource) Update(ctx context.Context, req resource.UpdateRequest, r
 		resp.Diagnostics.AddError("unable to update team", "unable to convert team data: "+err.Error())
 		return
 	}
+	id := stateData.ID.ValueString()
+	apiTeam.Id = &id
 
 	// Call Update API
 	apiResp, err := r.cl.PostIamTeamUpdateWithResponse(ctx, apiTeam)
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update team '%s': %s", data.ID.String(), err))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update team '%s': %s", id, err))
 		return
 	}
 	if apiResp.StatusCode() != http.StatusOK {
-		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", apiResp.StatusCode()), fmt.Sprintf("Unable to update team '%s': %s", data.ID.String(), apiResp.Status()))
+		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", apiResp.StatusCode()), fmt.Sprintf("Unable to update team '%s': %s", id, apiResp.Status()))
 		return
 	}
 
 	// Read back the updated team
-	getResp, err := r.cl.GetIamTeamGetWithResponse(ctx, &client.GetIamTeamGetParams{Id: data.ID.ValueStringPointer()})
+	getResp, err := r.cl.GetIamTeamGetWithResponse(ctx, &client.GetIamTeamGetParams{Id: &id})
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to read updated team '%s': %s", data.ID.String(), err))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to read updated team '%s': %s", id, err))
 		return
 	}
 	if getResp.StatusCode() != http.StatusOK {
-		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", getResp.StatusCode()), fmt.Sprintf("Unable to read updated team '%s': %s", data.ID.String(), getResp.Status()))
+		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", getResp.StatusCode()), fmt.Sprintf("Unable to read updated team '%s': %s", id, getResp.Status()))
 		return
 	}
 	if getResp.JSON200 == nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Received nil response from API when reading updated team '%s'", data.ID.String()))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Received nil response from API when reading updated team '%s'", id))
 		return
 	}
 	if err := data.FillFromResp(ctx, *getResp.JSON200); err != nil {

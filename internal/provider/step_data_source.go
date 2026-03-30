@@ -68,7 +68,7 @@ func (s *stepDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 		resp.Diagnostics.AddError("id cannot be null for this datasource", "id cannot be null for this datasource")
 	}
 
-	apiResp, err := s.cl.GetPipelineNodesGetOneWithResponse(ctx, &client.GetPipelineNodesGetOneParams{Id: data.ID.ValueString(), Kind: "step"})
+	apiResp, err := s.cl.GetPipelineNodesOneWithResponse(ctx, &client.GetPipelineNodesOneParams{Id: data.ID.ValueString(), Kind: "step"})
 	if err != nil {
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("API client error in GET Step: id: %s \nerr: %s", data.ID.String(), err))
 		return
@@ -85,7 +85,7 @@ func (s *stepDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 		return
 	}
 
-	steps := apiResp.JSON200.Step
+	steps := apiResp.JSON200.Steps
 	if steps == nil || len(*steps) != 1 {
 		resp.Diagnostics.AddError("unexpected response body", "response should have exactly one step node")
 		return

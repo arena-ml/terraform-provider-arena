@@ -3,12 +3,14 @@
 version: 3
 
 dotenv:
-  - '.env'
   - '{{.HOME}}/.secrets/ctrl-dev.env'
   - '{{.HOME}}/.arenaml/ctrl-dev.env'
 
 vars:
   PG_DB: control
+
+env:
+  TF_CLI_CONFIG_FILE: "{{.ROOT_DIR}}/.terraformrc"
 
 tasks:
   lint:
@@ -87,10 +89,14 @@ tasks:
       - docker image prune -a
       - docker builder prune
       - docker system prune
+  init-tf:
+    cmds:
+      - terraform init
+    dir: examples/tf
   plan-tf:
     cmds:
       - terraform plan
-    dir: tf
+    dir: examples/tf
   apply-tf:
     cmds:
       - terraform apply -auto-approve
@@ -103,6 +109,9 @@ tasks:
     cmds:
       - rm terraform.tfstate terraform.tfstate.backup
     dir: examples/tf
+  echo-tfrc:
+    cmds:
+      - echo $TF_CLI_CONFIG_FILE
 
 
 

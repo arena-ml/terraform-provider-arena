@@ -138,7 +138,10 @@ func (r *basisResource) Read(ctx context.Context, req resource.ReadRequest, resp
 
 func (r *basisResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data basisResourceModel
+	var stateData basisResourceModel
+
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &stateData)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -148,28 +151,30 @@ func (r *basisResource) Update(ctx context.Context, req resource.UpdateRequest, 
 		resp.Diagnostics.AddError("unable to create Basis", "unable to create Basis : "+err.Error())
 		return
 	}
+	id := stateData.ID.ValueString()
+	apiBasis.Id = &id
 
 	apiResp, err := r.cl.PostBasisUpdateWithResponse(ctx, *apiBasis)
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update basis '%s': %s", data.ID.String(), err))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update basis '%s': %s", id, err))
 		return
 	}
 	if apiResp.StatusCode() != http.StatusOK {
-		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", apiResp.StatusCode()), fmt.Sprintf("Unable to update basis '%s': %s", data.ID.String(), apiResp.Status()))
+		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", apiResp.StatusCode()), fmt.Sprintf("Unable to update basis '%s': %s", id, apiResp.Status()))
 		return
 	}
 
-	getResp, err := r.cl.GetBasisGetWithResponse(ctx, &client.GetBasisGetParams{Id: data.ID.ValueStringPointer()})
+	getResp, err := r.cl.GetBasisGetWithResponse(ctx, &client.GetBasisGetParams{Id: &id})
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to read updated basis '%s': %s", data.ID.String(), err))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to read updated basis '%s': %s", id, err))
 		return
 	}
 	if getResp.StatusCode() != http.StatusOK {
-		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", getResp.StatusCode()), fmt.Sprintf("Unable to read updated basis '%s': %s", data.ID.String(), getResp.Status()))
+		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", getResp.StatusCode()), fmt.Sprintf("Unable to read updated basis '%s': %s", id, getResp.Status()))
 		return
 	}
 	if getResp.JSON200 == nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Received nil response from API when reading updated basis '%s'", data.ID.String()))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Received nil response from API when reading updated basis '%s'", id))
 		return
 	}
 	if err := data.FillFromResp(ctx, *getResp.JSON200); err != nil {
@@ -242,7 +247,7 @@ func (r *basisResource) tfToAPIData(ctx context.Context, data basisResourceModel
 
 		// parse env map
 		if !data.Watcher.Env.IsNull() && !data.Watcher.Env.IsUnknown() {
-			env, ok := helper.TfMapStrToGoMapStr(ctx, data.Watcher.Env)
+			env, ok := helper.TfMapStrToGoMap(ctx, data.Watcher.Env)
 			if !ok {
 				return nil, fmt.Errorf("failed to parse env %s", data.Watcher.Env)
 			}
@@ -251,7 +256,7 @@ func (r *basisResource) tfToAPIData(ctx context.Context, data basisResourceModel
 
 		// parse registry_auth
 		if !data.Watcher.RegistryAuth.IsNull() && !data.Watcher.RegistryAuth.IsUnknown() {
-			ra, ok := helper.TfMapStrToGoMapStr(ctx, data.Watcher.RegistryAuth)
+			ra, ok := helper.TfMapStrToGoMap(ctx, data.Watcher.RegistryAuth)
 			if !ok {
 				return
 			}

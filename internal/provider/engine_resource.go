@@ -48,7 +48,7 @@ func (r *engineResource) Configure(ctx context.Context, req resource.ConfigureRe
 type engineResourceModel = internalschema.EngineModel
 
 func (r *engineResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_engine"
+	resp.TypeName = req.ProviderTypeName + "_" + suffixClusterManager
 }
 
 func (r *engineResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
@@ -249,9 +249,11 @@ func (r *engineResource) Read(ctx context.Context, req resource.ReadRequest, res
 
 func (r *engineResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data engineResourceModel
+	var stateData engineResourceModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &stateData)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -308,38 +310,41 @@ func (r *engineResource) Update(ctx context.Context, req resource.UpdateRequest,
 		engineConfig.Tags = &apiTags
 	}
 
+	id := stateData.Id.ValueString()
+	engineConfig.Id = &id
+
 	// Make the API call
 	apiResp, err := r.cl.PostEngineUpdateWithResponse(ctx, engineConfig)
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update engine '%s': %s", data.Id.String(), err))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update engine '%s': %s", id, err))
 		return
 	}
 
 	if apiResp.StatusCode() != http.StatusOK {
 		resp.Diagnostics.AddError(
 			fmt.Sprintf("Client Error: %d", apiResp.StatusCode()),
-			fmt.Sprintf("Unable to update engine '%s': %s", data.Id.String(), apiResp.Status()),
+			fmt.Sprintf("Unable to update engine '%s': %s", id, apiResp.Status()),
 		)
 		return
 	}
 
 	// After updating the engine, we need to read it to get the full details
-	getResp, err := r.cl.GetEngineGetWithResponse(ctx, &client.GetEngineGetParams{Id: data.Id.ValueStringPointer()})
+	getResp, err := r.cl.GetEngineGetWithResponse(ctx, &client.GetEngineGetParams{Id: &id})
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to read updated engine '%s': %s", data.Id.String(), err))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to read updated engine '%s': %s", id, err))
 		return
 	}
 
 	if getResp.StatusCode() != http.StatusOK {
 		resp.Diagnostics.AddError(
 			fmt.Sprintf("Client Error: %d", getResp.StatusCode()),
-			fmt.Sprintf("Unable to read updated engine '%s': %s", data.Id.String(), getResp.Status()),
+			fmt.Sprintf("Unable to read updated engine '%s': %s", id, getResp.Status()),
 		)
 		return
 	}
 
 	if getResp.JSON200 == nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Received nil response from API when reading updated engine '%s'", data.Id.String()))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Received nil response from API when reading updated engine '%s'", id))
 		return
 	}
 
@@ -366,7 +371,7 @@ func (r *engineResource) Update(ctx context.Context, req resource.UpdateRequest,
 	if engineResp.Spec != nil {
 		specJsonStr, err := helper.JSONObjToStr(*engineResp.Spec)
 		if err != nil {
-			resp.Diagnostics.AddError("Response parse Error", fmt.Sprintf("Unable to parse engine spec for '%s': %s", data.Id.String(), err))
+			resp.Diagnostics.AddError("Response parse Error", fmt.Sprintf("Unable to parse engine spec for '%s': %s", id, err))
 			return
 		}
 

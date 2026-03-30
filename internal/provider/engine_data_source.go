@@ -21,6 +21,8 @@ import (
 var _ datasource.DataSource = (*engineDataSource)(nil)
 var _ datasource.DataSourceWithConfigure = (*engineDataSource)(nil)
 
+const suffixClusterManager = "cluster_manager"
+
 func NewEngineDataSource() datasource.DataSource {
 	return &engineDataSource{}
 }
@@ -34,7 +36,7 @@ type engineDataSourceModel struct {
 }
 
 func (d *engineDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_engine"
+	resp.TypeName = req.ProviderTypeName + "_" + suffixClusterManager
 }
 
 func (d *engineDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {

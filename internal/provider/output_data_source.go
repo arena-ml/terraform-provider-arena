@@ -68,7 +68,7 @@ func (o *outputDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		resp.Diagnostics.AddError("id cannot be null for this datasource", "id cannot be null for this datasource")
 	}
 
-	apiResp, err := o.cl.GetPipelineNodesGetOneWithResponse(ctx, &client.GetPipelineNodesGetOneParams{Id: data.ID.ValueString(), Kind: "output"})
+	apiResp, err := o.cl.GetPipelineNodesOneWithResponse(ctx, &client.GetPipelineNodesOneParams{Id: data.ID.ValueString(), Kind: "output"})
 	if err != nil {
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("API client error in GET Output: id: %s \nerr: %s", data.ID.String(), err))
 		return
@@ -85,7 +85,7 @@ func (o *outputDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	outputs := apiResp.JSON200.Output
+	outputs := apiResp.JSON200.Outputs
 	if outputs == nil || len(*outputs) != 1 {
 		resp.Diagnostics.AddError("unexpected response body", "response should have exactly one output node")
 		return

@@ -71,7 +71,7 @@ func (r *outputResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 
-	apiResp, err := r.cl.GetPipelineNodesGetOneWithResponse(ctx, &client.GetPipelineNodesGetOneParams{Id: data.ID.ValueString(), Kind: "output"})
+	apiResp, err := r.cl.GetPipelineNodesOneWithResponse(ctx, &client.GetPipelineNodesOneParams{Id: data.ID.ValueString(), Kind: "output"})
 	if err != nil {
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to get output '%s': %s", data.ID.String(), err))
 		return
@@ -85,7 +85,7 @@ func (r *outputResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 
-	outputs := apiResp.JSON200.Output
+	outputs := apiResp.JSON200.Outputs
 	if outputs == nil || len(*outputs) != 1 {
 		resp.Diagnostics.AddError("unexpected response body", "response should have exactly one output node")
 		return
@@ -103,11 +103,15 @@ func (r *outputResource) Read(ctx context.Context, req resource.ReadRequest, res
 
 func (r *outputResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data schema.NodeOutput
+	var stateData schema.NodeOutput
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &stateData)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	data.ID = stateData.ID
 
 	created, err := r.upsertResource(ctx, &data)
 	if err != nil {
@@ -127,8 +131,8 @@ func (r *outputResource) upsertResource(ctx context.Context, data *schema.NodeOu
 	payload := client.ModelPipelineNodes{
 		PipelineId: data.PipelineID.ValueStringPointer(),
 		Inputs:     nil,
-		Output:     &outputs,
-		Step:       nil,
+		Outputs:    &outputs,
+		Steps:      nil,
 	}
 
 	// Call Create
@@ -141,11 +145,11 @@ func (r *outputResource) upsertResource(ctx context.Context, data *schema.NodeOu
 	}
 
 	// Parse response to get ID
-	if apiResp.JSON200 == nil || apiResp.JSON200.Output == nil || len(*apiResp.JSON200.Output) != 1 {
+	if apiResp.JSON200 == nil || apiResp.JSON200.Outputs == nil || len(*apiResp.JSON200.Outputs) != 1 {
 		return nil, fmt.Errorf("invalid api response , output len: \n\n%s\n", pretty.Sprint(*apiResp.JSON200))
 	}
 
-	created := (*apiResp.JSON200.Output)[0]
+	created := (*apiResp.JSON200.Outputs)[0]
 
 	if created.Id == nil {
 		return nil, fmt.Errorf("invalid resource id in api response")

@@ -86,6 +86,10 @@ func (p *ArenamlProvider) Resources(ctx context.Context) []func() resource.Resou
 		NewTeamResource,
 		NewUserResource,
 		NewStoreResource,
+		NewSensorResource,
+		NewSensorProfileResource,
+		NewDroneResource,
+		NewDroneProfileResource,
 	}
 }
 
@@ -101,6 +105,10 @@ func (p *ArenamlProvider) DataSources(ctx context.Context) []func() datasource.D
 		NewTeamDatasource,
 		NewUserDatasource,
 		NewStoreDatasource,
+		NewSensorDataSource,
+		NewSensorProfileDataSource,
+		NewDroneDataSource,
+		NewDroneProfileDataSource,
 	}
 }
 

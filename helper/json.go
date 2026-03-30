@@ -46,6 +46,7 @@ func ConvertJSONStructToSimpleTF[S any, U any](ctx context.Context, source S, de
 
 		// Skip unexported fields
 		if !destFieldVal.CanSet() {
+			tflog.Error(ctx, fmt.Sprintf("expected dest field to be setable %v", destFieldVal.Elem()))
 			continue
 		}
 
@@ -194,10 +195,12 @@ func findSourceFieldByName(sourceVal reflect.Value, sourceType reflect.Type, nam
 // convertAndSetTfField converts a source field value to the appropriate Terraform type
 func convertAndSetTfField(ctx context.Context, sourceFieldVal reflect.Value, destFieldVal reflect.Value, destType reflect.Type) bool {
 	// Handle pointer fields in source
+	isNil := false
 	if sourceFieldVal.Kind() == reflect.Ptr {
 		if sourceFieldVal.IsNil() {
 			// if source value is null then nothing need to be done as dest is already null
-			return true
+			isNil = true
+			// return true
 		}
 		sourceFieldVal = sourceFieldVal.Elem()
 	}
@@ -205,16 +208,23 @@ func convertAndSetTfField(ctx context.Context, sourceFieldVal reflect.Value, des
 	switch destType {
 	case tfStringType():
 		if sourceFieldVal.Kind() == reflect.String {
-			destFieldVal.Set(reflect.ValueOf(types.StringValue(sourceFieldVal.String())))
+			if isNil {
+				destFieldVal.Set(reflect.ValueOf(types.StringNull()))
+			} else {
+				destFieldVal.Set(reflect.ValueOf(types.StringValue(sourceFieldVal.String())))
+			}
 			return true
-		} else {
-			tflog.Warn(ctx, fmt.Sprintf("type mismatch %s %s", sourceFieldVal.Kind(), destType.String()))
-			return false
 		}
+		tflog.Warn(ctx, fmt.Sprintf("type mismatch %s %s", sourceFieldVal.Kind(), destType.String()))
+		return false
 
 	case tfBoolType():
 		if sourceFieldVal.Kind() == reflect.Bool {
-			destFieldVal.Set(reflect.ValueOf(types.BoolValue(sourceFieldVal.Bool())))
+			if isNil {
+				destFieldVal.Set(reflect.ValueOf(types.BoolNull()))
+			} else {
+				destFieldVal.Set(reflect.ValueOf(types.BoolValue(sourceFieldVal.Bool())))
+			}
 			return true
 		} else {
 			tflog.Warn(ctx, fmt.Sprintf("type mismatch %s %s", sourceFieldVal.Kind(), destType.String()))
@@ -223,7 +233,11 @@ func convertAndSetTfField(ctx context.Context, sourceFieldVal reflect.Value, des
 	case tfInt64Type():
 		switch sourceFieldVal.Kind() {
 		case reflect.Int, reflect.Int32, reflect.Int64:
-			destFieldVal.Set(reflect.ValueOf(types.Int64Value(sourceFieldVal.Int())))
+			if isNil {
+				destFieldVal.Set(reflect.ValueOf(types.Int64Null()))
+			} else {
+				destFieldVal.Set(reflect.ValueOf(types.Int64Value(sourceFieldVal.Int())))
+			}
 			return true
 		default:
 			tflog.Warn(ctx, fmt.Sprintf("type mismatch %s %s", sourceFieldVal.Kind(), destType.String()))
@@ -232,7 +246,11 @@ func convertAndSetTfField(ctx context.Context, sourceFieldVal reflect.Value, des
 	case tfInt32Type():
 		switch sourceFieldVal.Kind() {
 		case reflect.Int, reflect.Int32:
-			destFieldVal.Set(reflect.ValueOf(types.Int32Value(int32(sourceFieldVal.Int()))))
+			if isNil {
+				destFieldVal.Set(reflect.ValueOf(types.Int32Null()))
+			} else {
+				destFieldVal.Set(reflect.ValueOf(types.Int32Value(int32(sourceFieldVal.Int()))))
+			}
 			return true
 		default:
 			tflog.Warn(ctx, fmt.Sprintf("type mismatch %s %s", sourceFieldVal.Kind(), destType.String()))
@@ -313,4 +331,26 @@ func JSONObjToNormalized(obj interface{}) (jsontypes.Normalized, error) {
 	}
 
 	return jsontypes.NewNormalizedValue(str), nil
+}
+
+func MapConvertTfToJSON[S any, T any](ctx context.Context, s map[string]S, t map[string]T) error {
+	for k, vTF := range s {
+		var vGo T
+		err := ConvertTfModelToApiJSON(ctx, vTF, &vGo)
+		if err != nil {
+			return err
+		}
+
+		t[k] = vGo
+	}
+
+	return nil
+}
+
+func MapConvertJsonToTf[S any, T any](ctx context.Context, s map[string]S, t map[string]T) {
+	for k, vTF := range s {
+		var vGo T
+		ConvertJSONStructToSimpleTF(ctx, vTF, &vGo)
+		t[k] = vGo
+	}
 }

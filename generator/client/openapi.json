@@ -6,6 +6,142 @@
         "version": "0.1"
     },
     "paths": {
+        "/agents/create": {
+            "post": {
+                "description": "Create a new agent",
+                "tags": [
+                    "agent"
+                ],
+                "summary": "Create a new agent",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.Agent"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agents/delete": {
+            "delete": {
+                "description": "Delete an existing agent",
+                "tags": [
+                    "agent"
+                ],
+                "summary": "Delete an existing agent",
+                "parameters": [
+                    {
+                        "description": "ID of the agent to delete",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agents/get": {
+            "get": {
+                "description": "Get agent by id",
+                "tags": [
+                    "agent"
+                ],
+                "summary": "Get agent by id",
+                "parameters": [
+                    {
+                        "description": "Agent ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ent.Agent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agents/list": {
+            "get": {
+                "description": "List all agents",
+                "tags": [
+                    "agent"
+                ],
+                "summary": "List all agents",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ent.Agent"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agents/update": {
+            "post": {
+                "description": "Update an existing agent",
+                "tags": [
+                    "agent"
+                ],
+                "summary": "Update an existing agent",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.Agent"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/artifact/get": {
             "get": {
                 "description": "Get artifact by id or name, if both are specified, name is used",
@@ -393,6 +529,278 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ent.Basis"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drone-profile/create": {
+            "post": {
+                "description": "Create a new drone profile",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "Create a new drone profile",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.DroneProfile"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drone-profile/delete": {
+            "delete": {
+                "description": "Delete an existing drone profile",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "Delete an existing drone profile",
+                "parameters": [
+                    {
+                        "description": "ID of the drone profile to delete",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drone-profile/get": {
+            "get": {
+                "description": "Get drone profile by id",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "Get drone profile by id",
+                "parameters": [
+                    {
+                        "description": "Drone Profile ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ent.DroneProfile"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drone-profile/list": {
+            "get": {
+                "description": "List all drone profiles",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "List all drone profiles",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ent.DroneProfile"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drone-profile/update": {
+            "post": {
+                "description": "Update an existing drone profile",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "Update an existing drone profile",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.DroneProfile"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drones/create": {
+            "post": {
+                "description": "Create a new drone",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "Create a new drone",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.Drone"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drones/delete": {
+            "delete": {
+                "description": "Delete an existing drone",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "Delete an existing drone",
+                "parameters": [
+                    {
+                        "description": "ID of the drone to delete",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drones/get": {
+            "get": {
+                "description": "Get drone by id",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "Get drone by id",
+                "parameters": [
+                    {
+                        "description": "Drone ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ent.Drone"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drones/list": {
+            "get": {
+                "description": "List all drones",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "List all drones",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ent.Drone"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/drones/update": {
+            "post": {
+                "description": "Update an existing drone",
+                "tags": [
+                    "drone"
+                ],
+                "summary": "Update an existing drone",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.Drone"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
                                 }
                             }
                         }
@@ -1513,6 +1921,37 @@
                 }
             }
         },
+        "/pipeline-dag": {
+            "get": {
+                "description": "Get pipeline DAG by pipeline id",
+                "tags": [
+                    "pipeline"
+                ],
+                "summary": "Get pipeline DAG by pipeline id",
+                "parameters": [
+                    {
+                        "description": "get DAG by Pipeline ID",
+                        "name": "id",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/model.PipelineDag"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/pipeline-dag/create": {
             "post": {
                 "description": "Create a pipeline DAG (resets existing edges, then adds provided edges)",
@@ -1562,37 +2001,6 @@
                 }
             }
         },
-        "/pipeline-dag/get": {
-            "get": {
-                "description": "Get pipeline DAG by pipeline id",
-                "tags": [
-                    "pipeline"
-                ],
-                "summary": "Get pipeline DAG by pipeline id",
-                "parameters": [
-                    {
-                        "description": "get DAG by Pipeline ID",
-                        "name": "id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/model.PipelineDag"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/pipeline-dag/update": {
             "post": {
                 "description": "Update a pipeline DAG (resets existing edges, then adds provided edges)",
@@ -1610,6 +2018,37 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/model.PipelineDag"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pipeline-nodes": {
+            "get": {
+                "description": "Get pipeline node by id or name, if both are specified, name is used",
+                "tags": [
+                    "pipeline"
+                ],
+                "summary": "Get pipeline node by id or name",
+                "parameters": [
+                    {
+                        "description": "get all pipeline nodes for the give id",
+                        "name": "id",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/model.PipelineNodes"
                                 }
                             }
                         }
@@ -1666,38 +2105,7 @@
                 }
             }
         },
-        "/pipeline-nodes/get": {
-            "get": {
-                "description": "Get pipeline node by id or name, if both are specified, name is used",
-                "tags": [
-                    "pipeline"
-                ],
-                "summary": "Get pipeline node by id or name",
-                "parameters": [
-                    {
-                        "description": "get all pipeline nodes for the give id",
-                        "name": "id",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/model.PipelineNodes"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/pipeline-nodes/get-one": {
+        "/pipeline-nodes/one": {
             "get": {
                 "description": "Get a specific pipeline node by its id and kind type",
                 "tags": [
@@ -1961,6 +2369,278 @@
                 }
             }
         },
+        "/sensor-profile/create": {
+            "post": {
+                "description": "Create a new sensor profile",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "Create a new sensor profile",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.SensorProfile"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sensor-profile/delete": {
+            "delete": {
+                "description": "Delete an existing sensor profile",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "Delete an existing sensor profile",
+                "parameters": [
+                    {
+                        "description": "ID of the sensor profile to delete",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sensor-profile/get": {
+            "get": {
+                "description": "Get sensor profile by id",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "Get sensor profile by id",
+                "parameters": [
+                    {
+                        "description": "Sensor Profile ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ent.SensorProfile"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sensor-profile/list": {
+            "get": {
+                "description": "List all sensor profiles",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "List all sensor profiles",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ent.SensorProfile"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sensor-profile/update": {
+            "post": {
+                "description": "Update an existing sensor profile",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "Update an existing sensor profile",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.SensorProfile"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sensors/create": {
+            "post": {
+                "description": "Create a new sensor",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "Create a new sensor",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.Sensor"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sensors/delete": {
+            "delete": {
+                "description": "Delete an existing sensor",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "Delete an existing sensor",
+                "parameters": [
+                    {
+                        "description": "ID of the sensor to delete",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sensors/get": {
+            "get": {
+                "description": "Get sensor by id",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "Get sensor by id",
+                "parameters": [
+                    {
+                        "description": "Sensor ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ent.Sensor"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sensors/list": {
+            "get": {
+                "description": "List all sensors",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "List all sensors",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ent.Sensor"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sensors/update": {
+            "post": {
+                "description": "Update an existing sensor",
+                "tags": [
+                    "sensor"
+                ],
+                "summary": "Update an existing sensor",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.Sensor"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/store/create": {
             "post": {
                 "description": "Create a new store",
@@ -2079,6 +2759,190 @@
                 "responses": {
                     "200": {
                         "description": "OK"
+                    }
+                }
+            }
+        },
+        "/swarm-devices/add": {
+            "post": {
+                "description": "Add devices to a swarm",
+                "tags": [
+                    "swarm"
+                ],
+                "summary": "Add devices to a swarm",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Body"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/swarm-devices/remove": {
+            "post": {
+                "description": "Remove devices from a swarm",
+                "tags": [
+                    "swarm"
+                ],
+                "summary": "Remove devices from a swarm",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Body"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/swarms/create": {
+            "post": {
+                "description": "Create a new swarm",
+                "tags": [
+                    "swarm"
+                ],
+                "summary": "Create a new swarm",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.Swarm"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/swarms/delete": {
+            "delete": {
+                "description": "Delete an existing swarm",
+                "tags": [
+                    "swarm"
+                ],
+                "summary": "Delete an existing swarm",
+                "parameters": [
+                    {
+                        "description": "ID of the swarm to delete",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/swarms/get": {
+            "get": {
+                "description": "Get swarm by id",
+                "tags": [
+                    "swarm"
+                ],
+                "summary": "Get swarm by id",
+                "parameters": [
+                    {
+                        "description": "Swarm ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ent.Swarm"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/swarms/list": {
+            "get": {
+                "description": "List all swarms",
+                "tags": [
+                    "swarm"
+                ],
+                "summary": "List all swarms",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ent.Swarm"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/swarms/update": {
+            "post": {
+                "description": "Update an existing swarm",
+                "tags": [
+                    "swarm"
+                ],
+                "summary": "Update an existing swarm",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/ent.Swarm"
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/api.RespID"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2205,7 +3069,7 @@
                 ],
                 "summary": "Create a new trigger",
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/ent.Triggers"
+                    "$ref": "#/components/requestBodies/ent.Trigger"
                 },
                 "responses": {
                     "200": {
@@ -2213,7 +3077,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/gin.H"
+                                    "$ref": "#/components/schemas/api.RespID"
                                 }
                             }
                         }
@@ -2245,7 +3109,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/gin.H"
+                                    "$ref": "#/components/schemas/api.RespID"
                                 }
                             }
                         }
@@ -2277,7 +3141,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ent.Triggers"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ent.Trigger"
+                                    }
                                 }
                             }
                         }
@@ -2300,7 +3167,10 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ent.Triggers"
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/ent.Trigger"
+                                        }
                                     }
                                 }
                             }
@@ -2317,7 +3187,7 @@
                 ],
                 "summary": "Update an existing trigger",
                 "requestBody": {
-                    "$ref": "#/components/requestBodies/ent.Triggers"
+                    "$ref": "#/components/requestBodies/ent.Trigger"
                 },
                 "responses": {
                     "200": {
@@ -2325,7 +3195,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/gin.H"
+                                    "$ref": "#/components/schemas/api.RespID"
                                 }
                             }
                         }
@@ -2352,17 +3222,6 @@
                 "description": "Env object",
                 "required": true
             },
-            "ent.Triggers": {
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/ent.Triggers"
-                        }
-                    }
-                },
-                "description": "Trigger object",
-                "required": true
-            },
             "model.PipelineDag": {
                 "content": {
                     "application/json": {
@@ -2372,6 +3231,39 @@
                     }
                 },
                 "description": "Pipeline DAG object",
+                "required": true
+            },
+            "ent.Trigger": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ent.Trigger"
+                        }
+                    }
+                },
+                "description": "Trigger object",
+                "required": true
+            },
+            "ent.Swarm": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ent.Swarm"
+                        }
+                    }
+                },
+                "description": "Swarm object",
+                "required": true
+            },
+            "ent.Agent": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ent.Agent"
+                        }
+                    }
+                },
+                "description": "Agent object",
                 "required": true
             },
             "ent.Org": {
@@ -2405,6 +3297,28 @@
                     }
                 },
                 "description": "Basis object",
+                "required": true
+            },
+            "ent.DroneProfile": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ent.DroneProfile"
+                        }
+                    }
+                },
+                "description": "Drone Profile object",
+                "required": true
+            },
+            "ent.Drone": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ent.Drone"
+                        }
+                    }
+                },
+                "description": "Drone object",
                 "required": true
             },
             "engines.EngineConfig": {
@@ -2451,6 +3365,28 @@
                 "description": "Pipeline object",
                 "required": true
             },
+            "ent.SensorProfile": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ent.SensorProfile"
+                        }
+                    }
+                },
+                "description": "Sensor Profile object",
+                "required": true
+            },
+            "ent.Sensor": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ent.Sensor"
+                        }
+                    }
+                },
+                "description": "Sensor object",
+                "required": true
+            },
             "ent.Storage": {
                 "content": {
                     "application/json": {
@@ -2460,6 +3396,17 @@
                     }
                 },
                 "description": "Store object",
+                "required": true
+            },
+            "Body": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "description": "Swarm ID and Device IDs",
                 "required": true
             }
         },
@@ -2494,6 +3441,14 @@
                         "items": {
                             "$ref": "#/components/schemas/collect.MetricRow"
                         }
+                    }
+                }
+            },
+            "api.RespID": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
                     }
                 }
             },
@@ -2792,6 +3747,80 @@
                     }
                 }
             },
+            "ent.Agent": {
+                "type": "object",
+                "properties": {
+                    "created": {
+                        "description": "Created holds the value of the \"created\" field.",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description holds the value of the \"description\" field.",
+                        "type": "string"
+                    },
+                    "edges": {
+                        "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the AgentQuery when eager-loading is set.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.AgentEdges"
+                            }
+                        ]
+                    },
+                    "id": {
+                        "description": "ID of the ent.",
+                        "type": "string"
+                    },
+                    "kind": {
+                        "description": "Kind holds the value of the \"kind\" field.",
+                        "type": "string"
+                    },
+                    "mode": {
+                        "description": "Mode holds the value of the \"mode\" field.",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
+                    "spec": {
+                        "description": "Spec holds the value of the \"spec\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.AgentSpec"
+                            }
+                        ]
+                    },
+                    "status": {
+                        "description": "Status holds the value of the \"status\" field.",
+                        "type": "string"
+                    },
+                    "updated": {
+                        "description": "Updated holds the value of the \"updated\" field.",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "Version holds the value of the \"version\" field.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "ent.AgentEdges": {
+                "type": "object",
+                "properties": {
+                    "host": {
+                        "description": "Host holds the value of the host edge.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.Drone"
+                            }
+                        ]
+                    }
+                }
+            },
             "ent.Basis": {
                 "type": "object",
                 "properties": {
@@ -2847,6 +3876,10 @@
                         "description": "OrgID holds the value of the \"orgID\" field.",
                         "type": "string"
                     },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
                     "status": {
                         "description": "Status holds the value of the \"status\" field.",
                         "type": "string"
@@ -2866,6 +3899,156 @@
                 }
             },
             "ent.BasisEdges": {
+                "type": "object"
+            },
+            "ent.Drone": {
+                "type": "object",
+                "properties": {
+                    "created": {
+                        "description": "Created holds the value of the \"created\" field.",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description holds the value of the \"description\" field.",
+                        "type": "string"
+                    },
+                    "edges": {
+                        "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the DroneQuery when eager-loading is set.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.DroneEdges"
+                            }
+                        ]
+                    },
+                    "id": {
+                        "description": "ID of the ent.",
+                        "type": "string"
+                    },
+                    "inactive": {
+                        "description": "Inactive holds the value of the \"inactive\" field.",
+                        "type": "boolean"
+                    },
+                    "kind": {
+                        "description": "Kind holds the value of the \"kind\" field.",
+                        "type": "string"
+                    },
+                    "links": {
+                        "description": "Links holds the value of the \"links\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.DroneLinks"
+                            }
+                        ]
+                    },
+                    "name": {
+                        "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
+                    "spec": {
+                        "description": "Spec holds the value of the \"spec\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.DroneSpec"
+                            }
+                        ]
+                    },
+                    "updated": {
+                        "description": "Updated holds the value of the \"updated\" field.",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "Version holds the value of the \"version\" field.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "ent.DroneEdges": {
+                "type": "object",
+                "properties": {
+                    "profile": {
+                        "description": "a device can only have one profiles",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.DroneProfile"
+                            }
+                        ]
+                    },
+                    "swarm": {
+                        "description": "device can only belong to one swarm",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.Swarm"
+                            }
+                        ]
+                    }
+                }
+            },
+            "ent.DroneProfile": {
+                "type": "object",
+                "properties": {
+                    "created": {
+                        "description": "Created holds the value of the \"created\" field.",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description holds the value of the \"description\" field.",
+                        "type": "string"
+                    },
+                    "edges": {
+                        "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the DroneProfileQuery when eager-loading is set.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.DroneProfileEdges"
+                            }
+                        ]
+                    },
+                    "id": {
+                        "description": "ID of the ent.",
+                        "type": "string"
+                    },
+                    "kind": {
+                        "description": "Kind holds the value of the \"kind\" field.",
+                        "type": "string"
+                    },
+                    "links": {
+                        "description": "Links holds the value of the \"links\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.DroneLinks"
+                            }
+                        ]
+                    },
+                    "name": {
+                        "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
+                    "spec": {
+                        "description": "Spec holds the value of the \"spec\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.DroneSpec"
+                            }
+                        ]
+                    },
+                    "updated": {
+                        "description": "Updated holds the value of the \"updated\" field.",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "Version holds the value of the \"version\" field.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "ent.DroneProfileEdges": {
                 "type": "object"
             },
             "ent.Env": {
@@ -3036,6 +4219,10 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
                     "storeID": {
                         "description": "override the default store of the step",
                         "type": "string"
@@ -3092,6 +4279,10 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
                     "updated": {
                         "description": "Updated holds the value of the \"updated\" field.",
                         "type": "string"
@@ -3142,6 +4333,10 @@
                     },
                     "name": {
                         "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
                         "type": "string"
                     },
                     "storeID": {
@@ -3208,6 +4403,10 @@
                         "description": "paused pipeline queue new runs but dont shcedule them",
                         "type": "boolean"
                     },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
                     "updated": {
                         "description": "Updated holds the value of the \"updated\" field.",
                         "type": "string"
@@ -3229,6 +4428,156 @@
                         }
                     }
                 }
+            },
+            "ent.Sensor": {
+                "type": "object",
+                "properties": {
+                    "created": {
+                        "description": "Created holds the value of the \"created\" field.",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description holds the value of the \"description\" field.",
+                        "type": "string"
+                    },
+                    "edges": {
+                        "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the SensorQuery when eager-loading is set.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.SensorEdges"
+                            }
+                        ]
+                    },
+                    "id": {
+                        "description": "ID of the ent.",
+                        "type": "string"
+                    },
+                    "inactive": {
+                        "description": "Inactive holds the value of the \"inactive\" field.",
+                        "type": "boolean"
+                    },
+                    "interface": {
+                        "description": "Interface holds the value of the \"interface\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.SensorInterface"
+                            }
+                        ]
+                    },
+                    "kind": {
+                        "description": "Kind holds the value of the \"kind\" field.",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
+                    "spec": {
+                        "description": "Spec holds the value of the \"spec\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.SensorSpec"
+                            }
+                        ]
+                    },
+                    "updated": {
+                        "description": "Updated holds the value of the \"updated\" field.",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "Version holds the value of the \"version\" field.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "ent.SensorEdges": {
+                "type": "object",
+                "properties": {
+                    "device": {
+                        "description": "Device holds the value of the device edge.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.Drone"
+                            }
+                        ]
+                    },
+                    "profile": {
+                        "description": "Profile holds the value of the profile edge.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.SensorProfile"
+                            }
+                        ]
+                    }
+                }
+            },
+            "ent.SensorProfile": {
+                "type": "object",
+                "properties": {
+                    "created": {
+                        "description": "Created holds the value of the \"created\" field.",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description holds the value of the \"description\" field.",
+                        "type": "string"
+                    },
+                    "edges": {
+                        "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the SensorProfileQuery when eager-loading is set.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.SensorProfileEdges"
+                            }
+                        ]
+                    },
+                    "id": {
+                        "description": "ID of the ent.",
+                        "type": "string"
+                    },
+                    "interface": {
+                        "description": "Interface holds the value of the \"interface\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.SensorInterface"
+                            }
+                        ]
+                    },
+                    "kind": {
+                        "description": "Kind holds the value of the \"kind\" field.",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
+                    "spec": {
+                        "description": "Spec holds the value of the \"spec\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.SensorSpec"
+                            }
+                        ]
+                    },
+                    "updated": {
+                        "description": "Updated holds the value of the \"updated\" field.",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "Version holds the value of the \"version\" field.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "ent.SensorProfileEdges": {
+                "type": "object"
             },
             "ent.Step": {
                 "type": "object",
@@ -3273,6 +4622,10 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
                     "storeID": {
                         "description": "override the default store of the step",
                         "type": "string"
@@ -3309,8 +4662,8 @@
                         "description": "Created holds the value of the \"created\" field.",
                         "type": "string"
                     },
-                    "desc": {
-                        "description": "Desc holds the value of the \"desc\" field.",
+                    "description": {
+                        "description": "Description holds the value of the \"description\" field.",
                         "type": "string"
                     },
                     "disabled": {
@@ -3341,6 +4694,10 @@
                         "description": "Readonly holds the value of the \"readonly\" field.",
                         "type": "boolean"
                     },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
                     "status": {
                         "description": "Status holds the value of the \"status\" field.",
                         "type": "string"
@@ -3352,6 +4709,75 @@
                     "version": {
                         "description": "Version holds the value of the \"version\" field.",
                         "type": "integer"
+                    }
+                }
+            },
+            "ent.Swarm": {
+                "type": "object",
+                "properties": {
+                    "created": {
+                        "description": "Created holds the value of the \"created\" field.",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description holds the value of the \"description\" field.",
+                        "type": "string"
+                    },
+                    "edges": {
+                        "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the SwarmQuery when eager-loading is set.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ent.SwarmEdges"
+                            }
+                        ]
+                    },
+                    "id": {
+                        "description": "ID of the ent.",
+                        "type": "string"
+                    },
+                    "inactive": {
+                        "description": "Inactive holds the value of the \"inactive\" field.",
+                        "type": "boolean"
+                    },
+                    "kind": {
+                        "description": "Kind holds the value of the \"kind\" field.",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
+                    "spec": {
+                        "description": "Spec holds the value of the \"spec\" field.",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/schema.SwarmSpec"
+                            }
+                        ]
+                    },
+                    "updated": {
+                        "description": "Updated holds the value of the \"updated\" field.",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "Version holds the value of the \"version\" field.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "ent.SwarmEdges": {
+                "type": "object",
+                "properties": {
+                    "environment": {
+                        "description": "Environment holds the value of the environment edge.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ent.Env"
+                        }
                     }
                 }
             },
@@ -3394,6 +4820,10 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
+                    },
                     "role": {
                         "description": "Role holds the value of the \"role\" field.",
                         "allOf": [
@@ -3415,7 +4845,7 @@
             "ent.TeamEdges": {
                 "type": "object"
             },
-            "ent.Triggers": {
+            "ent.Trigger": {
                 "type": "object",
                 "properties": {
                     "config": {
@@ -3453,6 +4883,10 @@
                     "paused": {
                         "description": "Paused holds the value of the \"paused\" field.",
                         "type": "boolean"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
+                        "type": "string"
                     },
                     "timing": {
                         "description": "Timing holds the value of the \"timing\" field.",
@@ -3513,6 +4947,10 @@
                     },
                     "name": {
                         "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
                         "type": "string"
                     },
                     "updated": {
@@ -3729,10 +5167,6 @@
                     "TriggerPreNodeAlloc"
                 ]
             },
-            "gin.H": {
-                "type": "object",
-                "additionalProperties": {}
-            },
             "model.InputEdges": {
                 "type": "object",
                 "properties": {
@@ -3774,7 +5208,7 @@
                 "type": "object",
                 "properties": {
                     "from_step": {
-                        "description": "id of step node producting the output. output is always create by only one step",
+                        "description": "id of step node production the output. output is always create by only one step",
                         "type": "string"
                     },
                     "node_id": {
@@ -3839,6 +5273,13 @@
             "model.PipelineNodes": {
                 "type": "object",
                 "properties": {
+                    "bases": {
+                        "description": "basis nodes",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ent.Basis"
+                        }
+                    },
                     "inputs": {
                         "description": "input nodes",
                         "type": "array",
@@ -3846,7 +5287,7 @@
                             "$ref": "#/components/schemas/ent.Input"
                         }
                     },
-                    "output": {
+                    "outputs": {
                         "description": "output nodes",
                         "type": "array",
                         "items": {
@@ -3857,7 +5298,7 @@
                         "description": "every node must belong to a single pipeline",
                         "type": "string"
                     },
-                    "step": {
+                    "steps": {
                         "description": "step nodes",
                         "type": "array",
                         "items": {
@@ -4010,6 +5451,39 @@
                     "$ref": "#/components/schemas/pdag.RunDagNode"
                 }
             },
+            "schema.AgentSpec": {
+                "type": "object",
+                "properties": {
+                    "depeneds_on": {
+                        "description": "other agents it needs to get data or actions taken. e.g. nav agent will depend on sensor agent",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "essential": {
+                        "type": "boolean"
+                    },
+                    "max_cpu_in_mhz": {
+                        "description": "used during at checks",
+                        "type": "integer"
+                    },
+                    "max_memory": {
+                        "description": "used during at deplouement checks",
+                        "type": "integer"
+                    },
+                    "needs_npu": {
+                        "type": "integer"
+                    },
+                    "required_by": {
+                        "description": "e.g. mission agent will depend on nav agent",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
             "schema.Basis": {
                 "type": "object",
                 "properties": {
@@ -4148,6 +5622,145 @@
                     }
                 }
             },
+            "schema.DeviceInterface": {
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "description": "/dev/* address per interface count",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "count": {
+                        "description": "total number of such interfaces",
+                        "type": "integer"
+                    },
+                    "details": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "kind": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "schema.DeviceNetwork": {
+                "type": "object",
+                "properties": {
+                    "bandwidth": {
+                        "type": "number"
+                    },
+                    "kind": {
+                        "type": "string"
+                    },
+                    "mac": {
+                        "type": "string"
+                    },
+                    "max_range": {
+                        "type": "number"
+                    },
+                    "power_usage": {
+                        "type": "number"
+                    }
+                }
+            },
+            "schema.DeviceStorage": {
+                "type": "object",
+                "properties": {
+                    "capacity": {
+                        "type": "integer"
+                    },
+                    "dev_path": {
+                        "type": "string"
+                    },
+                    "guid": {
+                        "type": "string"
+                    },
+                    "kind": {
+                        "type": "string"
+                    },
+                    "mount_path": {
+                        "type": "string"
+                    }
+                }
+            },
+            "schema.DroneLinks": {
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "#/components/schemas/schema.DeviceInterface"
+                }
+            },
+            "schema.DroneSpec": {
+                "type": "object",
+                "properties": {
+                    "arch": {
+                        "description": "amd64 arm64 RISC-V",
+                        "type": "string"
+                    },
+                    "compute": {
+                        "description": "map of core to frequency",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "number"
+                        }
+                    },
+                    "details": {
+                        "description": "any other details not captured above",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "gpu": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "number"
+                        }
+                    },
+                    "memory_in_gb": {
+                        "type": "integer"
+                    },
+                    "model": {
+                        "description": "any model",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "networks": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/components/schemas/schema.DeviceNetwork"
+                        }
+                    },
+                    "npu": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "number"
+                        }
+                    },
+                    "power": {
+                        "description": "power related details such as voltage, avg consumption, source capacity (if battery)",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "storage": {
+                        "description": "map of local storage options",
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/components/schemas/schema.DeviceStorage"
+                        }
+                    }
+                }
+            },
             "schema.EnvConfig": {
                 "type": "object",
                 "properties": {
@@ -4247,6 +5860,112 @@
             "schema.PipelineConfig": {
                 "type": "object"
             },
+            "schema.SensorInterface": {
+                "type": "object",
+                "properties": {
+                    "cable": {
+                        "description": "if special cable is used or cable related data needs to be described",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "device_io": {
+                        "description": "details about io addresses used at device for this sensor like gpio pin, usb port etc",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "kind": {
+                        "description": "interface kind e.g. ttl, i2c, usb, ethernet etc",
+                        "type": "string"
+                    },
+                    "sensor_io": {
+                        "description": "details about io addresses used in sensor e.g. pin, usb, port",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "schema.SensorSpec": {
+                "type": "object",
+                "properties": {
+                    "comm": {
+                        "description": "details about communication interface such as protocol, baud rate, etc.",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "h_fov": {
+                        "description": "horizontal field of view in degrees",
+                        "type": "number"
+                    },
+                    "max_range": {
+                        "description": "max under non-optimal conditions",
+                        "type": "number"
+                    },
+                    "max_rate_in_hz": {
+                        "description": "exoected number of samples per seconds, e.g. for a camera it will be fps",
+                        "type": "number"
+                    },
+                    "media": {
+                        "description": "links to any external info, posts, images",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "min_range": {
+                        "description": "for distane, temp style sensors",
+                        "type": "number"
+                    },
+                    "min_rate_in_hz": {
+                        "description": "exoected number of samples per seconds, e.g. for a camera it will be fps",
+                        "type": "number"
+                    },
+                    "misc": {
+                        "description": "any extra info",
+                        "type": "object",
+                        "additionalProperties": true
+                    },
+                    "model": {
+                        "description": "info about device make",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "operating": {
+                        "description": "operating condition",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "number"
+                        }
+                    },
+                    "power": {
+                        "description": "different power reqs like voltage, avg wattage etc",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "number"
+                        }
+                    },
+                    "range_unit": {
+                        "description": "output unit of the sensor which also to the scale used for min and max range",
+                        "type": "string"
+                    },
+                    "units": {
+                        "type": "string"
+                    },
+                    "v_fov": {
+                        "description": "vertical field of view in degrees",
+                        "type": "number"
+                    }
+                }
+            },
             "schema.StepConfig": {
                 "type": "object",
                 "properties": {
@@ -4314,6 +6033,17 @@
                         "description": "extra connection related params like region, zone, policy etc",
                         "type": "object",
                         "additionalProperties": true
+                    }
+                }
+            },
+            "schema.SwarmSpec": {
+                "type": "object",
+                "properties": {
+                    "maxUnit": {
+                        "type": "integer"
+                    },
+                    "minActivePartition": {
+                        "type": "integer"
                     }
                 }
             },

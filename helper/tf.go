@@ -34,20 +34,6 @@ func FromGoStrSliceToTfSet(ctx context.Context, list []string) (types.Set, error
 	return tfList, nil
 }
 
-// ToTfStringMap convert a go map[string]string to tf map
-func ToTfStringMap(ctx context.Context, gMap *map[string]string) (types.Map, error) {
-	if gMap == nil {
-		return types.MapNull(types.StringType), nil
-	}
-
-	tfMap, diag := types.MapValueFrom(ctx, types.StringType, *gMap)
-	if diag.HasError() {
-		return types.MapNull(types.StringType), fmt.Errorf("%s : %s", diag[0].Detail(), diag[0].Summary())
-	}
-
-	return tfMap, nil
-}
-
 // ConvertTfModelToApiJSON convert the oapi-client struct to tf schema models
 // S is the struct type with tfsdk tags, and T is a struct type with json tags
 func ConvertTfModelToApiJSON[S any, T any](ctx context.Context, source S, target T) (err error) {
@@ -181,7 +167,12 @@ func setGoValueFromTFPrimitive(tfVal reflect.Value, tfType reflect.Type, destVal
 			if destType.Elem().Kind() == reflect.Int32 {
 				destVal.Set(reflect.ValueOf(&int32Val))
 			} else {
-				return fmt.Errorf("unsupported pointer type for int32: %v", destType.Elem().Kind())
+				if destType.Elem().Kind() == reflect.Int {
+					iVal := int(int32Val)
+					destVal.Set(reflect.ValueOf(&iVal))
+				} else {
+					return fmt.Errorf("unsupported pointer type for int32: %v", destType.Elem().Kind())
+				}
 			}
 		} else if destType.Kind() == reflect.Int32 {
 			destVal.SetInt(int64(int32Val))
@@ -262,7 +253,21 @@ func setGoValueFromTFPrimitive(tfVal reflect.Value, tfType reflect.Type, destVal
 	return nil
 }
 
-func TfMapStrToGoMapStr(ctx context.Context, tm types.Map) (map[string]string, bool) {
+// ToTfStringMap convert a go map[string]string to tf map
+func ToTfStringMap(ctx context.Context, gMap *map[string]string) (types.Map, error) {
+	if gMap == nil {
+		return types.MapNull(types.StringType), nil
+	}
+
+	tfMap, diag := types.MapValueFrom(ctx, types.StringType, *gMap)
+	if diag.HasError() {
+		return types.MapNull(types.StringType), fmt.Errorf("%s : %s", diag[0].Detail(), diag[0].Summary())
+	}
+
+	return tfMap, nil
+}
+
+func TfMapStrToGoMap(ctx context.Context, tm types.Map) (map[string]string, bool) {
 	if tm.IsNull() || tm.IsUnknown() {
 		return nil, true
 	}
@@ -306,4 +311,54 @@ func TfJSONToGoMapInterface(ctx context.Context, tm jsontypes.Normalized) (map[s
 	}
 
 	return spec, nil
+}
+
+func GoMapFloat64FromTfMap(ctx context.Context, tm types.Map) (map[string]float64, bool) {
+	if tm.IsNull() || tm.IsUnknown() {
+		return nil, true
+	}
+	var ra map[string]float64
+	diags := tm.ElementsAs(ctx, &ra, false)
+	if diags.HasError() {
+		return nil, false
+	}
+	return ra, true
+}
+
+func TfMapFromGoMapFloat64(ctx context.Context, gMap *map[string]float64) (types.Map, error) {
+	if gMap == nil {
+		return types.MapNull(types.Float64Type), nil
+	}
+
+	tfMap, diag := types.MapValueFrom(ctx, types.Float64Type, *gMap)
+	if diag.HasError() {
+		return types.MapNull(types.Float64Type), fmt.Errorf("%s : %s", diag[0].Detail(), diag[0].Summary())
+	}
+
+	return tfMap, nil
+}
+
+func GoMapFloat32FromTfMap(ctx context.Context, tm types.Map) (map[string]float32, bool) {
+	if tm.IsNull() || tm.IsUnknown() {
+		return nil, true
+	}
+	var ra map[string]float32
+	diags := tm.ElementsAs(ctx, &ra, false)
+	if diags.HasError() {
+		return nil, false
+	}
+	return ra, true
+}
+
+func TfMapFromGoMapFloat32(ctx context.Context, gMap *map[string]float32) (types.Map, error) {
+	if gMap == nil {
+		return types.MapNull(types.Float32Type), nil
+	}
+
+	tfMap, diag := types.MapValueFrom(ctx, types.Float32Type, *gMap)
+	if diag.HasError() {
+		return types.MapNull(types.Float32Type), fmt.Errorf("%s : %s", diag[0].Detail(), diag[0].Summary())
+	}
+
+	return tfMap, nil
 }

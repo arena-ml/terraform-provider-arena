@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	dschema "github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	rschema "github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -33,45 +34,22 @@ const (
 	TfObject    TFType = "object"
 	TfJSON      TFType = "json"
 	TfJSONExact TFType = "json-exact"
+	TfMapNested TFType = "map-nested"
 )
-
-func (t TFType) ResSchemaAttr() rschema.Attribute {
-	switch t {
-	case TfString:
-		return rschema.StringAttribute{}
-	case TfInt:
-		return rschema.Int32Attribute{}
-	case TfInt64:
-		return rschema.Int64Attribute{}
-	case TfBoolean:
-		return rschema.BoolAttribute{}
-	case TFFloat:
-		return rschema.Float32Attribute{}
-	case TFFloat64:
-		return rschema.Float64Attribute{}
-	case TFList:
-		return rschema.ListAttribute{}
-	case TfMap:
-		return rschema.MapAttribute{}
-	case TfObject:
-		return rschema.ObjectAttribute{}
-	default:
-		return nil
-	}
-}
 
 // BaseSchema is for simple fields common to both resource and data source schema of an entity
 type BaseSchema struct {
-	Name      string
-	AttrType  TFType
-	SubType   TFType // underlying type for list, map, etc
-	Required  bool   // resource-only field
-	Optional  bool   // resource-only field
-	Computed  bool   // resource-only field
-	Sensitive bool
-	Desc      string
-	MdDesc    string
-	Default   *attrDefault
+	Name        string
+	AttrType    TFType
+	SubType     TFType // underlying type for list, map, etc
+	Required    bool   // resource-only field
+	Optional    bool   // resource-only field
+	Computed    bool   // resource-only field
+	Sensitive   bool
+	Desc        string
+	MdDesc      string
+	Default     *attrDefault
+	NestedAttrs []BaseSchema
 }
 
 type attrDefault struct {
@@ -124,6 +102,31 @@ func attrFloat64Default(ad *attrDefault) defaults.Float64 {
 		return nil
 	}
 	return float64default.StaticFloat64(ad.StaticDouble)
+}
+
+func (s BaseSchema) TFAttrType() attr.Type {
+	return toNativeTFType(s.AttrType)
+}
+
+func toNativeTFType(t TFType) attr.Type {
+	switch t {
+	case TfInt:
+		return types.Int32Type
+	case TfInt64:
+		return types.Int64Type
+	case TfString:
+		return types.StringType
+	case TfBoolean:
+		return types.BoolType
+	case TFFloat:
+		return types.Float32Type
+	case TFFloat64:
+		return types.Float64Type
+	case TfJSON:
+		return jsontypes.NormalizedType{}
+	default:
+		return types.StringType
+	}
 }
 
 func (s BaseSchema) ResourceAttr() rschema.Attribute {
@@ -227,7 +230,7 @@ func (s BaseSchema) ResourceAttr() rschema.Attribute {
 	if s.AttrType == TfMap {
 		// default to string map; extend as needed
 		return rschema.MapAttribute{
-			ElementType:         types.StringType,
+			ElementType:         toNativeTFType(s.SubType),
 			Required:            s.Required,
 			Computed:            s.Computed,
 			Optional:            s.Optional,
@@ -236,6 +239,19 @@ func (s BaseSchema) ResourceAttr() rschema.Attribute {
 			MarkdownDescription: s.MdDesc,
 		}
 	}
+
+	if s.AttrType == TfMapNested {
+		return rschema.MapNestedAttribute{
+			Required:            s.Required,
+			Computed:            s.Computed,
+			Optional:            s.Optional,
+			Sensitive:           s.Sensitive,
+			Description:         s.Desc,
+			MarkdownDescription: s.MdDesc,
+			NestedObject:        s.NestedRSchema(),
+		}
+	}
+
 	// JSON support using NormalizedType
 	if s.AttrType == TfJSON {
 		return rschema.StringAttribute{
@@ -250,6 +266,36 @@ func (s BaseSchema) ResourceAttr() rschema.Attribute {
 	}
 
 	panic(fmt.Sprintf("unreachable code for attr type = \n%+v", s))
+}
+
+func (s BaseSchema) NestedRSchema() (nr rschema.NestedAttributeObject) {
+	if s.NestedAttrs == nil {
+		return
+	}
+
+	result := make(map[string]rschema.Attribute)
+	for _, v := range s.NestedAttrs {
+		result[v.Name] = v.ResourceAttr()
+	}
+
+	nr.Attributes = result
+
+	return
+}
+
+func (s BaseSchema) NestedDSchema() (nr dschema.NestedAttributeObject) {
+	if s.NestedAttrs == nil {
+		return
+	}
+
+	result := make(map[string]dschema.Attribute)
+	for _, v := range s.NestedAttrs {
+		result[v.Name] = v.ResourceAttr()
+	}
+
+	nr.Attributes = result
+
+	return
 }
 
 func (s BaseSchema) DataSourceAttr() dschema.Attribute {
@@ -332,14 +378,29 @@ func (s BaseSchema) DataSourceAttr() dschema.Attribute {
 	// Map support (currently only string element type used in project)
 	if s.AttrType == TfMap {
 		// default to string map; extend as needed
-		return dschema.MapAttribute{
-			ElementType:         types.StringType,
+		attr := dschema.MapAttribute{
+			ElementType:         toNativeTFType(s.SubType),
 			Required:            required,
 			Computed:            computed,
 			Description:         s.Desc,
 			MarkdownDescription: s.MdDesc,
 		}
+
+		return attr
 	}
+
+	if s.AttrType == TfMapNested {
+		return dschema.MapNestedAttribute{
+			Required:            s.Required,
+			Computed:            s.Computed,
+			Optional:            s.Optional,
+			Sensitive:           s.Sensitive,
+			Description:         s.Desc,
+			MarkdownDescription: s.MdDesc,
+			NestedObject:        s.NestedDSchema(),
+		}
+	}
+
 	// JSON support using NormalizedType
 	if s.AttrType == TfJSON {
 		return dschema.StringAttribute{

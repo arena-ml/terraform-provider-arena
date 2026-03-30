@@ -103,7 +103,7 @@ func (c *StepConfig) FillFromResp(ctx context.Context, resp client.EntStep) (err
 func (c *StepConfig) ToModelJson(ctx context.Context) (jsonConf client.SchemaStepConfig, err error) {
 	err = helper.ConvertTfModelToApiJSON(ctx, *c, &jsonConf)
 
-	env, ok := helper.TfMapStrToGoMapStr(ctx, c.EnvVars)
+	env, ok := helper.TfMapStrToGoMap(ctx, c.EnvVars)
 	if !ok {
 		err = fmt.Errorf("env var not found in tf env")
 		return
@@ -129,7 +129,7 @@ func (c *StepConfig) ToModelJson(ctx context.Context) (jsonConf client.SchemaSte
 	}
 
 	if !c.RegistryAuth.IsNull() && !c.RegistryAuth.IsUnknown() {
-		regAuth, ok := helper.TfMapStrToGoMapStr(ctx, c.RegistryAuth)
+		regAuth, ok := helper.TfMapStrToGoMap(ctx, c.RegistryAuth)
 		if !ok {
 			err = fmt.Errorf("regAuth not found in tf registry_auth")
 			return

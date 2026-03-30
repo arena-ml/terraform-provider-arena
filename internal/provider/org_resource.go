@@ -125,8 +125,10 @@ func (r *orgResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 
 func (r *orgResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data schema.Org
+	var stateData schema.Org
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &stateData)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -137,30 +139,32 @@ func (r *orgResource) Update(ctx context.Context, req resource.UpdateRequest, re
 		resp.Diagnostics.AddError("unable to update org", "unable to convert org data: "+err.Error())
 		return
 	}
+	id := stateData.ID.ValueString()
+	apiOrg.Id = &id
 
 	// Call Update API
 	apiResp, err := r.cl.PostIamOrgUpdateWithResponse(ctx, apiOrg)
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update org '%s': %s", data.ID.String(), err))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update org '%s': %s", id, err))
 		return
 	}
 	if apiResp.StatusCode() != http.StatusOK {
-		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", apiResp.StatusCode()), fmt.Sprintf("Unable to update org '%s': %s", data.ID.String(), apiResp.Status()))
+		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", apiResp.StatusCode()), fmt.Sprintf("Unable to update org '%s': %s", id, apiResp.Status()))
 		return
 	}
 
 	// Read back the updated org
-	getResp, err := r.cl.GetIamOrgGetWithResponse(ctx, &client.GetIamOrgGetParams{Id: data.ID.ValueStringPointer()})
+	getResp, err := r.cl.GetIamOrgGetWithResponse(ctx, &client.GetIamOrgGetParams{Id: &id})
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to read updated org '%s': %s", data.ID.String(), err))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to read updated org '%s': %s", id, err))
 		return
 	}
 	if getResp.StatusCode() != http.StatusOK {
-		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", getResp.StatusCode()), fmt.Sprintf("Unable to read updated org '%s': %s", data.ID.String(), getResp.Status()))
+		resp.Diagnostics.AddError(fmt.Sprintf("Client Error: %d", getResp.StatusCode()), fmt.Sprintf("Unable to read updated org '%s': %s", id, getResp.Status()))
 		return
 	}
 	if getResp.JSON200 == nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Received nil response from API when reading updated org '%s'", data.ID.String()))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Received nil response from API when reading updated org '%s'", id))
 		return
 	}
 	if err := data.FillFromResp(ctx, *getResp.JSON200); err != nil {

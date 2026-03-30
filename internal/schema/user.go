@@ -91,7 +91,7 @@ func (c *UserConfig) ToModelJson(ctx context.Context) (jsonConf client.SchemaUse
 	}
 
 	if !c.Meta.IsNull() && !c.Meta.IsUnknown() {
-		meta, ok := helper.TfMapStrToGoMapStr(ctx, c.Meta)
+		meta, ok := helper.TfMapStrToGoMap(ctx, c.Meta)
 		if !ok {
 			err = fmt.Errorf("meta not found in tf data")
 			return
@@ -105,7 +105,7 @@ func (c *UserConfig) ToModelJson(ctx context.Context) (jsonConf client.SchemaUse
 			err = fmt.Errorf("tokens not found in tf data: \n %s %s ", c.Tokens, err)
 			return jsonConf, err
 		}
-		
+
 		tokens := make(map[string]client.SchemaToken)
 		for k, v := range tokensRaw {
 			tokenMap, ok := v.(map[string]interface{})

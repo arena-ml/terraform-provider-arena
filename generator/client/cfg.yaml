@@ -15,6 +15,10 @@ output-options:
     - pipeline
     - store
     - trigger
+    - sensor
+    - swarm
+    - drone
+    - agent
   skip-prune: false
 compatibility:
   circular-reference-limit: 3

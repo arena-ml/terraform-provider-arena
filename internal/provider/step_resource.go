@@ -71,7 +71,7 @@ func (r *stepResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 		return
 	}
 
-	apiResp, err := r.cl.GetPipelineNodesGetOneWithResponse(ctx, &client.GetPipelineNodesGetOneParams{Id: data.ID.ValueString(), Kind: "step"})
+	apiResp, err := r.cl.GetPipelineNodesOneWithResponse(ctx, &client.GetPipelineNodesOneParams{Id: data.ID.ValueString(), Kind: "step"})
 	if err != nil {
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to get step '%s': %s", data.ID.String(), err))
 		return
@@ -85,7 +85,7 @@ func (r *stepResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 		return
 	}
 
-	steps := apiResp.JSON200.Step
+	steps := apiResp.JSON200.Steps
 	if steps == nil || len(*steps) != 1 {
 		resp.Diagnostics.AddError("unexpected response body", "response should have exactly one step node")
 		return
@@ -103,11 +103,15 @@ func (r *stepResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 
 func (r *stepResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data schema.NodeStep
+	var stateData schema.NodeStep
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &stateData)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	data.ID = stateData.ID
 
 	created, err := r.upsertResource(ctx, &data)
 	if err != nil {
@@ -127,8 +131,8 @@ func (r *stepResource) upsertResource(ctx context.Context, data *schema.NodeStep
 	payload := client.ModelPipelineNodes{
 		PipelineId: data.PipelineID.ValueStringPointer(),
 		Inputs:     nil,
-		Output:     nil,
-		Step:       &steps,
+		Outputs:    nil,
+		Steps:      &steps,
 	}
 
 	// Call Create
@@ -141,11 +145,11 @@ func (r *stepResource) upsertResource(ctx context.Context, data *schema.NodeStep
 	}
 
 	// Parse response to get ID
-	if apiResp.JSON200 == nil || apiResp.JSON200.Step == nil || len(*apiResp.JSON200.Step) != 1 {
+	if apiResp.JSON200 == nil || apiResp.JSON200.Steps == nil || len(*apiResp.JSON200.Steps) != 1 {
 		return nil, fmt.Errorf("invalid api response , step len: \n\n%s\n", pretty.Sprint(*apiResp.JSON200))
 	}
 
-	created := (*apiResp.JSON200.Step)[0]
+	created := (*apiResp.JSON200.Steps)[0]
 
 	if created.Id == nil {
 		return nil, fmt.Errorf("invalid resource id in api response")

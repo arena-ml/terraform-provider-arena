@@ -55,6 +55,11 @@ type ApiBasisEnvPayload struct {
 	Env   *EntEnv   `json:"env,omitempty"`
 }
 
+// ApiRespID defines model for api.RespID.
+type ApiRespID struct {
+	Id *string `json:"id,omitempty"`
+}
+
 // EnginesEngineConfig defines model for engines.EngineConfig.
 type EnginesEngineConfig struct {
 	Id       *string `json:"id,omitempty"`
@@ -65,6 +70,52 @@ type EnginesEngineConfig struct {
 	// Spec engine-kind specific config details
 	Spec *map[string]interface{} `json:"spec,omitempty"`
 	Tags *[]TagsTag              `json:"tags,omitempty"`
+}
+
+// EntAgent defines model for ent.Agent.
+type EntAgent struct {
+	// Created Created holds the value of the "created" field.
+	Created *string `json:"created,omitempty"`
+
+	// Description Description holds the value of the "description" field.
+	Description *string `json:"description,omitempty"`
+
+	// Edges Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the AgentQuery when eager-loading is set.
+	Edges *EntAgentEdges `json:"edges,omitempty"`
+
+	// Id ID of the ent.
+	Id *string `json:"id,omitempty"`
+
+	// Kind Kind holds the value of the "kind" field.
+	Kind *string `json:"kind,omitempty"`
+
+	// Mode Mode holds the value of the "mode" field.
+	Mode *string `json:"mode,omitempty"`
+
+	// Name Name holds the value of the "name" field.
+	Name *string `json:"name,omitempty"`
+
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
+	// Spec Spec holds the value of the "spec" field.
+	Spec *SchemaAgentSpec `json:"spec,omitempty"`
+
+	// Status Status holds the value of the "status" field.
+	Status *string `json:"status,omitempty"`
+
+	// Updated Updated holds the value of the "updated" field.
+	Updated *string `json:"updated,omitempty"`
+
+	// Version Version holds the value of the "version" field.
+	Version *int `json:"version,omitempty"`
+}
+
+// EntAgentEdges defines model for ent.AgentEdges.
+type EntAgentEdges struct {
+	// Host Host holds the value of the host edge.
+	Host *EntDrone `json:"host,omitempty"`
 }
 
 // EntBasis defines model for ent.Basis.
@@ -103,6 +154,9 @@ type EntBasis struct {
 	// OrgID OrgID holds the value of the "orgID" field.
 	OrgID *string `json:"orgID,omitempty"`
 
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
 	// Status Status holds the value of the "status" field.
 	Status *string `json:"status,omitempty"`
 
@@ -118,6 +172,95 @@ type EntBasis struct {
 
 // EntBasisEdges defines model for ent.BasisEdges.
 type EntBasisEdges = map[string]interface{}
+
+// EntDrone defines model for ent.Drone.
+type EntDrone struct {
+	// Created Created holds the value of the "created" field.
+	Created *string `json:"created,omitempty"`
+
+	// Description Description holds the value of the "description" field.
+	Description *string `json:"description,omitempty"`
+
+	// Edges Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the DroneQuery when eager-loading is set.
+	Edges *EntDroneEdges `json:"edges,omitempty"`
+
+	// Id ID of the ent.
+	Id *string `json:"id,omitempty"`
+
+	// Inactive Inactive holds the value of the "inactive" field.
+	Inactive *bool `json:"inactive,omitempty"`
+
+	// Kind Kind holds the value of the "kind" field.
+	Kind *string `json:"kind,omitempty"`
+
+	// Links Links holds the value of the "links" field.
+	Links *SchemaDroneLinks `json:"links,omitempty"`
+
+	// Name Name holds the value of the "name" field.
+	Name *string `json:"name,omitempty"`
+
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
+	// Spec Spec holds the value of the "spec" field.
+	Spec *SchemaDroneSpec `json:"spec,omitempty"`
+
+	// Updated Updated holds the value of the "updated" field.
+	Updated *string `json:"updated,omitempty"`
+
+	// Version Version holds the value of the "version" field.
+	Version *int `json:"version,omitempty"`
+}
+
+// EntDroneEdges defines model for ent.DroneEdges.
+type EntDroneEdges struct {
+	// Profile a device can only have one profiles
+	Profile *EntDroneProfile `json:"profile,omitempty"`
+
+	// Swarm device can only belong to one swarm
+	Swarm *EntSwarm `json:"swarm,omitempty"`
+}
+
+// EntDroneProfile defines model for ent.DroneProfile.
+type EntDroneProfile struct {
+	// Created Created holds the value of the "created" field.
+	Created *string `json:"created,omitempty"`
+
+	// Description Description holds the value of the "description" field.
+	Description *string `json:"description,omitempty"`
+
+	// Edges Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the DroneProfileQuery when eager-loading is set.
+	Edges *EntDroneProfileEdges `json:"edges,omitempty"`
+
+	// Id ID of the ent.
+	Id *string `json:"id,omitempty"`
+
+	// Kind Kind holds the value of the "kind" field.
+	Kind *string `json:"kind,omitempty"`
+
+	// Links Links holds the value of the "links" field.
+	Links *SchemaDroneLinks `json:"links,omitempty"`
+
+	// Name Name holds the value of the "name" field.
+	Name *string `json:"name,omitempty"`
+
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
+	// Spec Spec holds the value of the "spec" field.
+	Spec *SchemaDroneSpec `json:"spec,omitempty"`
+
+	// Updated Updated holds the value of the "updated" field.
+	Updated *string `json:"updated,omitempty"`
+
+	// Version Version holds the value of the "version" field.
+	Version *int `json:"version,omitempty"`
+}
+
+// EntDroneProfileEdges defines model for ent.DroneProfileEdges.
+type EntDroneProfileEdges = map[string]interface{}
 
 // EntEnv defines model for ent.Env.
 type EntEnv struct {
@@ -226,6 +369,9 @@ type EntInput struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
 	// StoreID override the default store of the step
 	StoreID *string `json:"storeID,omitempty"`
 
@@ -263,6 +409,9 @@ type EntOrg struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
 	// Updated Updated holds the value of the "updated" field.
 	Updated *string `json:"updated,omitempty"`
 
@@ -296,6 +445,9 @@ type EntOutput struct {
 
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
+
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
 
 	// StoreID override the env store of the pipeline
 	StoreID *string `json:"storeID,omitempty"`
@@ -340,6 +492,9 @@ type EntPipeline struct {
 	// Paused paused pipeline queue new runs but dont shcedule them
 	Paused *bool `json:"paused,omitempty"`
 
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
 	// Updated Updated holds the value of the "updated" field.
 	Updated *string `json:"updated,omitempty"`
 
@@ -352,6 +507,95 @@ type EntPipelineEdges struct {
 	// EnvPipelines EnvPipelines holds the value of the env_pipelines edge.
 	EnvPipelines *[]EntEnvPipeline `json:"env_pipelines,omitempty"`
 }
+
+// EntSensor defines model for ent.Sensor.
+type EntSensor struct {
+	// Created Created holds the value of the "created" field.
+	Created *string `json:"created,omitempty"`
+
+	// Description Description holds the value of the "description" field.
+	Description *string `json:"description,omitempty"`
+
+	// Edges Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the SensorQuery when eager-loading is set.
+	Edges *EntSensorEdges `json:"edges,omitempty"`
+
+	// Id ID of the ent.
+	Id *string `json:"id,omitempty"`
+
+	// Inactive Inactive holds the value of the "inactive" field.
+	Inactive *bool `json:"inactive,omitempty"`
+
+	// Interface Interface holds the value of the "interface" field.
+	Interface *SchemaSensorInterface `json:"interface,omitempty"`
+
+	// Kind Kind holds the value of the "kind" field.
+	Kind *string `json:"kind,omitempty"`
+
+	// Name Name holds the value of the "name" field.
+	Name *string `json:"name,omitempty"`
+
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
+	// Spec Spec holds the value of the "spec" field.
+	Spec *SchemaSensorSpec `json:"spec,omitempty"`
+
+	// Updated Updated holds the value of the "updated" field.
+	Updated *string `json:"updated,omitempty"`
+
+	// Version Version holds the value of the "version" field.
+	Version *int `json:"version,omitempty"`
+}
+
+// EntSensorEdges defines model for ent.SensorEdges.
+type EntSensorEdges struct {
+	// Device Device holds the value of the device edge.
+	Device *EntDrone `json:"device,omitempty"`
+
+	// Profile Profile holds the value of the profile edge.
+	Profile *EntSensorProfile `json:"profile,omitempty"`
+}
+
+// EntSensorProfile defines model for ent.SensorProfile.
+type EntSensorProfile struct {
+	// Created Created holds the value of the "created" field.
+	Created *string `json:"created,omitempty"`
+
+	// Description Description holds the value of the "description" field.
+	Description *string `json:"description,omitempty"`
+
+	// Edges Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the SensorProfileQuery when eager-loading is set.
+	Edges *EntSensorProfileEdges `json:"edges,omitempty"`
+
+	// Id ID of the ent.
+	Id *string `json:"id,omitempty"`
+
+	// Interface Interface holds the value of the "interface" field.
+	Interface *SchemaSensorInterface `json:"interface,omitempty"`
+
+	// Kind Kind holds the value of the "kind" field.
+	Kind *string `json:"kind,omitempty"`
+
+	// Name Name holds the value of the "name" field.
+	Name *string `json:"name,omitempty"`
+
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
+	// Spec Spec holds the value of the "spec" field.
+	Spec *SchemaSensorSpec `json:"spec,omitempty"`
+
+	// Updated Updated holds the value of the "updated" field.
+	Updated *string `json:"updated,omitempty"`
+
+	// Version Version holds the value of the "version" field.
+	Version *int `json:"version,omitempty"`
+}
+
+// EntSensorProfileEdges defines model for ent.SensorProfileEdges.
+type EntSensorProfileEdges = map[string]interface{}
 
 // EntStep defines model for ent.Step.
 type EntStep struct {
@@ -380,6 +624,9 @@ type EntStep struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
 	// StoreID override the default store of the step
 	StoreID *string `json:"storeID,omitempty"`
 
@@ -404,8 +651,8 @@ type EntStorage struct {
 	// Created Created holds the value of the "created" field.
 	Created *string `json:"created,omitempty"`
 
-	// Desc Desc holds the value of the "desc" field.
-	Desc *string `json:"desc,omitempty"`
+	// Description Description holds the value of the "description" field.
+	Description *string `json:"description,omitempty"`
 
 	// Disabled Disabled holds the value of the "disabled" field.
 	Disabled *bool `json:"disabled,omitempty"`
@@ -428,6 +675,9 @@ type EntStorage struct {
 	// Readonly Readonly holds the value of the "readonly" field.
 	Readonly *bool `json:"readonly,omitempty"`
 
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
 	// Status Status holds the value of the "status" field.
 	Status *string `json:"status,omitempty"`
 
@@ -436,6 +686,49 @@ type EntStorage struct {
 
 	// Version Version holds the value of the "version" field.
 	Version *int `json:"version,omitempty"`
+}
+
+// EntSwarm defines model for ent.Swarm.
+type EntSwarm struct {
+	// Created Created holds the value of the "created" field.
+	Created *string `json:"created,omitempty"`
+
+	// Description Description holds the value of the "description" field.
+	Description *string `json:"description,omitempty"`
+
+	// Edges Edges holds the relations/edges for other nodes in the graph.
+	// The values are being populated by the SwarmQuery when eager-loading is set.
+	Edges *EntSwarmEdges `json:"edges,omitempty"`
+
+	// Id ID of the ent.
+	Id *string `json:"id,omitempty"`
+
+	// Inactive Inactive holds the value of the "inactive" field.
+	Inactive *bool `json:"inactive,omitempty"`
+
+	// Kind Kind holds the value of the "kind" field.
+	Kind *string `json:"kind,omitempty"`
+
+	// Name Name holds the value of the "name" field.
+	Name *string `json:"name,omitempty"`
+
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
+	// Spec Spec holds the value of the "spec" field.
+	Spec *SchemaSwarmSpec `json:"spec,omitempty"`
+
+	// Updated Updated holds the value of the "updated" field.
+	Updated *string `json:"updated,omitempty"`
+
+	// Version Version holds the value of the "version" field.
+	Version *int `json:"version,omitempty"`
+}
+
+// EntSwarmEdges defines model for ent.SwarmEdges.
+type EntSwarmEdges struct {
+	// Environment Environment holds the value of the environment edge.
+	Environment *[]EntEnv `json:"environment,omitempty"`
 }
 
 // EntTeam defines model for ent.Team.
@@ -462,6 +755,9 @@ type EntTeam struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
 	// Role Role holds the value of the "role" field.
 	Role *FixedTeamRole `json:"role,omitempty"`
 
@@ -475,8 +771,8 @@ type EntTeam struct {
 // EntTeamEdges defines model for ent.TeamEdges.
 type EntTeamEdges = map[string]interface{}
 
-// EntTriggers defines model for ent.Triggers.
-type EntTriggers struct {
+// EntTrigger defines model for ent.Trigger.
+type EntTrigger struct {
 	// Config Config holds the value of the "config" field.
 	Config *SchemaTriggerConfig `json:"config,omitempty"`
 
@@ -500,6 +796,9 @@ type EntTriggers struct {
 
 	// Paused Paused holds the value of the "paused" field.
 	Paused *bool `json:"paused,omitempty"`
+
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
 
 	// Timing Timing holds the value of the "timing" field.
 	Timing *FixedTriggerTiming `json:"timing,omitempty"`
@@ -538,6 +837,9 @@ type EntUser struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
+
 	// Updated Updated holds the value of the "updated" field.
 	Updated *string `json:"updated,omitempty"`
 
@@ -556,9 +858,6 @@ type FixedTeamRole string
 
 // FixedTriggerTiming defines model for fixed.TriggerTiming.
 type FixedTriggerTiming string
-
-// GinH defines model for gin.H.
-type GinH map[string]interface{}
 
 // ModelInputEdges defines model for model.InputEdges.
 type ModelInputEdges struct {
@@ -580,7 +879,7 @@ type ModelInputEdges struct {
 
 // ModelOutputEdges defines model for model.OutputEdges.
 type ModelOutputEdges struct {
-	// FromStep id of step node producting the output. output is always create by only one step
+	// FromStep id of step node production the output. output is always create by only one step
 	FromStep *string `json:"from_step,omitempty"`
 
 	// NodeId id of the output node
@@ -607,17 +906,37 @@ type ModelPipelineNodeIDs struct {
 
 // ModelPipelineNodes defines model for model.PipelineNodes.
 type ModelPipelineNodes struct {
+	// Bases basis nodes
+	Bases *[]EntBasis `json:"bases,omitempty"`
+
 	// Inputs input nodes
 	Inputs *[]EntInput `json:"inputs,omitempty"`
 
-	// Output output nodes
-	Output *[]EntOutput `json:"output,omitempty"`
+	// Outputs output nodes
+	Outputs *[]EntOutput `json:"outputs,omitempty"`
 
 	// PipelineId every node must belong to a single pipeline
 	PipelineId *string `json:"pipeline_id,omitempty"`
 
-	// Step step nodes
-	Step *[]EntStep `json:"step,omitempty"`
+	// Steps step nodes
+	Steps *[]EntStep `json:"steps,omitempty"`
+}
+
+// SchemaAgentSpec defines model for schema.AgentSpec.
+type SchemaAgentSpec struct {
+	// DepenedsOn other agents it needs to get data or actions taken. e.g. nav agent will depend on sensor agent
+	DepenedsOn *map[string]string `json:"depeneds_on,omitempty"`
+	Essential  *bool              `json:"essential,omitempty"`
+
+	// MaxCpuInMhz used during at checks
+	MaxCpuInMhz *int `json:"max_cpu_in_mhz,omitempty"`
+
+	// MaxMemory used during at deplouement checks
+	MaxMemory *int `json:"max_memory,omitempty"`
+	NeedsNpu  *int `json:"needs_npu,omitempty"`
+
+	// RequiredBy e.g. mission agent will depend on nav agent
+	RequiredBy *map[string]string `json:"required_by,omitempty"`
 }
 
 // SchemaBasis defines model for schema.Basis.
@@ -691,6 +1010,64 @@ type SchemaBasisWatcher struct {
 	RunSpec *map[string]interface{} `json:"run_spec,omitempty"`
 }
 
+// SchemaDeviceInterface defines model for schema.DeviceInterface.
+type SchemaDeviceInterface struct {
+	// Address /dev/* address per interface count
+	Address *map[string]string `json:"address,omitempty"`
+
+	// Count total number of such interfaces
+	Count   *int               `json:"count,omitempty"`
+	Details *map[string]string `json:"details,omitempty"`
+	Kind    *string            `json:"kind,omitempty"`
+	Name    *string            `json:"name,omitempty"`
+}
+
+// SchemaDeviceNetwork defines model for schema.DeviceNetwork.
+type SchemaDeviceNetwork struct {
+	Bandwidth  *float32 `json:"bandwidth,omitempty"`
+	Kind       *string  `json:"kind,omitempty"`
+	Mac        *string  `json:"mac,omitempty"`
+	MaxRange   *float32 `json:"max_range,omitempty"`
+	PowerUsage *float32 `json:"power_usage,omitempty"`
+}
+
+// SchemaDeviceStorage defines model for schema.DeviceStorage.
+type SchemaDeviceStorage struct {
+	Capacity  *int    `json:"capacity,omitempty"`
+	DevPath   *string `json:"dev_path,omitempty"`
+	Guid      *string `json:"guid,omitempty"`
+	Kind      *string `json:"kind,omitempty"`
+	MountPath *string `json:"mount_path,omitempty"`
+}
+
+// SchemaDroneLinks defines model for schema.DroneLinks.
+type SchemaDroneLinks map[string]SchemaDeviceInterface
+
+// SchemaDroneSpec defines model for schema.DroneSpec.
+type SchemaDroneSpec struct {
+	// Arch amd64 arm64 RISC-V
+	Arch *string `json:"arch,omitempty"`
+
+	// Compute map of core to frequency
+	Compute *map[string]float32 `json:"compute,omitempty"`
+
+	// Details any other details not captured above
+	Details    *map[string]string  `json:"details,omitempty"`
+	Gpu        *map[string]float32 `json:"gpu,omitempty"`
+	MemoryInGb *int                `json:"memory_in_gb,omitempty"`
+
+	// Model any model
+	Model    *map[string]string              `json:"model,omitempty"`
+	Networks *map[string]SchemaDeviceNetwork `json:"networks,omitempty"`
+	Npu      *map[string]float32             `json:"npu,omitempty"`
+
+	// Power power related details such as voltage, avg consumption, source capacity (if battery)
+	Power *map[string]string `json:"power,omitempty"`
+
+	// Storage map of local storage options
+	Storage *map[string]SchemaDeviceStorage `json:"storage,omitempty"`
+}
+
 // SchemaEnvConfig defines model for schema.EnvConfig.
 type SchemaEnvConfig struct {
 	AllowedEngines *[]string `json:"allowed_engines,omitempty"`
@@ -742,6 +1119,64 @@ type SchemaPipeline struct {
 // SchemaPipelineConfig defines model for schema.PipelineConfig.
 type SchemaPipelineConfig = map[string]interface{}
 
+// SchemaSensorInterface defines model for schema.SensorInterface.
+type SchemaSensorInterface struct {
+	// Cable if special cable is used or cable related data needs to be described
+	Cable *map[string]string `json:"cable,omitempty"`
+
+	// DeviceIo details about io addresses used at device for this sensor like gpio pin, usb port etc
+	DeviceIo *map[string]string `json:"device_io,omitempty"`
+
+	// Kind interface kind e.g. ttl, i2c, usb, ethernet etc
+	Kind *string `json:"kind,omitempty"`
+
+	// SensorIo details about io addresses used in sensor e.g. pin, usb, port
+	SensorIo *map[string]string `json:"sensor_io,omitempty"`
+}
+
+// SchemaSensorSpec defines model for schema.SensorSpec.
+type SchemaSensorSpec struct {
+	// Comm details about communication interface such as protocol, baud rate, etc.
+	Comm *map[string]string `json:"comm,omitempty"`
+
+	// HFov horizontal field of view in degrees
+	HFov *float32 `json:"h_fov,omitempty"`
+
+	// MaxRange max under non-optimal conditions
+	MaxRange *float32 `json:"max_range,omitempty"`
+
+	// MaxRateInHz exoected number of samples per seconds, e.g. for a camera it will be fps
+	MaxRateInHz *float32 `json:"max_rate_in_hz,omitempty"`
+
+	// Media links to any external info, posts, images
+	Media *map[string]string `json:"media,omitempty"`
+
+	// MinRange for distane, temp style sensors
+	MinRange *float32 `json:"min_range,omitempty"`
+
+	// MinRateInHz exoected number of samples per seconds, e.g. for a camera it will be fps
+	MinRateInHz *float32 `json:"min_rate_in_hz,omitempty"`
+
+	// Misc any extra info
+	Misc *map[string]interface{} `json:"misc,omitempty"`
+
+	// Model info about device make
+	Model *map[string]string `json:"model,omitempty"`
+
+	// Operating operating condition
+	Operating *map[string]float32 `json:"operating,omitempty"`
+
+	// Power different power reqs like voltage, avg wattage etc
+	Power *map[string]float32 `json:"power,omitempty"`
+
+	// RangeUnit output unit of the sensor which also to the scale used for min and max range
+	RangeUnit *string `json:"range_unit,omitempty"`
+	Units     *string `json:"units,omitempty"`
+
+	// VFov vertical field of view in degrees
+	VFov *float32 `json:"v_fov,omitempty"`
+}
+
 // SchemaStepConfig defines model for schema.StepConfig.
 type SchemaStepConfig struct {
 	Args    *[]string `json:"args,omitempty"`
@@ -778,6 +1213,12 @@ type SchemaStoreConfig struct {
 
 	// Spec extra connection related params like region, zone, policy etc
 	Spec *map[string]interface{} `json:"spec,omitempty"`
+}
+
+// SchemaSwarmSpec defines model for schema.SwarmSpec.
+type SchemaSwarmSpec struct {
+	MaxUnit            *int `json:"maxUnit,omitempty"`
+	MinActivePartition *int `json:"minActivePartition,omitempty"`
 }
 
 // SchemaTeamConfig defines model for schema.TeamConfig.
@@ -819,6 +1260,21 @@ type TagsTag struct {
 	Value *string `json:"value,omitempty"`
 }
 
+// Body defines model for Body.
+type Body = map[string]interface{}
+
+// DeleteAgentsDeleteParams defines parameters for DeleteAgentsDelete.
+type DeleteAgentsDeleteParams struct {
+	// Id ID of the agent to delete
+	Id string `form:"id" json:"id"`
+}
+
+// GetAgentsGetParams defines parameters for GetAgentsGet.
+type GetAgentsGetParams struct {
+	// Id Agent ID
+	Id string `form:"id" json:"id"`
+}
+
 // DeleteBasisDeleteParams defines parameters for DeleteBasisDelete.
 type DeleteBasisDeleteParams struct {
 	// Id ID of the basis to delete
@@ -832,6 +1288,30 @@ type GetBasisGetParams struct {
 
 	// Name get Basis by Name
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
+}
+
+// DeleteDroneProfileDeleteParams defines parameters for DeleteDroneProfileDelete.
+type DeleteDroneProfileDeleteParams struct {
+	// Id ID of the drone profile to delete
+	Id string `form:"id" json:"id"`
+}
+
+// GetDroneProfileGetParams defines parameters for GetDroneProfileGet.
+type GetDroneProfileGetParams struct {
+	// Id Drone Profile ID
+	Id string `form:"id" json:"id"`
+}
+
+// DeleteDronesDeleteParams defines parameters for DeleteDronesDelete.
+type DeleteDronesDeleteParams struct {
+	// Id ID of the drone to delete
+	Id string `form:"id" json:"id"`
+}
+
+// GetDronesGetParams defines parameters for GetDronesGet.
+type GetDronesGetParams struct {
+	// Id Drone ID
+	Id string `form:"id" json:"id"`
 }
 
 // DeleteEngineDeleteParams defines parameters for DeleteEngineDelete.
@@ -999,20 +1479,20 @@ type GetIamUserGetParams struct {
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
 }
 
-// GetPipelineDagGetParams defines parameters for GetPipelineDagGet.
-type GetPipelineDagGetParams struct {
+// GetPipelineDagParams defines parameters for GetPipelineDag.
+type GetPipelineDagParams struct {
 	// Id get DAG by Pipeline ID
 	Id *string `form:"id,omitempty" json:"id,omitempty"`
 }
 
-// GetPipelineNodesGetParams defines parameters for GetPipelineNodesGet.
-type GetPipelineNodesGetParams struct {
+// GetPipelineNodesParams defines parameters for GetPipelineNodes.
+type GetPipelineNodesParams struct {
 	// Id get all pipeline nodes for the give id
 	Id *string `form:"id,omitempty" json:"id,omitempty"`
 }
 
-// GetPipelineNodesGetOneParams defines parameters for GetPipelineNodesGetOne.
-type GetPipelineNodesGetOneParams struct {
+// GetPipelineNodesOneParams defines parameters for GetPipelineNodesOne.
+type GetPipelineNodesOneParams struct {
 	// Id Node ID
 	Id string `form:"id" json:"id"`
 
@@ -1027,6 +1507,30 @@ type GetPipelineGetParams struct {
 
 	// Name get Pipeline by SafeName
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
+}
+
+// DeleteSensorProfileDeleteParams defines parameters for DeleteSensorProfileDelete.
+type DeleteSensorProfileDeleteParams struct {
+	// Id ID of the sensor profile to delete
+	Id string `form:"id" json:"id"`
+}
+
+// GetSensorProfileGetParams defines parameters for GetSensorProfileGet.
+type GetSensorProfileGetParams struct {
+	// Id Sensor Profile ID
+	Id string `form:"id" json:"id"`
+}
+
+// DeleteSensorsDeleteParams defines parameters for DeleteSensorsDelete.
+type DeleteSensorsDeleteParams struct {
+	// Id ID of the sensor to delete
+	Id string `form:"id" json:"id"`
+}
+
+// GetSensorsGetParams defines parameters for GetSensorsGet.
+type GetSensorsGetParams struct {
+	// Id Sensor ID
+	Id string `form:"id" json:"id"`
 }
 
 // DeleteStoreDeleteParams defines parameters for DeleteStoreDelete.
@@ -1044,6 +1548,24 @@ type GetStoreGetParams struct {
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
 }
 
+// PostSwarmDevicesAddJSONBody defines parameters for PostSwarmDevicesAdd.
+type PostSwarmDevicesAddJSONBody = map[string]interface{}
+
+// PostSwarmDevicesRemoveJSONBody defines parameters for PostSwarmDevicesRemove.
+type PostSwarmDevicesRemoveJSONBody = map[string]interface{}
+
+// DeleteSwarmsDeleteParams defines parameters for DeleteSwarmsDelete.
+type DeleteSwarmsDeleteParams struct {
+	// Id ID of the swarm to delete
+	Id string `form:"id" json:"id"`
+}
+
+// GetSwarmsGetParams defines parameters for GetSwarmsGet.
+type GetSwarmsGetParams struct {
+	// Id Swarm ID
+	Id string `form:"id" json:"id"`
+}
+
 // DeleteTriggersDeleteParams defines parameters for DeleteTriggersDelete.
 type DeleteTriggersDeleteParams struct {
 	// Id ID of the trigger to delete
@@ -1056,6 +1578,12 @@ type GetTriggersGetParams struct {
 	Id string `form:"id" json:"id"`
 }
 
+// PostAgentsCreateJSONRequestBody defines body for PostAgentsCreate for application/json ContentType.
+type PostAgentsCreateJSONRequestBody = EntAgent
+
+// PostAgentsUpdateJSONRequestBody defines body for PostAgentsUpdate for application/json ContentType.
+type PostAgentsUpdateJSONRequestBody = EntAgent
+
 // PostBasisCreateJSONRequestBody defines body for PostBasisCreate for application/json ContentType.
 type PostBasisCreateJSONRequestBody = EntBasis
 
@@ -1064,6 +1592,18 @@ type PostBasisSetEnvJSONRequestBody = ApiBasisEnvPayload
 
 // PostBasisUpdateJSONRequestBody defines body for PostBasisUpdate for application/json ContentType.
 type PostBasisUpdateJSONRequestBody = EntBasis
+
+// PostDroneProfileCreateJSONRequestBody defines body for PostDroneProfileCreate for application/json ContentType.
+type PostDroneProfileCreateJSONRequestBody = EntDroneProfile
+
+// PostDroneProfileUpdateJSONRequestBody defines body for PostDroneProfileUpdate for application/json ContentType.
+type PostDroneProfileUpdateJSONRequestBody = EntDroneProfile
+
+// PostDronesCreateJSONRequestBody defines body for PostDronesCreate for application/json ContentType.
+type PostDronesCreateJSONRequestBody = EntDrone
+
+// PostDronesUpdateJSONRequestBody defines body for PostDronesUpdate for application/json ContentType.
+type PostDronesUpdateJSONRequestBody = EntDrone
 
 // PostEngineCreateJSONRequestBody defines body for PostEngineCreate for application/json ContentType.
 type PostEngineCreateJSONRequestBody = EnginesEngineConfig
@@ -1122,17 +1662,41 @@ type PostPipelineCreateJSONRequestBody = EntPipeline
 // PostPipelineUpdateJSONRequestBody defines body for PostPipelineUpdate for application/json ContentType.
 type PostPipelineUpdateJSONRequestBody = EntPipeline
 
+// PostSensorProfileCreateJSONRequestBody defines body for PostSensorProfileCreate for application/json ContentType.
+type PostSensorProfileCreateJSONRequestBody = EntSensorProfile
+
+// PostSensorProfileUpdateJSONRequestBody defines body for PostSensorProfileUpdate for application/json ContentType.
+type PostSensorProfileUpdateJSONRequestBody = EntSensorProfile
+
+// PostSensorsCreateJSONRequestBody defines body for PostSensorsCreate for application/json ContentType.
+type PostSensorsCreateJSONRequestBody = EntSensor
+
+// PostSensorsUpdateJSONRequestBody defines body for PostSensorsUpdate for application/json ContentType.
+type PostSensorsUpdateJSONRequestBody = EntSensor
+
 // PostStoreCreateJSONRequestBody defines body for PostStoreCreate for application/json ContentType.
 type PostStoreCreateJSONRequestBody = EntStorage
 
 // PostStoreUpdateJSONRequestBody defines body for PostStoreUpdate for application/json ContentType.
 type PostStoreUpdateJSONRequestBody = EntStorage
 
+// PostSwarmDevicesAddJSONRequestBody defines body for PostSwarmDevicesAdd for application/json ContentType.
+type PostSwarmDevicesAddJSONRequestBody = PostSwarmDevicesAddJSONBody
+
+// PostSwarmDevicesRemoveJSONRequestBody defines body for PostSwarmDevicesRemove for application/json ContentType.
+type PostSwarmDevicesRemoveJSONRequestBody = PostSwarmDevicesRemoveJSONBody
+
+// PostSwarmsCreateJSONRequestBody defines body for PostSwarmsCreate for application/json ContentType.
+type PostSwarmsCreateJSONRequestBody = EntSwarm
+
+// PostSwarmsUpdateJSONRequestBody defines body for PostSwarmsUpdate for application/json ContentType.
+type PostSwarmsUpdateJSONRequestBody = EntSwarm
+
 // PostTriggersCreateJSONRequestBody defines body for PostTriggersCreate for application/json ContentType.
-type PostTriggersCreateJSONRequestBody = EntTriggers
+type PostTriggersCreateJSONRequestBody = EntTrigger
 
 // PostTriggersUpdateJSONRequestBody defines body for PostTriggersUpdate for application/json ContentType.
-type PostTriggersUpdateJSONRequestBody = EntTriggers
+type PostTriggersUpdateJSONRequestBody = EntTrigger
 
 // RequestEditorFn  is the function signature for the RequestEditor callback function
 type RequestEditorFn func(ctx context.Context, req *http.Request) error
@@ -1207,6 +1771,25 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 
 // The interface specification for the client above.
 type ClientInterface interface {
+	// PostAgentsCreateWithBody request with any body
+	PostAgentsCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostAgentsCreate(ctx context.Context, body PostAgentsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteAgentsDelete request
+	DeleteAgentsDelete(ctx context.Context, params *DeleteAgentsDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAgentsGet request
+	GetAgentsGet(ctx context.Context, params *GetAgentsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetAgentsList request
+	GetAgentsList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostAgentsUpdateWithBody request with any body
+	PostAgentsUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostAgentsUpdate(ctx context.Context, body PostAgentsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// PostBasisCreateWithBody request with any body
 	PostBasisCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -1230,6 +1813,44 @@ type ClientInterface interface {
 	PostBasisUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	PostBasisUpdate(ctx context.Context, body PostBasisUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostDroneProfileCreateWithBody request with any body
+	PostDroneProfileCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostDroneProfileCreate(ctx context.Context, body PostDroneProfileCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteDroneProfileDelete request
+	DeleteDroneProfileDelete(ctx context.Context, params *DeleteDroneProfileDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetDroneProfileGet request
+	GetDroneProfileGet(ctx context.Context, params *GetDroneProfileGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetDroneProfileList request
+	GetDroneProfileList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostDroneProfileUpdateWithBody request with any body
+	PostDroneProfileUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostDroneProfileUpdate(ctx context.Context, body PostDroneProfileUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostDronesCreateWithBody request with any body
+	PostDronesCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostDronesCreate(ctx context.Context, body PostDronesCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteDronesDelete request
+	DeleteDronesDelete(ctx context.Context, params *DeleteDronesDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetDronesGet request
+	GetDronesGet(ctx context.Context, params *GetDronesGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetDronesList request
+	GetDronesList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostDronesUpdateWithBody request with any body
+	PostDronesUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostDronesUpdate(ctx context.Context, body PostDronesUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// PostEngineCreateWithBody request with any body
 	PostEngineCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1364,6 +1985,9 @@ type ClientInterface interface {
 
 	PostIamUserUpdate(ctx context.Context, body PostIamUserUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetPipelineDag request
+	GetPipelineDag(ctx context.Context, params *GetPipelineDagParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// PostPipelineDagCreateWithBody request with any body
 	PostPipelineDagCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -1374,13 +1998,13 @@ type ClientInterface interface {
 
 	DeletePipelineDagDelete(ctx context.Context, body DeletePipelineDagDeleteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// GetPipelineDagGet request
-	GetPipelineDagGet(ctx context.Context, params *GetPipelineDagGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// PostPipelineDagUpdateWithBody request with any body
 	PostPipelineDagUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	PostPipelineDagUpdate(ctx context.Context, body PostPipelineDagUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetPipelineNodes request
+	GetPipelineNodes(ctx context.Context, params *GetPipelineNodesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// PostPipelineNodesCreateWithBody request with any body
 	PostPipelineNodesCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1392,11 +2016,8 @@ type ClientInterface interface {
 
 	DeletePipelineNodesDelete(ctx context.Context, body DeletePipelineNodesDeleteJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// GetPipelineNodesGet request
-	GetPipelineNodesGet(ctx context.Context, params *GetPipelineNodesGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// GetPipelineNodesGetOne request
-	GetPipelineNodesGetOne(ctx context.Context, params *GetPipelineNodesGetOneParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// GetPipelineNodesOne request
+	GetPipelineNodesOne(ctx context.Context, params *GetPipelineNodesOneParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// PostPipelineNodesUpdateWithBody request with any body
 	PostPipelineNodesUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1428,6 +2049,44 @@ type ClientInterface interface {
 
 	PostPipelineUpdate(ctx context.Context, body PostPipelineUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// PostSensorProfileCreateWithBody request with any body
+	PostSensorProfileCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostSensorProfileCreate(ctx context.Context, body PostSensorProfileCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteSensorProfileDelete request
+	DeleteSensorProfileDelete(ctx context.Context, params *DeleteSensorProfileDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSensorProfileGet request
+	GetSensorProfileGet(ctx context.Context, params *GetSensorProfileGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSensorProfileList request
+	GetSensorProfileList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostSensorProfileUpdateWithBody request with any body
+	PostSensorProfileUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostSensorProfileUpdate(ctx context.Context, body PostSensorProfileUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostSensorsCreateWithBody request with any body
+	PostSensorsCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostSensorsCreate(ctx context.Context, body PostSensorsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteSensorsDelete request
+	DeleteSensorsDelete(ctx context.Context, params *DeleteSensorsDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSensorsGet request
+	GetSensorsGet(ctx context.Context, params *GetSensorsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSensorsList request
+	GetSensorsList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostSensorsUpdateWithBody request with any body
+	PostSensorsUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostSensorsUpdate(ctx context.Context, body PostSensorsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// PostStoreCreateWithBody request with any body
 	PostStoreCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -1447,6 +2106,35 @@ type ClientInterface interface {
 
 	PostStoreUpdate(ctx context.Context, body PostStoreUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// PostSwarmDevicesAddWithBody request with any body
+	PostSwarmDevicesAddWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostSwarmDevicesAdd(ctx context.Context, body PostSwarmDevicesAddJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostSwarmDevicesRemoveWithBody request with any body
+	PostSwarmDevicesRemoveWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostSwarmDevicesRemove(ctx context.Context, body PostSwarmDevicesRemoveJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostSwarmsCreateWithBody request with any body
+	PostSwarmsCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostSwarmsCreate(ctx context.Context, body PostSwarmsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteSwarmsDelete request
+	DeleteSwarmsDelete(ctx context.Context, params *DeleteSwarmsDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSwarmsGet request
+	GetSwarmsGet(ctx context.Context, params *GetSwarmsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetSwarmsList request
+	GetSwarmsList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PostSwarmsUpdateWithBody request with any body
+	PostSwarmsUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PostSwarmsUpdate(ctx context.Context, body PostSwarmsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// PostTriggersCreateWithBody request with any body
 	PostTriggersCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -1465,6 +2153,90 @@ type ClientInterface interface {
 	PostTriggersUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	PostTriggersUpdate(ctx context.Context, body PostTriggersUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+}
+
+func (c *Client) PostAgentsCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostAgentsCreateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostAgentsCreate(ctx context.Context, body PostAgentsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostAgentsCreateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteAgentsDelete(ctx context.Context, params *DeleteAgentsDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteAgentsDeleteRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAgentsGet(ctx context.Context, params *GetAgentsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAgentsGetRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetAgentsList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetAgentsListRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostAgentsUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostAgentsUpdateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostAgentsUpdate(ctx context.Context, body PostAgentsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostAgentsUpdateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
 }
 
 func (c *Client) PostBasisCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1565,6 +2337,174 @@ func (c *Client) PostBasisUpdateWithBody(ctx context.Context, contentType string
 
 func (c *Client) PostBasisUpdate(ctx context.Context, body PostBasisUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewPostBasisUpdateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostDroneProfileCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostDroneProfileCreateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostDroneProfileCreate(ctx context.Context, body PostDroneProfileCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostDroneProfileCreateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteDroneProfileDelete(ctx context.Context, params *DeleteDroneProfileDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteDroneProfileDeleteRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetDroneProfileGet(ctx context.Context, params *GetDroneProfileGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetDroneProfileGetRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetDroneProfileList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetDroneProfileListRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostDroneProfileUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostDroneProfileUpdateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostDroneProfileUpdate(ctx context.Context, body PostDroneProfileUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostDroneProfileUpdateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostDronesCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostDronesCreateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostDronesCreate(ctx context.Context, body PostDronesCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostDronesCreateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteDronesDelete(ctx context.Context, params *DeleteDronesDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteDronesDeleteRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetDronesGet(ctx context.Context, params *GetDronesGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetDronesGetRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetDronesList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetDronesListRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostDronesUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostDronesUpdateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostDronesUpdate(ctx context.Context, body PostDronesUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostDronesUpdateRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2151,6 +3091,18 @@ func (c *Client) PostIamUserUpdate(ctx context.Context, body PostIamUserUpdateJS
 	return c.Client.Do(req)
 }
 
+func (c *Client) GetPipelineDag(ctx context.Context, params *GetPipelineDagParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetPipelineDagRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) PostPipelineDagCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewPostPipelineDagCreateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
@@ -2199,18 +3151,6 @@ func (c *Client) DeletePipelineDagDelete(ctx context.Context, body DeletePipelin
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetPipelineDagGet(ctx context.Context, params *GetPipelineDagGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetPipelineDagGetRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
 func (c *Client) PostPipelineDagUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewPostPipelineDagUpdateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
@@ -2225,6 +3165,18 @@ func (c *Client) PostPipelineDagUpdateWithBody(ctx context.Context, contentType 
 
 func (c *Client) PostPipelineDagUpdate(ctx context.Context, body PostPipelineDagUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewPostPipelineDagUpdateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetPipelineNodes(ctx context.Context, params *GetPipelineNodesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetPipelineNodesRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2283,20 +3235,8 @@ func (c *Client) DeletePipelineNodesDelete(ctx context.Context, body DeletePipel
 	return c.Client.Do(req)
 }
 
-func (c *Client) GetPipelineNodesGet(ctx context.Context, params *GetPipelineNodesGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetPipelineNodesGetRequest(c.Server, params)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) GetPipelineNodesGetOne(ctx context.Context, params *GetPipelineNodesGetOneParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetPipelineNodesGetOneRequest(c.Server, params)
+func (c *Client) GetPipelineNodesOne(ctx context.Context, params *GetPipelineNodesOneParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetPipelineNodesOneRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2439,6 +3379,174 @@ func (c *Client) PostPipelineUpdate(ctx context.Context, body PostPipelineUpdate
 	return c.Client.Do(req)
 }
 
+func (c *Client) PostSensorProfileCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSensorProfileCreateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSensorProfileCreate(ctx context.Context, body PostSensorProfileCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSensorProfileCreateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteSensorProfileDelete(ctx context.Context, params *DeleteSensorProfileDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteSensorProfileDeleteRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSensorProfileGet(ctx context.Context, params *GetSensorProfileGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSensorProfileGetRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSensorProfileList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSensorProfileListRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSensorProfileUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSensorProfileUpdateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSensorProfileUpdate(ctx context.Context, body PostSensorProfileUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSensorProfileUpdateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSensorsCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSensorsCreateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSensorsCreate(ctx context.Context, body PostSensorsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSensorsCreateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteSensorsDelete(ctx context.Context, params *DeleteSensorsDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteSensorsDeleteRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSensorsGet(ctx context.Context, params *GetSensorsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSensorsGetRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSensorsList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSensorsListRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSensorsUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSensorsUpdateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSensorsUpdate(ctx context.Context, body PostSensorsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSensorsUpdateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) PostStoreCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewPostStoreCreateRequestWithBody(c.Server, contentType, body)
 	if err != nil {
@@ -2513,6 +3621,138 @@ func (c *Client) PostStoreUpdateWithBody(ctx context.Context, contentType string
 
 func (c *Client) PostStoreUpdate(ctx context.Context, body PostStoreUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewPostStoreUpdateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSwarmDevicesAddWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSwarmDevicesAddRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSwarmDevicesAdd(ctx context.Context, body PostSwarmDevicesAddJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSwarmDevicesAddRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSwarmDevicesRemoveWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSwarmDevicesRemoveRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSwarmDevicesRemove(ctx context.Context, body PostSwarmDevicesRemoveJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSwarmDevicesRemoveRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSwarmsCreateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSwarmsCreateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSwarmsCreate(ctx context.Context, body PostSwarmsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSwarmsCreateRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteSwarmsDelete(ctx context.Context, params *DeleteSwarmsDeleteParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteSwarmsDeleteRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSwarmsGet(ctx context.Context, params *GetSwarmsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSwarmsGetRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetSwarmsList(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSwarmsListRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSwarmsUpdateWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSwarmsUpdateRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PostSwarmsUpdate(ctx context.Context, body PostSwarmsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPostSwarmsUpdateRequest(c.Server, body)
 	if err != nil {
 		return nil, err
 	}
@@ -2605,6 +3845,203 @@ func (c *Client) PostTriggersUpdate(ctx context.Context, body PostTriggersUpdate
 		return nil, err
 	}
 	return c.Client.Do(req)
+}
+
+// NewPostAgentsCreateRequest calls the generic PostAgentsCreate builder with application/json body
+func NewPostAgentsCreateRequest(server string, body PostAgentsCreateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostAgentsCreateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostAgentsCreateRequestWithBody generates requests for PostAgentsCreate with any type of body
+func NewPostAgentsCreateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/agents/create")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDeleteAgentsDeleteRequest generates requests for DeleteAgentsDelete
+func NewDeleteAgentsDeleteRequest(server string, params *DeleteAgentsDeleteParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/agents/delete")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetAgentsGetRequest generates requests for GetAgentsGet
+func NewGetAgentsGetRequest(server string, params *GetAgentsGetParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/agents/get")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetAgentsListRequest generates requests for GetAgentsList
+func NewGetAgentsListRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/agents/list")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewPostAgentsUpdateRequest calls the generic PostAgentsUpdate builder with application/json body
+func NewPostAgentsUpdateRequest(server string, body PostAgentsUpdateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostAgentsUpdateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostAgentsUpdateRequestWithBody generates requests for PostAgentsUpdate with any type of body
+func NewPostAgentsUpdateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/agents/update")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
 }
 
 // NewPostBasisCreateRequest calls the generic PostBasisCreate builder with application/json body
@@ -2845,6 +4282,400 @@ func NewPostBasisUpdateRequestWithBody(server string, contentType string, body i
 	}
 
 	operationPath := fmt.Sprintf("/basis/update")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewPostDroneProfileCreateRequest calls the generic PostDroneProfileCreate builder with application/json body
+func NewPostDroneProfileCreateRequest(server string, body PostDroneProfileCreateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostDroneProfileCreateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostDroneProfileCreateRequestWithBody generates requests for PostDroneProfileCreate with any type of body
+func NewPostDroneProfileCreateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drone-profile/create")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDeleteDroneProfileDeleteRequest generates requests for DeleteDroneProfileDelete
+func NewDeleteDroneProfileDeleteRequest(server string, params *DeleteDroneProfileDeleteParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drone-profile/delete")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetDroneProfileGetRequest generates requests for GetDroneProfileGet
+func NewGetDroneProfileGetRequest(server string, params *GetDroneProfileGetParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drone-profile/get")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetDroneProfileListRequest generates requests for GetDroneProfileList
+func NewGetDroneProfileListRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drone-profile/list")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewPostDroneProfileUpdateRequest calls the generic PostDroneProfileUpdate builder with application/json body
+func NewPostDroneProfileUpdateRequest(server string, body PostDroneProfileUpdateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostDroneProfileUpdateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostDroneProfileUpdateRequestWithBody generates requests for PostDroneProfileUpdate with any type of body
+func NewPostDroneProfileUpdateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drone-profile/update")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewPostDronesCreateRequest calls the generic PostDronesCreate builder with application/json body
+func NewPostDronesCreateRequest(server string, body PostDronesCreateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostDronesCreateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostDronesCreateRequestWithBody generates requests for PostDronesCreate with any type of body
+func NewPostDronesCreateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drones/create")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDeleteDronesDeleteRequest generates requests for DeleteDronesDelete
+func NewDeleteDronesDeleteRequest(server string, params *DeleteDronesDeleteParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drones/delete")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetDronesGetRequest generates requests for GetDronesGet
+func NewGetDronesGetRequest(server string, params *GetDronesGetParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drones/get")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetDronesListRequest generates requests for GetDronesList
+func NewGetDronesListRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drones/list")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewPostDronesUpdateRequest calls the generic PostDronesUpdate builder with application/json body
+func NewPostDronesUpdateRequest(server string, body PostDronesUpdateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostDronesUpdateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostDronesUpdateRequestWithBody generates requests for PostDronesUpdate with any type of body
+func NewPostDronesUpdateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/drones/update")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -4568,6 +6399,55 @@ func NewPostIamUserUpdateRequestWithBody(server string, contentType string, body
 	return req, nil
 }
 
+// NewGetPipelineDagRequest generates requests for GetPipelineDag
+func NewGetPipelineDagRequest(server string, params *GetPipelineDagParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/pipeline-dag")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Id != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.Id); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewPostPipelineDagCreateRequest calls the generic PostPipelineDagCreate builder with application/json body
 func NewPostPipelineDagCreateRequest(server string, body PostPipelineDagCreateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -4648,55 +6528,6 @@ func NewDeletePipelineDagDeleteRequestWithBody(server string, contentType string
 	return req, nil
 }
 
-// NewGetPipelineDagGetRequest generates requests for GetPipelineDagGet
-func NewGetPipelineDagGetRequest(server string, params *GetPipelineDagGetParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/pipeline-dag/get")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.Id != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.Id); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
 // NewPostPipelineDagUpdateRequest calls the generic PostPipelineDagUpdate builder with application/json body
 func NewPostPipelineDagUpdateRequest(server string, body PostPipelineDagUpdateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -4733,6 +6564,55 @@ func NewPostPipelineDagUpdateRequestWithBody(server string, contentType string, 
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewGetPipelineNodesRequest generates requests for GetPipelineNodes
+func NewGetPipelineNodesRequest(server string, params *GetPipelineNodesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/pipeline-nodes")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if params.Id != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.Id); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	return req, nil
 }
@@ -4817,8 +6697,8 @@ func NewDeletePipelineNodesDeleteRequestWithBody(server string, contentType stri
 	return req, nil
 }
 
-// NewGetPipelineNodesGetRequest generates requests for GetPipelineNodesGet
-func NewGetPipelineNodesGetRequest(server string, params *GetPipelineNodesGetParams) (*http.Request, error) {
+// NewGetPipelineNodesOneRequest generates requests for GetPipelineNodesOne
+func NewGetPipelineNodesOneRequest(server string, params *GetPipelineNodesOneParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -4826,56 +6706,7 @@ func NewGetPipelineNodesGetRequest(server string, params *GetPipelineNodesGetPar
 		return nil, err
 	}
 
-	operationPath := fmt.Sprintf("/pipeline-nodes/get")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-		queryValues := queryURL.Query()
-
-		if params.Id != nil {
-
-			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, *params.Id); err != nil {
-				return nil, err
-			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
-				return nil, err
-			} else {
-				for k, v := range parsed {
-					for _, v2 := range v {
-						queryValues.Add(k, v2)
-					}
-				}
-			}
-
-		}
-
-		queryURL.RawQuery = queryValues.Encode()
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewGetPipelineNodesGetOneRequest generates requests for GetPipelineNodesGetOne
-func NewGetPipelineNodesGetOneRequest(server string, params *GetPipelineNodesGetOneParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/pipeline-nodes/get-one")
+	operationPath := fmt.Sprintf("/pipeline-nodes/one")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -5237,6 +7068,400 @@ func NewPostPipelineUpdateRequestWithBody(server string, contentType string, bod
 	return req, nil
 }
 
+// NewPostSensorProfileCreateRequest calls the generic PostSensorProfileCreate builder with application/json body
+func NewPostSensorProfileCreateRequest(server string, body PostSensorProfileCreateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostSensorProfileCreateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostSensorProfileCreateRequestWithBody generates requests for PostSensorProfileCreate with any type of body
+func NewPostSensorProfileCreateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensor-profile/create")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDeleteSensorProfileDeleteRequest generates requests for DeleteSensorProfileDelete
+func NewDeleteSensorProfileDeleteRequest(server string, params *DeleteSensorProfileDeleteParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensor-profile/delete")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSensorProfileGetRequest generates requests for GetSensorProfileGet
+func NewGetSensorProfileGetRequest(server string, params *GetSensorProfileGetParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensor-profile/get")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSensorProfileListRequest generates requests for GetSensorProfileList
+func NewGetSensorProfileListRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensor-profile/list")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewPostSensorProfileUpdateRequest calls the generic PostSensorProfileUpdate builder with application/json body
+func NewPostSensorProfileUpdateRequest(server string, body PostSensorProfileUpdateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostSensorProfileUpdateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostSensorProfileUpdateRequestWithBody generates requests for PostSensorProfileUpdate with any type of body
+func NewPostSensorProfileUpdateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensor-profile/update")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewPostSensorsCreateRequest calls the generic PostSensorsCreate builder with application/json body
+func NewPostSensorsCreateRequest(server string, body PostSensorsCreateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostSensorsCreateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostSensorsCreateRequestWithBody generates requests for PostSensorsCreate with any type of body
+func NewPostSensorsCreateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensors/create")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDeleteSensorsDeleteRequest generates requests for DeleteSensorsDelete
+func NewDeleteSensorsDeleteRequest(server string, params *DeleteSensorsDeleteParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensors/delete")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSensorsGetRequest generates requests for GetSensorsGet
+func NewGetSensorsGetRequest(server string, params *GetSensorsGetParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensors/get")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSensorsListRequest generates requests for GetSensorsList
+func NewGetSensorsListRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensors/list")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewPostSensorsUpdateRequest calls the generic PostSensorsUpdate builder with application/json body
+func NewPostSensorsUpdateRequest(server string, body PostSensorsUpdateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostSensorsUpdateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostSensorsUpdateRequestWithBody generates requests for PostSensorsUpdate with any type of body
+func NewPostSensorsUpdateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sensors/update")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewPostStoreCreateRequest calls the generic PostStoreCreate builder with application/json body
 func NewPostStoreCreateRequest(server string, body PostStoreCreateJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -5435,6 +7660,283 @@ func NewPostStoreUpdateRequestWithBody(server string, contentType string, body i
 	}
 
 	operationPath := fmt.Sprintf("/store/update")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewPostSwarmDevicesAddRequest calls the generic PostSwarmDevicesAdd builder with application/json body
+func NewPostSwarmDevicesAddRequest(server string, body PostSwarmDevicesAddJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostSwarmDevicesAddRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostSwarmDevicesAddRequestWithBody generates requests for PostSwarmDevicesAdd with any type of body
+func NewPostSwarmDevicesAddRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/swarm-devices/add")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewPostSwarmDevicesRemoveRequest calls the generic PostSwarmDevicesRemove builder with application/json body
+func NewPostSwarmDevicesRemoveRequest(server string, body PostSwarmDevicesRemoveJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostSwarmDevicesRemoveRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostSwarmDevicesRemoveRequestWithBody generates requests for PostSwarmDevicesRemove with any type of body
+func NewPostSwarmDevicesRemoveRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/swarm-devices/remove")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewPostSwarmsCreateRequest calls the generic PostSwarmsCreate builder with application/json body
+func NewPostSwarmsCreateRequest(server string, body PostSwarmsCreateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostSwarmsCreateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostSwarmsCreateRequestWithBody generates requests for PostSwarmsCreate with any type of body
+func NewPostSwarmsCreateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/swarms/create")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDeleteSwarmsDeleteRequest generates requests for DeleteSwarmsDelete
+func NewDeleteSwarmsDeleteRequest(server string, params *DeleteSwarmsDeleteParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/swarms/delete")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSwarmsGetRequest generates requests for GetSwarmsGet
+func NewGetSwarmsGetRequest(server string, params *GetSwarmsGetParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/swarms/get")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "id", runtime.ParamLocationQuery, params.Id); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSwarmsListRequest generates requests for GetSwarmsList
+func NewGetSwarmsListRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/swarms/list")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewPostSwarmsUpdateRequest calls the generic PostSwarmsUpdate builder with application/json body
+func NewPostSwarmsUpdateRequest(server string, body PostSwarmsUpdateJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPostSwarmsUpdateRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPostSwarmsUpdateRequestWithBody generates requests for PostSwarmsUpdate with any type of body
+func NewPostSwarmsUpdateRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/swarms/update")
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -5694,6 +8196,25 @@ func WithBaseURL(baseURL string) ClientOption {
 
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
+	// PostAgentsCreateWithBodyWithResponse request with any body
+	PostAgentsCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostAgentsCreateResponse, error)
+
+	PostAgentsCreateWithResponse(ctx context.Context, body PostAgentsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostAgentsCreateResponse, error)
+
+	// DeleteAgentsDeleteWithResponse request
+	DeleteAgentsDeleteWithResponse(ctx context.Context, params *DeleteAgentsDeleteParams, reqEditors ...RequestEditorFn) (*DeleteAgentsDeleteResponse, error)
+
+	// GetAgentsGetWithResponse request
+	GetAgentsGetWithResponse(ctx context.Context, params *GetAgentsGetParams, reqEditors ...RequestEditorFn) (*GetAgentsGetResponse, error)
+
+	// GetAgentsListWithResponse request
+	GetAgentsListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetAgentsListResponse, error)
+
+	// PostAgentsUpdateWithBodyWithResponse request with any body
+	PostAgentsUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostAgentsUpdateResponse, error)
+
+	PostAgentsUpdateWithResponse(ctx context.Context, body PostAgentsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostAgentsUpdateResponse, error)
+
 	// PostBasisCreateWithBodyWithResponse request with any body
 	PostBasisCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostBasisCreateResponse, error)
 
@@ -5717,6 +8238,44 @@ type ClientWithResponsesInterface interface {
 	PostBasisUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostBasisUpdateResponse, error)
 
 	PostBasisUpdateWithResponse(ctx context.Context, body PostBasisUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostBasisUpdateResponse, error)
+
+	// PostDroneProfileCreateWithBodyWithResponse request with any body
+	PostDroneProfileCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostDroneProfileCreateResponse, error)
+
+	PostDroneProfileCreateWithResponse(ctx context.Context, body PostDroneProfileCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostDroneProfileCreateResponse, error)
+
+	// DeleteDroneProfileDeleteWithResponse request
+	DeleteDroneProfileDeleteWithResponse(ctx context.Context, params *DeleteDroneProfileDeleteParams, reqEditors ...RequestEditorFn) (*DeleteDroneProfileDeleteResponse, error)
+
+	// GetDroneProfileGetWithResponse request
+	GetDroneProfileGetWithResponse(ctx context.Context, params *GetDroneProfileGetParams, reqEditors ...RequestEditorFn) (*GetDroneProfileGetResponse, error)
+
+	// GetDroneProfileListWithResponse request
+	GetDroneProfileListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetDroneProfileListResponse, error)
+
+	// PostDroneProfileUpdateWithBodyWithResponse request with any body
+	PostDroneProfileUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostDroneProfileUpdateResponse, error)
+
+	PostDroneProfileUpdateWithResponse(ctx context.Context, body PostDroneProfileUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostDroneProfileUpdateResponse, error)
+
+	// PostDronesCreateWithBodyWithResponse request with any body
+	PostDronesCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostDronesCreateResponse, error)
+
+	PostDronesCreateWithResponse(ctx context.Context, body PostDronesCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostDronesCreateResponse, error)
+
+	// DeleteDronesDeleteWithResponse request
+	DeleteDronesDeleteWithResponse(ctx context.Context, params *DeleteDronesDeleteParams, reqEditors ...RequestEditorFn) (*DeleteDronesDeleteResponse, error)
+
+	// GetDronesGetWithResponse request
+	GetDronesGetWithResponse(ctx context.Context, params *GetDronesGetParams, reqEditors ...RequestEditorFn) (*GetDronesGetResponse, error)
+
+	// GetDronesListWithResponse request
+	GetDronesListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetDronesListResponse, error)
+
+	// PostDronesUpdateWithBodyWithResponse request with any body
+	PostDronesUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostDronesUpdateResponse, error)
+
+	PostDronesUpdateWithResponse(ctx context.Context, body PostDronesUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostDronesUpdateResponse, error)
 
 	// PostEngineCreateWithBodyWithResponse request with any body
 	PostEngineCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostEngineCreateResponse, error)
@@ -5851,6 +8410,9 @@ type ClientWithResponsesInterface interface {
 
 	PostIamUserUpdateWithResponse(ctx context.Context, body PostIamUserUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostIamUserUpdateResponse, error)
 
+	// GetPipelineDagWithResponse request
+	GetPipelineDagWithResponse(ctx context.Context, params *GetPipelineDagParams, reqEditors ...RequestEditorFn) (*GetPipelineDagResponse, error)
+
 	// PostPipelineDagCreateWithBodyWithResponse request with any body
 	PostPipelineDagCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostPipelineDagCreateResponse, error)
 
@@ -5861,13 +8423,13 @@ type ClientWithResponsesInterface interface {
 
 	DeletePipelineDagDeleteWithResponse(ctx context.Context, body DeletePipelineDagDeleteJSONRequestBody, reqEditors ...RequestEditorFn) (*DeletePipelineDagDeleteResponse, error)
 
-	// GetPipelineDagGetWithResponse request
-	GetPipelineDagGetWithResponse(ctx context.Context, params *GetPipelineDagGetParams, reqEditors ...RequestEditorFn) (*GetPipelineDagGetResponse, error)
-
 	// PostPipelineDagUpdateWithBodyWithResponse request with any body
 	PostPipelineDagUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostPipelineDagUpdateResponse, error)
 
 	PostPipelineDagUpdateWithResponse(ctx context.Context, body PostPipelineDagUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostPipelineDagUpdateResponse, error)
+
+	// GetPipelineNodesWithResponse request
+	GetPipelineNodesWithResponse(ctx context.Context, params *GetPipelineNodesParams, reqEditors ...RequestEditorFn) (*GetPipelineNodesResponse, error)
 
 	// PostPipelineNodesCreateWithBodyWithResponse request with any body
 	PostPipelineNodesCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostPipelineNodesCreateResponse, error)
@@ -5879,11 +8441,8 @@ type ClientWithResponsesInterface interface {
 
 	DeletePipelineNodesDeleteWithResponse(ctx context.Context, body DeletePipelineNodesDeleteJSONRequestBody, reqEditors ...RequestEditorFn) (*DeletePipelineNodesDeleteResponse, error)
 
-	// GetPipelineNodesGetWithResponse request
-	GetPipelineNodesGetWithResponse(ctx context.Context, params *GetPipelineNodesGetParams, reqEditors ...RequestEditorFn) (*GetPipelineNodesGetResponse, error)
-
-	// GetPipelineNodesGetOneWithResponse request
-	GetPipelineNodesGetOneWithResponse(ctx context.Context, params *GetPipelineNodesGetOneParams, reqEditors ...RequestEditorFn) (*GetPipelineNodesGetOneResponse, error)
+	// GetPipelineNodesOneWithResponse request
+	GetPipelineNodesOneWithResponse(ctx context.Context, params *GetPipelineNodesOneParams, reqEditors ...RequestEditorFn) (*GetPipelineNodesOneResponse, error)
 
 	// PostPipelineNodesUpdateWithBodyWithResponse request with any body
 	PostPipelineNodesUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostPipelineNodesUpdateResponse, error)
@@ -5915,6 +8474,44 @@ type ClientWithResponsesInterface interface {
 
 	PostPipelineUpdateWithResponse(ctx context.Context, body PostPipelineUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostPipelineUpdateResponse, error)
 
+	// PostSensorProfileCreateWithBodyWithResponse request with any body
+	PostSensorProfileCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSensorProfileCreateResponse, error)
+
+	PostSensorProfileCreateWithResponse(ctx context.Context, body PostSensorProfileCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSensorProfileCreateResponse, error)
+
+	// DeleteSensorProfileDeleteWithResponse request
+	DeleteSensorProfileDeleteWithResponse(ctx context.Context, params *DeleteSensorProfileDeleteParams, reqEditors ...RequestEditorFn) (*DeleteSensorProfileDeleteResponse, error)
+
+	// GetSensorProfileGetWithResponse request
+	GetSensorProfileGetWithResponse(ctx context.Context, params *GetSensorProfileGetParams, reqEditors ...RequestEditorFn) (*GetSensorProfileGetResponse, error)
+
+	// GetSensorProfileListWithResponse request
+	GetSensorProfileListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetSensorProfileListResponse, error)
+
+	// PostSensorProfileUpdateWithBodyWithResponse request with any body
+	PostSensorProfileUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSensorProfileUpdateResponse, error)
+
+	PostSensorProfileUpdateWithResponse(ctx context.Context, body PostSensorProfileUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSensorProfileUpdateResponse, error)
+
+	// PostSensorsCreateWithBodyWithResponse request with any body
+	PostSensorsCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSensorsCreateResponse, error)
+
+	PostSensorsCreateWithResponse(ctx context.Context, body PostSensorsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSensorsCreateResponse, error)
+
+	// DeleteSensorsDeleteWithResponse request
+	DeleteSensorsDeleteWithResponse(ctx context.Context, params *DeleteSensorsDeleteParams, reqEditors ...RequestEditorFn) (*DeleteSensorsDeleteResponse, error)
+
+	// GetSensorsGetWithResponse request
+	GetSensorsGetWithResponse(ctx context.Context, params *GetSensorsGetParams, reqEditors ...RequestEditorFn) (*GetSensorsGetResponse, error)
+
+	// GetSensorsListWithResponse request
+	GetSensorsListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetSensorsListResponse, error)
+
+	// PostSensorsUpdateWithBodyWithResponse request with any body
+	PostSensorsUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSensorsUpdateResponse, error)
+
+	PostSensorsUpdateWithResponse(ctx context.Context, body PostSensorsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSensorsUpdateResponse, error)
+
 	// PostStoreCreateWithBodyWithResponse request with any body
 	PostStoreCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostStoreCreateResponse, error)
 
@@ -5934,6 +8531,35 @@ type ClientWithResponsesInterface interface {
 
 	PostStoreUpdateWithResponse(ctx context.Context, body PostStoreUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostStoreUpdateResponse, error)
 
+	// PostSwarmDevicesAddWithBodyWithResponse request with any body
+	PostSwarmDevicesAddWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSwarmDevicesAddResponse, error)
+
+	PostSwarmDevicesAddWithResponse(ctx context.Context, body PostSwarmDevicesAddJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSwarmDevicesAddResponse, error)
+
+	// PostSwarmDevicesRemoveWithBodyWithResponse request with any body
+	PostSwarmDevicesRemoveWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSwarmDevicesRemoveResponse, error)
+
+	PostSwarmDevicesRemoveWithResponse(ctx context.Context, body PostSwarmDevicesRemoveJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSwarmDevicesRemoveResponse, error)
+
+	// PostSwarmsCreateWithBodyWithResponse request with any body
+	PostSwarmsCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSwarmsCreateResponse, error)
+
+	PostSwarmsCreateWithResponse(ctx context.Context, body PostSwarmsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSwarmsCreateResponse, error)
+
+	// DeleteSwarmsDeleteWithResponse request
+	DeleteSwarmsDeleteWithResponse(ctx context.Context, params *DeleteSwarmsDeleteParams, reqEditors ...RequestEditorFn) (*DeleteSwarmsDeleteResponse, error)
+
+	// GetSwarmsGetWithResponse request
+	GetSwarmsGetWithResponse(ctx context.Context, params *GetSwarmsGetParams, reqEditors ...RequestEditorFn) (*GetSwarmsGetResponse, error)
+
+	// GetSwarmsListWithResponse request
+	GetSwarmsListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetSwarmsListResponse, error)
+
+	// PostSwarmsUpdateWithBodyWithResponse request with any body
+	PostSwarmsUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSwarmsUpdateResponse, error)
+
+	PostSwarmsUpdateWithResponse(ctx context.Context, body PostSwarmsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSwarmsUpdateResponse, error)
+
 	// PostTriggersCreateWithBodyWithResponse request with any body
 	PostTriggersCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostTriggersCreateResponse, error)
 
@@ -5952,6 +8578,116 @@ type ClientWithResponsesInterface interface {
 	PostTriggersUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostTriggersUpdateResponse, error)
 
 	PostTriggersUpdateWithResponse(ctx context.Context, body PostTriggersUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostTriggersUpdateResponse, error)
+}
+
+type PostAgentsCreateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostAgentsCreateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostAgentsCreateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type DeleteAgentsDeleteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteAgentsDeleteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteAgentsDeleteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetAgentsGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EntAgent
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAgentsGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAgentsGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetAgentsListResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *[]EntAgent
+}
+
+// Status returns HTTPResponse.Status
+func (r GetAgentsListResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetAgentsListResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostAgentsUpdateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostAgentsUpdateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostAgentsUpdateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
 }
 
 type PostBasisCreateResponse struct {
@@ -6078,6 +8814,226 @@ func (r PostBasisUpdateResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r PostBasisUpdateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostDroneProfileCreateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostDroneProfileCreateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostDroneProfileCreateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type DeleteDroneProfileDeleteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteDroneProfileDeleteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteDroneProfileDeleteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetDroneProfileGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EntDroneProfile
+}
+
+// Status returns HTTPResponse.Status
+func (r GetDroneProfileGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetDroneProfileGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetDroneProfileListResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *[]EntDroneProfile
+}
+
+// Status returns HTTPResponse.Status
+func (r GetDroneProfileListResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetDroneProfileListResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostDroneProfileUpdateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostDroneProfileUpdateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostDroneProfileUpdateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostDronesCreateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostDronesCreateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostDronesCreateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type DeleteDronesDeleteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteDronesDeleteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteDronesDeleteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetDronesGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EntDrone
+}
+
+// Status returns HTTPResponse.Status
+func (r GetDronesGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetDronesGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetDronesListResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *[]EntDrone
+}
+
+// Status returns HTTPResponse.Status
+func (r GetDronesListResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetDronesListResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostDronesUpdateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostDronesUpdateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostDronesUpdateResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -6873,6 +9829,28 @@ func (r PostIamUserUpdateResponse) StatusCode() int {
 	return 0
 }
 
+type GetPipelineDagResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ModelPipelineDag
+}
+
+// Status returns HTTPResponse.Status
+func (r GetPipelineDagResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetPipelineDagResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type PostPipelineDagCreateResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -6916,28 +9894,6 @@ func (r DeletePipelineDagDeleteResponse) StatusCode() int {
 	return 0
 }
 
-type GetPipelineDagGetResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ModelPipelineDag
-}
-
-// Status returns HTTPResponse.Status
-func (r GetPipelineDagGetResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetPipelineDagGetResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
 type PostPipelineDagUpdateResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -6954,6 +9910,28 @@ func (r PostPipelineDagUpdateResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r PostPipelineDagUpdateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetPipelineNodesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ModelPipelineNodes
+}
+
+// Status returns HTTPResponse.Status
+func (r GetPipelineNodesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetPipelineNodesResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -7003,29 +9981,7 @@ func (r DeletePipelineNodesDeleteResponse) StatusCode() int {
 	return 0
 }
 
-type GetPipelineNodesGetResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *ModelPipelineNodes
-}
-
-// Status returns HTTPResponse.Status
-func (r GetPipelineNodesGetResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetPipelineNodesGetResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type GetPipelineNodesGetOneResponse struct {
+type GetPipelineNodesOneResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	JSON200      *ModelPipelineNodes
@@ -7034,7 +9990,7 @@ type GetPipelineNodesGetOneResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r GetPipelineNodesGetOneResponse) Status() string {
+func (r GetPipelineNodesOneResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -7042,7 +9998,7 @@ func (r GetPipelineNodesGetOneResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetPipelineNodesGetOneResponse) StatusCode() int {
+func (r GetPipelineNodesOneResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -7221,6 +10177,226 @@ func (r PostPipelineUpdateResponse) StatusCode() int {
 	return 0
 }
 
+type PostSensorProfileCreateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostSensorProfileCreateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostSensorProfileCreateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type DeleteSensorProfileDeleteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteSensorProfileDeleteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteSensorProfileDeleteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetSensorProfileGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EntSensorProfile
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSensorProfileGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSensorProfileGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetSensorProfileListResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *[]EntSensorProfile
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSensorProfileListResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSensorProfileListResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostSensorProfileUpdateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostSensorProfileUpdateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostSensorProfileUpdateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostSensorsCreateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostSensorsCreateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostSensorsCreateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type DeleteSensorsDeleteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteSensorsDeleteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteSensorsDeleteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetSensorsGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EntSensor
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSensorsGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSensorsGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetSensorsListResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *[]EntSensor
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSensorsListResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSensorsListResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostSensorsUpdateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostSensorsUpdateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostSensorsUpdateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type PostStoreCreateResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -7328,10 +10504,164 @@ func (r PostStoreUpdateResponse) StatusCode() int {
 	return 0
 }
 
+type PostSwarmDevicesAddResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostSwarmDevicesAddResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostSwarmDevicesAddResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostSwarmDevicesRemoveResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostSwarmDevicesRemoveResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostSwarmDevicesRemoveResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostSwarmsCreateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostSwarmsCreateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostSwarmsCreateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type DeleteSwarmsDeleteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteSwarmsDeleteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteSwarmsDeleteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetSwarmsGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *EntSwarm
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSwarmsGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSwarmsGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type GetSwarmsListResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *[]EntSwarm
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSwarmsListResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSwarmsListResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PostSwarmsUpdateResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *ApiRespID
+}
+
+// Status returns HTTPResponse.Status
+func (r PostSwarmsUpdateResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PostSwarmsUpdateResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type PostTriggersCreateResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *GinH
+	JSON200      *ApiRespID
 }
 
 // Status returns HTTPResponse.Status
@@ -7353,7 +10683,7 @@ func (r PostTriggersCreateResponse) StatusCode() int {
 type DeleteTriggersDeleteResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *GinH
+	JSON200      *ApiRespID
 }
 
 // Status returns HTTPResponse.Status
@@ -7375,7 +10705,7 @@ func (r DeleteTriggersDeleteResponse) StatusCode() int {
 type GetTriggersGetResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *EntTriggers
+	JSON200      *[]EntTrigger
 }
 
 // Status returns HTTPResponse.Status
@@ -7397,7 +10727,7 @@ func (r GetTriggersGetResponse) StatusCode() int {
 type GetTriggersListResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *[]EntTriggers
+	JSON200      *[][]EntTrigger
 }
 
 // Status returns HTTPResponse.Status
@@ -7419,7 +10749,7 @@ func (r GetTriggersListResponse) StatusCode() int {
 type PostTriggersUpdateResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
-	JSON200      *GinH
+	JSON200      *ApiRespID
 }
 
 // Status returns HTTPResponse.Status
@@ -7436,6 +10766,67 @@ func (r PostTriggersUpdateResponse) StatusCode() int {
 		return r.HTTPResponse.StatusCode
 	}
 	return 0
+}
+
+// PostAgentsCreateWithBodyWithResponse request with arbitrary body returning *PostAgentsCreateResponse
+func (c *ClientWithResponses) PostAgentsCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostAgentsCreateResponse, error) {
+	rsp, err := c.PostAgentsCreateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostAgentsCreateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostAgentsCreateWithResponse(ctx context.Context, body PostAgentsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostAgentsCreateResponse, error) {
+	rsp, err := c.PostAgentsCreate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostAgentsCreateResponse(rsp)
+}
+
+// DeleteAgentsDeleteWithResponse request returning *DeleteAgentsDeleteResponse
+func (c *ClientWithResponses) DeleteAgentsDeleteWithResponse(ctx context.Context, params *DeleteAgentsDeleteParams, reqEditors ...RequestEditorFn) (*DeleteAgentsDeleteResponse, error) {
+	rsp, err := c.DeleteAgentsDelete(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteAgentsDeleteResponse(rsp)
+}
+
+// GetAgentsGetWithResponse request returning *GetAgentsGetResponse
+func (c *ClientWithResponses) GetAgentsGetWithResponse(ctx context.Context, params *GetAgentsGetParams, reqEditors ...RequestEditorFn) (*GetAgentsGetResponse, error) {
+	rsp, err := c.GetAgentsGet(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAgentsGetResponse(rsp)
+}
+
+// GetAgentsListWithResponse request returning *GetAgentsListResponse
+func (c *ClientWithResponses) GetAgentsListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetAgentsListResponse, error) {
+	rsp, err := c.GetAgentsList(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetAgentsListResponse(rsp)
+}
+
+// PostAgentsUpdateWithBodyWithResponse request with arbitrary body returning *PostAgentsUpdateResponse
+func (c *ClientWithResponses) PostAgentsUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostAgentsUpdateResponse, error) {
+	rsp, err := c.PostAgentsUpdateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostAgentsUpdateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostAgentsUpdateWithResponse(ctx context.Context, body PostAgentsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostAgentsUpdateResponse, error) {
+	rsp, err := c.PostAgentsUpdate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostAgentsUpdateResponse(rsp)
 }
 
 // PostBasisCreateWithBodyWithResponse request with arbitrary body returning *PostBasisCreateResponse
@@ -7514,6 +10905,128 @@ func (c *ClientWithResponses) PostBasisUpdateWithResponse(ctx context.Context, b
 		return nil, err
 	}
 	return ParsePostBasisUpdateResponse(rsp)
+}
+
+// PostDroneProfileCreateWithBodyWithResponse request with arbitrary body returning *PostDroneProfileCreateResponse
+func (c *ClientWithResponses) PostDroneProfileCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostDroneProfileCreateResponse, error) {
+	rsp, err := c.PostDroneProfileCreateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostDroneProfileCreateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostDroneProfileCreateWithResponse(ctx context.Context, body PostDroneProfileCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostDroneProfileCreateResponse, error) {
+	rsp, err := c.PostDroneProfileCreate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostDroneProfileCreateResponse(rsp)
+}
+
+// DeleteDroneProfileDeleteWithResponse request returning *DeleteDroneProfileDeleteResponse
+func (c *ClientWithResponses) DeleteDroneProfileDeleteWithResponse(ctx context.Context, params *DeleteDroneProfileDeleteParams, reqEditors ...RequestEditorFn) (*DeleteDroneProfileDeleteResponse, error) {
+	rsp, err := c.DeleteDroneProfileDelete(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteDroneProfileDeleteResponse(rsp)
+}
+
+// GetDroneProfileGetWithResponse request returning *GetDroneProfileGetResponse
+func (c *ClientWithResponses) GetDroneProfileGetWithResponse(ctx context.Context, params *GetDroneProfileGetParams, reqEditors ...RequestEditorFn) (*GetDroneProfileGetResponse, error) {
+	rsp, err := c.GetDroneProfileGet(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetDroneProfileGetResponse(rsp)
+}
+
+// GetDroneProfileListWithResponse request returning *GetDroneProfileListResponse
+func (c *ClientWithResponses) GetDroneProfileListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetDroneProfileListResponse, error) {
+	rsp, err := c.GetDroneProfileList(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetDroneProfileListResponse(rsp)
+}
+
+// PostDroneProfileUpdateWithBodyWithResponse request with arbitrary body returning *PostDroneProfileUpdateResponse
+func (c *ClientWithResponses) PostDroneProfileUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostDroneProfileUpdateResponse, error) {
+	rsp, err := c.PostDroneProfileUpdateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostDroneProfileUpdateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostDroneProfileUpdateWithResponse(ctx context.Context, body PostDroneProfileUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostDroneProfileUpdateResponse, error) {
+	rsp, err := c.PostDroneProfileUpdate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostDroneProfileUpdateResponse(rsp)
+}
+
+// PostDronesCreateWithBodyWithResponse request with arbitrary body returning *PostDronesCreateResponse
+func (c *ClientWithResponses) PostDronesCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostDronesCreateResponse, error) {
+	rsp, err := c.PostDronesCreateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostDronesCreateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostDronesCreateWithResponse(ctx context.Context, body PostDronesCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostDronesCreateResponse, error) {
+	rsp, err := c.PostDronesCreate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostDronesCreateResponse(rsp)
+}
+
+// DeleteDronesDeleteWithResponse request returning *DeleteDronesDeleteResponse
+func (c *ClientWithResponses) DeleteDronesDeleteWithResponse(ctx context.Context, params *DeleteDronesDeleteParams, reqEditors ...RequestEditorFn) (*DeleteDronesDeleteResponse, error) {
+	rsp, err := c.DeleteDronesDelete(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteDronesDeleteResponse(rsp)
+}
+
+// GetDronesGetWithResponse request returning *GetDronesGetResponse
+func (c *ClientWithResponses) GetDronesGetWithResponse(ctx context.Context, params *GetDronesGetParams, reqEditors ...RequestEditorFn) (*GetDronesGetResponse, error) {
+	rsp, err := c.GetDronesGet(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetDronesGetResponse(rsp)
+}
+
+// GetDronesListWithResponse request returning *GetDronesListResponse
+func (c *ClientWithResponses) GetDronesListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetDronesListResponse, error) {
+	rsp, err := c.GetDronesList(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetDronesListResponse(rsp)
+}
+
+// PostDronesUpdateWithBodyWithResponse request with arbitrary body returning *PostDronesUpdateResponse
+func (c *ClientWithResponses) PostDronesUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostDronesUpdateResponse, error) {
+	rsp, err := c.PostDronesUpdateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostDronesUpdateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostDronesUpdateWithResponse(ctx context.Context, body PostDronesUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostDronesUpdateResponse, error) {
+	rsp, err := c.PostDronesUpdate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostDronesUpdateResponse(rsp)
 }
 
 // PostEngineCreateWithBodyWithResponse request with arbitrary body returning *PostEngineCreateResponse
@@ -7937,6 +11450,15 @@ func (c *ClientWithResponses) PostIamUserUpdateWithResponse(ctx context.Context,
 	return ParsePostIamUserUpdateResponse(rsp)
 }
 
+// GetPipelineDagWithResponse request returning *GetPipelineDagResponse
+func (c *ClientWithResponses) GetPipelineDagWithResponse(ctx context.Context, params *GetPipelineDagParams, reqEditors ...RequestEditorFn) (*GetPipelineDagResponse, error) {
+	rsp, err := c.GetPipelineDag(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetPipelineDagResponse(rsp)
+}
+
 // PostPipelineDagCreateWithBodyWithResponse request with arbitrary body returning *PostPipelineDagCreateResponse
 func (c *ClientWithResponses) PostPipelineDagCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostPipelineDagCreateResponse, error) {
 	rsp, err := c.PostPipelineDagCreateWithBody(ctx, contentType, body, reqEditors...)
@@ -7971,15 +11493,6 @@ func (c *ClientWithResponses) DeletePipelineDagDeleteWithResponse(ctx context.Co
 	return ParseDeletePipelineDagDeleteResponse(rsp)
 }
 
-// GetPipelineDagGetWithResponse request returning *GetPipelineDagGetResponse
-func (c *ClientWithResponses) GetPipelineDagGetWithResponse(ctx context.Context, params *GetPipelineDagGetParams, reqEditors ...RequestEditorFn) (*GetPipelineDagGetResponse, error) {
-	rsp, err := c.GetPipelineDagGet(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetPipelineDagGetResponse(rsp)
-}
-
 // PostPipelineDagUpdateWithBodyWithResponse request with arbitrary body returning *PostPipelineDagUpdateResponse
 func (c *ClientWithResponses) PostPipelineDagUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostPipelineDagUpdateResponse, error) {
 	rsp, err := c.PostPipelineDagUpdateWithBody(ctx, contentType, body, reqEditors...)
@@ -7995,6 +11508,15 @@ func (c *ClientWithResponses) PostPipelineDagUpdateWithResponse(ctx context.Cont
 		return nil, err
 	}
 	return ParsePostPipelineDagUpdateResponse(rsp)
+}
+
+// GetPipelineNodesWithResponse request returning *GetPipelineNodesResponse
+func (c *ClientWithResponses) GetPipelineNodesWithResponse(ctx context.Context, params *GetPipelineNodesParams, reqEditors ...RequestEditorFn) (*GetPipelineNodesResponse, error) {
+	rsp, err := c.GetPipelineNodes(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetPipelineNodesResponse(rsp)
 }
 
 // PostPipelineNodesCreateWithBodyWithResponse request with arbitrary body returning *PostPipelineNodesCreateResponse
@@ -8031,22 +11553,13 @@ func (c *ClientWithResponses) DeletePipelineNodesDeleteWithResponse(ctx context.
 	return ParseDeletePipelineNodesDeleteResponse(rsp)
 }
 
-// GetPipelineNodesGetWithResponse request returning *GetPipelineNodesGetResponse
-func (c *ClientWithResponses) GetPipelineNodesGetWithResponse(ctx context.Context, params *GetPipelineNodesGetParams, reqEditors ...RequestEditorFn) (*GetPipelineNodesGetResponse, error) {
-	rsp, err := c.GetPipelineNodesGet(ctx, params, reqEditors...)
+// GetPipelineNodesOneWithResponse request returning *GetPipelineNodesOneResponse
+func (c *ClientWithResponses) GetPipelineNodesOneWithResponse(ctx context.Context, params *GetPipelineNodesOneParams, reqEditors ...RequestEditorFn) (*GetPipelineNodesOneResponse, error) {
+	rsp, err := c.GetPipelineNodesOne(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseGetPipelineNodesGetResponse(rsp)
-}
-
-// GetPipelineNodesGetOneWithResponse request returning *GetPipelineNodesGetOneResponse
-func (c *ClientWithResponses) GetPipelineNodesGetOneWithResponse(ctx context.Context, params *GetPipelineNodesGetOneParams, reqEditors ...RequestEditorFn) (*GetPipelineNodesGetOneResponse, error) {
-	rsp, err := c.GetPipelineNodesGetOne(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetPipelineNodesGetOneResponse(rsp)
+	return ParseGetPipelineNodesOneResponse(rsp)
 }
 
 // PostPipelineNodesUpdateWithBodyWithResponse request with arbitrary body returning *PostPipelineNodesUpdateResponse
@@ -8145,6 +11658,128 @@ func (c *ClientWithResponses) PostPipelineUpdateWithResponse(ctx context.Context
 	return ParsePostPipelineUpdateResponse(rsp)
 }
 
+// PostSensorProfileCreateWithBodyWithResponse request with arbitrary body returning *PostSensorProfileCreateResponse
+func (c *ClientWithResponses) PostSensorProfileCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSensorProfileCreateResponse, error) {
+	rsp, err := c.PostSensorProfileCreateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSensorProfileCreateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostSensorProfileCreateWithResponse(ctx context.Context, body PostSensorProfileCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSensorProfileCreateResponse, error) {
+	rsp, err := c.PostSensorProfileCreate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSensorProfileCreateResponse(rsp)
+}
+
+// DeleteSensorProfileDeleteWithResponse request returning *DeleteSensorProfileDeleteResponse
+func (c *ClientWithResponses) DeleteSensorProfileDeleteWithResponse(ctx context.Context, params *DeleteSensorProfileDeleteParams, reqEditors ...RequestEditorFn) (*DeleteSensorProfileDeleteResponse, error) {
+	rsp, err := c.DeleteSensorProfileDelete(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteSensorProfileDeleteResponse(rsp)
+}
+
+// GetSensorProfileGetWithResponse request returning *GetSensorProfileGetResponse
+func (c *ClientWithResponses) GetSensorProfileGetWithResponse(ctx context.Context, params *GetSensorProfileGetParams, reqEditors ...RequestEditorFn) (*GetSensorProfileGetResponse, error) {
+	rsp, err := c.GetSensorProfileGet(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSensorProfileGetResponse(rsp)
+}
+
+// GetSensorProfileListWithResponse request returning *GetSensorProfileListResponse
+func (c *ClientWithResponses) GetSensorProfileListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetSensorProfileListResponse, error) {
+	rsp, err := c.GetSensorProfileList(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSensorProfileListResponse(rsp)
+}
+
+// PostSensorProfileUpdateWithBodyWithResponse request with arbitrary body returning *PostSensorProfileUpdateResponse
+func (c *ClientWithResponses) PostSensorProfileUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSensorProfileUpdateResponse, error) {
+	rsp, err := c.PostSensorProfileUpdateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSensorProfileUpdateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostSensorProfileUpdateWithResponse(ctx context.Context, body PostSensorProfileUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSensorProfileUpdateResponse, error) {
+	rsp, err := c.PostSensorProfileUpdate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSensorProfileUpdateResponse(rsp)
+}
+
+// PostSensorsCreateWithBodyWithResponse request with arbitrary body returning *PostSensorsCreateResponse
+func (c *ClientWithResponses) PostSensorsCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSensorsCreateResponse, error) {
+	rsp, err := c.PostSensorsCreateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSensorsCreateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostSensorsCreateWithResponse(ctx context.Context, body PostSensorsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSensorsCreateResponse, error) {
+	rsp, err := c.PostSensorsCreate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSensorsCreateResponse(rsp)
+}
+
+// DeleteSensorsDeleteWithResponse request returning *DeleteSensorsDeleteResponse
+func (c *ClientWithResponses) DeleteSensorsDeleteWithResponse(ctx context.Context, params *DeleteSensorsDeleteParams, reqEditors ...RequestEditorFn) (*DeleteSensorsDeleteResponse, error) {
+	rsp, err := c.DeleteSensorsDelete(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteSensorsDeleteResponse(rsp)
+}
+
+// GetSensorsGetWithResponse request returning *GetSensorsGetResponse
+func (c *ClientWithResponses) GetSensorsGetWithResponse(ctx context.Context, params *GetSensorsGetParams, reqEditors ...RequestEditorFn) (*GetSensorsGetResponse, error) {
+	rsp, err := c.GetSensorsGet(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSensorsGetResponse(rsp)
+}
+
+// GetSensorsListWithResponse request returning *GetSensorsListResponse
+func (c *ClientWithResponses) GetSensorsListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetSensorsListResponse, error) {
+	rsp, err := c.GetSensorsList(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSensorsListResponse(rsp)
+}
+
+// PostSensorsUpdateWithBodyWithResponse request with arbitrary body returning *PostSensorsUpdateResponse
+func (c *ClientWithResponses) PostSensorsUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSensorsUpdateResponse, error) {
+	rsp, err := c.PostSensorsUpdateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSensorsUpdateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostSensorsUpdateWithResponse(ctx context.Context, body PostSensorsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSensorsUpdateResponse, error) {
+	rsp, err := c.PostSensorsUpdate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSensorsUpdateResponse(rsp)
+}
+
 // PostStoreCreateWithBodyWithResponse request with arbitrary body returning *PostStoreCreateResponse
 func (c *ClientWithResponses) PostStoreCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostStoreCreateResponse, error) {
 	rsp, err := c.PostStoreCreateWithBody(ctx, contentType, body, reqEditors...)
@@ -8206,6 +11841,101 @@ func (c *ClientWithResponses) PostStoreUpdateWithResponse(ctx context.Context, b
 	return ParsePostStoreUpdateResponse(rsp)
 }
 
+// PostSwarmDevicesAddWithBodyWithResponse request with arbitrary body returning *PostSwarmDevicesAddResponse
+func (c *ClientWithResponses) PostSwarmDevicesAddWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSwarmDevicesAddResponse, error) {
+	rsp, err := c.PostSwarmDevicesAddWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSwarmDevicesAddResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostSwarmDevicesAddWithResponse(ctx context.Context, body PostSwarmDevicesAddJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSwarmDevicesAddResponse, error) {
+	rsp, err := c.PostSwarmDevicesAdd(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSwarmDevicesAddResponse(rsp)
+}
+
+// PostSwarmDevicesRemoveWithBodyWithResponse request with arbitrary body returning *PostSwarmDevicesRemoveResponse
+func (c *ClientWithResponses) PostSwarmDevicesRemoveWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSwarmDevicesRemoveResponse, error) {
+	rsp, err := c.PostSwarmDevicesRemoveWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSwarmDevicesRemoveResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostSwarmDevicesRemoveWithResponse(ctx context.Context, body PostSwarmDevicesRemoveJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSwarmDevicesRemoveResponse, error) {
+	rsp, err := c.PostSwarmDevicesRemove(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSwarmDevicesRemoveResponse(rsp)
+}
+
+// PostSwarmsCreateWithBodyWithResponse request with arbitrary body returning *PostSwarmsCreateResponse
+func (c *ClientWithResponses) PostSwarmsCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSwarmsCreateResponse, error) {
+	rsp, err := c.PostSwarmsCreateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSwarmsCreateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostSwarmsCreateWithResponse(ctx context.Context, body PostSwarmsCreateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSwarmsCreateResponse, error) {
+	rsp, err := c.PostSwarmsCreate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSwarmsCreateResponse(rsp)
+}
+
+// DeleteSwarmsDeleteWithResponse request returning *DeleteSwarmsDeleteResponse
+func (c *ClientWithResponses) DeleteSwarmsDeleteWithResponse(ctx context.Context, params *DeleteSwarmsDeleteParams, reqEditors ...RequestEditorFn) (*DeleteSwarmsDeleteResponse, error) {
+	rsp, err := c.DeleteSwarmsDelete(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteSwarmsDeleteResponse(rsp)
+}
+
+// GetSwarmsGetWithResponse request returning *GetSwarmsGetResponse
+func (c *ClientWithResponses) GetSwarmsGetWithResponse(ctx context.Context, params *GetSwarmsGetParams, reqEditors ...RequestEditorFn) (*GetSwarmsGetResponse, error) {
+	rsp, err := c.GetSwarmsGet(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSwarmsGetResponse(rsp)
+}
+
+// GetSwarmsListWithResponse request returning *GetSwarmsListResponse
+func (c *ClientWithResponses) GetSwarmsListWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetSwarmsListResponse, error) {
+	rsp, err := c.GetSwarmsList(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSwarmsListResponse(rsp)
+}
+
+// PostSwarmsUpdateWithBodyWithResponse request with arbitrary body returning *PostSwarmsUpdateResponse
+func (c *ClientWithResponses) PostSwarmsUpdateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostSwarmsUpdateResponse, error) {
+	rsp, err := c.PostSwarmsUpdateWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSwarmsUpdateResponse(rsp)
+}
+
+func (c *ClientWithResponses) PostSwarmsUpdateWithResponse(ctx context.Context, body PostSwarmsUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*PostSwarmsUpdateResponse, error) {
+	rsp, err := c.PostSwarmsUpdate(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePostSwarmsUpdateResponse(rsp)
+}
+
 // PostTriggersCreateWithBodyWithResponse request with arbitrary body returning *PostTriggersCreateResponse
 func (c *ClientWithResponses) PostTriggersCreateWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostTriggersCreateResponse, error) {
 	rsp, err := c.PostTriggersCreateWithBody(ctx, contentType, body, reqEditors...)
@@ -8265,6 +11995,136 @@ func (c *ClientWithResponses) PostTriggersUpdateWithResponse(ctx context.Context
 		return nil, err
 	}
 	return ParsePostTriggersUpdateResponse(rsp)
+}
+
+// ParsePostAgentsCreateResponse parses an HTTP response from a PostAgentsCreateWithResponse call
+func ParsePostAgentsCreateResponse(rsp *http.Response) (*PostAgentsCreateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostAgentsCreateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteAgentsDeleteResponse parses an HTTP response from a DeleteAgentsDeleteWithResponse call
+func ParseDeleteAgentsDeleteResponse(rsp *http.Response) (*DeleteAgentsDeleteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteAgentsDeleteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAgentsGetResponse parses an HTTP response from a GetAgentsGetWithResponse call
+func ParseGetAgentsGetResponse(rsp *http.Response) (*GetAgentsGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAgentsGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EntAgent
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetAgentsListResponse parses an HTTP response from a GetAgentsListWithResponse call
+func ParseGetAgentsListResponse(rsp *http.Response) (*GetAgentsListResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetAgentsListResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []EntAgent
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostAgentsUpdateResponse parses an HTTP response from a PostAgentsUpdateWithResponse call
+func ParsePostAgentsUpdateResponse(rsp *http.Response) (*PostAgentsUpdateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostAgentsUpdateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
 }
 
 // ParsePostBasisCreateResponse parses an HTTP response from a PostBasisCreateWithResponse call
@@ -8393,6 +12253,266 @@ func ParsePostBasisUpdateResponse(rsp *http.Response) (*PostBasisUpdateResponse,
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest EntBasis
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostDroneProfileCreateResponse parses an HTTP response from a PostDroneProfileCreateWithResponse call
+func ParsePostDroneProfileCreateResponse(rsp *http.Response) (*PostDroneProfileCreateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostDroneProfileCreateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteDroneProfileDeleteResponse parses an HTTP response from a DeleteDroneProfileDeleteWithResponse call
+func ParseDeleteDroneProfileDeleteResponse(rsp *http.Response) (*DeleteDroneProfileDeleteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteDroneProfileDeleteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetDroneProfileGetResponse parses an HTTP response from a GetDroneProfileGetWithResponse call
+func ParseGetDroneProfileGetResponse(rsp *http.Response) (*GetDroneProfileGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetDroneProfileGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EntDroneProfile
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetDroneProfileListResponse parses an HTTP response from a GetDroneProfileListWithResponse call
+func ParseGetDroneProfileListResponse(rsp *http.Response) (*GetDroneProfileListResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetDroneProfileListResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []EntDroneProfile
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostDroneProfileUpdateResponse parses an HTTP response from a PostDroneProfileUpdateWithResponse call
+func ParsePostDroneProfileUpdateResponse(rsp *http.Response) (*PostDroneProfileUpdateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostDroneProfileUpdateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostDronesCreateResponse parses an HTTP response from a PostDronesCreateWithResponse call
+func ParsePostDronesCreateResponse(rsp *http.Response) (*PostDronesCreateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostDronesCreateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteDronesDeleteResponse parses an HTTP response from a DeleteDronesDeleteWithResponse call
+func ParseDeleteDronesDeleteResponse(rsp *http.Response) (*DeleteDronesDeleteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteDronesDeleteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetDronesGetResponse parses an HTTP response from a GetDronesGetWithResponse call
+func ParseGetDronesGetResponse(rsp *http.Response) (*GetDronesGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetDronesGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EntDrone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetDronesListResponse parses an HTTP response from a GetDronesListWithResponse call
+func ParseGetDronesListResponse(rsp *http.Response) (*GetDronesListResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetDronesListResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []EntDrone
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostDronesUpdateResponse parses an HTTP response from a PostDronesUpdateWithResponse call
+func ParsePostDronesUpdateResponse(rsp *http.Response) (*PostDronesUpdateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostDronesUpdateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -9115,6 +13235,32 @@ func ParsePostIamUserUpdateResponse(rsp *http.Response) (*PostIamUserUpdateRespo
 	return response, nil
 }
 
+// ParseGetPipelineDagResponse parses an HTTP response from a GetPipelineDagWithResponse call
+func ParseGetPipelineDagResponse(rsp *http.Response) (*GetPipelineDagResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetPipelineDagResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ModelPipelineDag
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParsePostPipelineDagCreateResponse parses an HTTP response from a PostPipelineDagCreateWithResponse call
 func ParsePostPipelineDagCreateResponse(rsp *http.Response) (*PostPipelineDagCreateResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -9157,15 +13303,15 @@ func ParseDeletePipelineDagDeleteResponse(rsp *http.Response) (*DeletePipelineDa
 	return response, nil
 }
 
-// ParseGetPipelineDagGetResponse parses an HTTP response from a GetPipelineDagGetWithResponse call
-func ParseGetPipelineDagGetResponse(rsp *http.Response) (*GetPipelineDagGetResponse, error) {
+// ParsePostPipelineDagUpdateResponse parses an HTTP response from a PostPipelineDagUpdateWithResponse call
+func ParsePostPipelineDagUpdateResponse(rsp *http.Response) (*PostPipelineDagUpdateResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetPipelineDagGetResponse{
+	response := &PostPipelineDagUpdateResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -9183,22 +13329,22 @@ func ParseGetPipelineDagGetResponse(rsp *http.Response) (*GetPipelineDagGetRespo
 	return response, nil
 }
 
-// ParsePostPipelineDagUpdateResponse parses an HTTP response from a PostPipelineDagUpdateWithResponse call
-func ParsePostPipelineDagUpdateResponse(rsp *http.Response) (*PostPipelineDagUpdateResponse, error) {
+// ParseGetPipelineNodesResponse parses an HTTP response from a GetPipelineNodesWithResponse call
+func ParseGetPipelineNodesResponse(rsp *http.Response) (*GetPipelineNodesResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &PostPipelineDagUpdateResponse{
+	response := &GetPipelineNodesResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ModelPipelineDag
+		var dest ModelPipelineNodes
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -9251,41 +13397,15 @@ func ParseDeletePipelineNodesDeleteResponse(rsp *http.Response) (*DeletePipeline
 	return response, nil
 }
 
-// ParseGetPipelineNodesGetResponse parses an HTTP response from a GetPipelineNodesGetWithResponse call
-func ParseGetPipelineNodesGetResponse(rsp *http.Response) (*GetPipelineNodesGetResponse, error) {
+// ParseGetPipelineNodesOneResponse parses an HTTP response from a GetPipelineNodesOneWithResponse call
+func ParseGetPipelineNodesOneResponse(rsp *http.Response) (*GetPipelineNodesOneResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetPipelineNodesGetResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest ModelPipelineNodes
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseGetPipelineNodesGetOneResponse parses an HTTP response from a GetPipelineNodesGetOneWithResponse call
-func ParseGetPipelineNodesGetOneResponse(rsp *http.Response) (*GetPipelineNodesGetOneResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &GetPipelineNodesGetOneResponse{
+	response := &GetPipelineNodesOneResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}
@@ -9485,6 +13605,266 @@ func ParsePostPipelineUpdateResponse(rsp *http.Response) (*PostPipelineUpdateRes
 	return response, nil
 }
 
+// ParsePostSensorProfileCreateResponse parses an HTTP response from a PostSensorProfileCreateWithResponse call
+func ParsePostSensorProfileCreateResponse(rsp *http.Response) (*PostSensorProfileCreateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostSensorProfileCreateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteSensorProfileDeleteResponse parses an HTTP response from a DeleteSensorProfileDeleteWithResponse call
+func ParseDeleteSensorProfileDeleteResponse(rsp *http.Response) (*DeleteSensorProfileDeleteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteSensorProfileDeleteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSensorProfileGetResponse parses an HTTP response from a GetSensorProfileGetWithResponse call
+func ParseGetSensorProfileGetResponse(rsp *http.Response) (*GetSensorProfileGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSensorProfileGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EntSensorProfile
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSensorProfileListResponse parses an HTTP response from a GetSensorProfileListWithResponse call
+func ParseGetSensorProfileListResponse(rsp *http.Response) (*GetSensorProfileListResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSensorProfileListResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []EntSensorProfile
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostSensorProfileUpdateResponse parses an HTTP response from a PostSensorProfileUpdateWithResponse call
+func ParsePostSensorProfileUpdateResponse(rsp *http.Response) (*PostSensorProfileUpdateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostSensorProfileUpdateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostSensorsCreateResponse parses an HTTP response from a PostSensorsCreateWithResponse call
+func ParsePostSensorsCreateResponse(rsp *http.Response) (*PostSensorsCreateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostSensorsCreateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteSensorsDeleteResponse parses an HTTP response from a DeleteSensorsDeleteWithResponse call
+func ParseDeleteSensorsDeleteResponse(rsp *http.Response) (*DeleteSensorsDeleteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteSensorsDeleteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSensorsGetResponse parses an HTTP response from a GetSensorsGetWithResponse call
+func ParseGetSensorsGetResponse(rsp *http.Response) (*GetSensorsGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSensorsGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EntSensor
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSensorsListResponse parses an HTTP response from a GetSensorsListWithResponse call
+func ParseGetSensorsListResponse(rsp *http.Response) (*GetSensorsListResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSensorsListResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []EntSensor
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostSensorsUpdateResponse parses an HTTP response from a PostSensorsUpdateWithResponse call
+func ParsePostSensorsUpdateResponse(rsp *http.Response) (*PostSensorsUpdateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostSensorsUpdateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParsePostStoreCreateResponse parses an HTTP response from a PostStoreCreateWithResponse call
 func ParsePostStoreCreateResponse(rsp *http.Response) (*PostStoreCreateResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -9585,6 +13965,188 @@ func ParsePostStoreUpdateResponse(rsp *http.Response) (*PostStoreUpdateResponse,
 	return response, nil
 }
 
+// ParsePostSwarmDevicesAddResponse parses an HTTP response from a PostSwarmDevicesAddWithResponse call
+func ParsePostSwarmDevicesAddResponse(rsp *http.Response) (*PostSwarmDevicesAddResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostSwarmDevicesAddResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostSwarmDevicesRemoveResponse parses an HTTP response from a PostSwarmDevicesRemoveWithResponse call
+func ParsePostSwarmDevicesRemoveResponse(rsp *http.Response) (*PostSwarmDevicesRemoveResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostSwarmDevicesRemoveResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostSwarmsCreateResponse parses an HTTP response from a PostSwarmsCreateWithResponse call
+func ParsePostSwarmsCreateResponse(rsp *http.Response) (*PostSwarmsCreateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostSwarmsCreateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteSwarmsDeleteResponse parses an HTTP response from a DeleteSwarmsDeleteWithResponse call
+func ParseDeleteSwarmsDeleteResponse(rsp *http.Response) (*DeleteSwarmsDeleteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteSwarmsDeleteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSwarmsGetResponse parses an HTTP response from a GetSwarmsGetWithResponse call
+func ParseGetSwarmsGetResponse(rsp *http.Response) (*GetSwarmsGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSwarmsGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest EntSwarm
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSwarmsListResponse parses an HTTP response from a GetSwarmsListWithResponse call
+func ParseGetSwarmsListResponse(rsp *http.Response) (*GetSwarmsListResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSwarmsListResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []EntSwarm
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePostSwarmsUpdateResponse parses an HTTP response from a PostSwarmsUpdateWithResponse call
+func ParsePostSwarmsUpdateResponse(rsp *http.Response) (*PostSwarmsUpdateResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PostSwarmsUpdateResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest ApiRespID
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParsePostTriggersCreateResponse parses an HTTP response from a PostTriggersCreateWithResponse call
 func ParsePostTriggersCreateResponse(rsp *http.Response) (*PostTriggersCreateResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -9600,7 +14162,7 @@ func ParsePostTriggersCreateResponse(rsp *http.Response) (*PostTriggersCreateRes
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest GinH
+		var dest ApiRespID
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -9626,7 +14188,7 @@ func ParseDeleteTriggersDeleteResponse(rsp *http.Response) (*DeleteTriggersDelet
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest GinH
+		var dest ApiRespID
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -9652,7 +14214,7 @@ func ParseGetTriggersGetResponse(rsp *http.Response) (*GetTriggersGetResponse, e
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest EntTriggers
+		var dest []EntTrigger
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -9678,7 +14240,7 @@ func ParseGetTriggersListResponse(rsp *http.Response) (*GetTriggersListResponse,
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest []EntTriggers
+		var dest [][]EntTrigger
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -9704,7 +14266,7 @@ func ParsePostTriggersUpdateResponse(rsp *http.Response) (*PostTriggersUpdateRes
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest GinH
+		var dest ApiRespID
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

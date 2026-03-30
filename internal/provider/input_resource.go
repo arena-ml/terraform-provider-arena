@@ -73,7 +73,7 @@ func (r *inputResource) Read(ctx context.Context, req resource.ReadRequest, resp
 		return
 	}
 
-	apiResp, err := r.cl.GetPipelineNodesGetOneWithResponse(ctx, &client.GetPipelineNodesGetOneParams{Id: data.ID.ValueString(), Kind: "input"})
+	apiResp, err := r.cl.GetPipelineNodesOneWithResponse(ctx, &client.GetPipelineNodesOneParams{Id: data.ID.ValueString(), Kind: "input"})
 	if err != nil {
 		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to get input '%s': %s", data.ID.String(), err))
 		return
@@ -105,11 +105,15 @@ func (r *inputResource) Read(ctx context.Context, req resource.ReadRequest, resp
 
 func (r *inputResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data schema.InputNode
+	var stateData schema.InputNode
 
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &stateData)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
+
+	data.ID = stateData.ID
 
 	created, err := r.upsertResource(ctx, &data)
 	if err != nil {
@@ -129,8 +133,8 @@ func (r *inputResource) upsertResource(ctx context.Context, data *schema.InputNo
 	payload := client.ModelPipelineNodes{
 		PipelineId: data.PipelineID.ValueStringPointer(),
 		Inputs:     &inputs,
-		Output:     nil,
-		Step:       nil,
+		Outputs:    nil,
+		Steps:      nil,
 	}
 
 	// Call Create
