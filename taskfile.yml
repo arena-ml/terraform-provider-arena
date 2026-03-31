@@ -11,6 +11,7 @@ vars:
 
 env:
   TF_CLI_CONFIG_FILE: "{{.ROOT_DIR}}/.terraformrc"
+  PROJECT_ROOT: "{{.ROOT_DIR}}"
 
 tasks:
   lint:
@@ -112,6 +113,9 @@ tasks:
   echo-tfrc:
     cmds:
       - echo $TF_CLI_CONFIG_FILE
+  gen-eg-files:
+    cmds:
+      - sh ./.tools/gen-example-files.sh
 
 
 

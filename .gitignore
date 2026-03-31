@@ -6,3 +6,4 @@
 **/.speakeasy/logs/
 bin/
 examples/tf/.terraform
+dist/
