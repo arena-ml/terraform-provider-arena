@@ -193,7 +193,7 @@ func storeAttrs() []BaseSchema {
 		{
 			Name:     "endpoint",
 			AttrType: TfString,
-			Optional: true,
+			Required: true,
 			Desc:     "endpoint URL for the store",
 		},
 		{

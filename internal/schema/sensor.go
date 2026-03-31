@@ -338,7 +338,7 @@ func sensorInterfaceAttrs() []BaseSchema {
 	return []BaseSchema{
 		{Name: "cable", AttrType: TfMap, SubType: TfString, Optional: true, Desc: "cable interface parameters"},
 		{Name: "device_io", AttrType: TfMap, SubType: TfString, Optional: true, Desc: "device IO parameters"},
-		{Name: "kind", AttrType: TfString, Optional: true, Desc: "interface kind"},
+		{Name: "kind", AttrType: TfString, Required: true, Desc: "interface kind"},
 		{Name: "sensor_io", AttrType: TfMap, SubType: TfString, Optional: true, Desc: "sensor IO parameters"},
 	}
 }
@@ -346,7 +346,7 @@ func sensorInterfaceAttrs() []BaseSchema {
 func sensorAttrs() []BaseSchema {
 	attrs := giveCommonAttributes()
 	sensorSpecific := []BaseSchema{
-		{Name: "kind", AttrType: TfString, Optional: true, Desc: "sensor kind"},
+		{Name: "kind", AttrType: TfString, Required: true, Desc: "sensor kind"},
 		{Name: "profile_id", AttrType: TfString, Optional: true, Desc: "id of sensor profile"},
 		{Name: "inactive", AttrType: TfBoolean, Optional: true, Desc: "whether the sensor is inactive"},
 	}
@@ -357,7 +357,7 @@ func SensorProfileResourceSchema() rschema.Schema {
 	attrs := ResAttributes(sensorProfileAttrs())
 	attrs["spec"] = rschema.SingleNestedAttribute{
 		Attributes:  ResAttributes(sensorSpecAttrs()),
-		Optional:    true,
+		Required:    true,
 		Description: "sensor specification",
 	}
 	attrs["interface"] = rschema.SingleNestedAttribute{

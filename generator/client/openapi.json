@@ -3782,6 +3782,10 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
+                    "org_id": {
+                        "description": "OrgID holds the value of the \"orgID\" field.",
+                        "type": "string"
+                    },
                     "removed": {
                         "description": "Removed holds the value of the \"removed\" field.",
                         "type": "string"
@@ -3872,7 +3876,7 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
-                    "orgID": {
+                    "org_id": {
                         "description": "OrgID holds the value of the \"orgID\" field.",
                         "type": "string"
                     },
@@ -3942,6 +3946,10 @@
                     },
                     "name": {
                         "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "org_id": {
+                        "description": "OrgID holds the value of the \"orgID\" field.",
                         "type": "string"
                     },
                     "removed": {
@@ -4026,6 +4034,10 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
+                    "org_id": {
+                        "description": "OrgID holds the value of the \"orgID\" field.",
+                        "type": "string"
+                    },
                     "removed": {
                         "description": "Removed holds the value of the \"removed\" field.",
                         "type": "string"
@@ -4086,8 +4098,12 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
-                    "orgID": {
+                    "org_id": {
                         "description": "OrgID holds the value of the \"orgID\" field.",
+                        "type": "string"
+                    },
+                    "removed": {
+                        "description": "Removed holds the value of the \"removed\" field.",
                         "type": "string"
                     },
                     "updated": {
@@ -4395,7 +4411,7 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
-                    "orgID": {
+                    "org_id": {
                         "description": "OrgID holds the value of the \"orgID\" field.",
                         "type": "string"
                     },
@@ -4470,6 +4486,10 @@
                     },
                     "name": {
                         "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "org_id": {
+                        "description": "OrgID holds the value of the \"orgID\" field.",
                         "type": "string"
                     },
                     "removed": {
@@ -4552,6 +4572,10 @@
                     },
                     "name": {
                         "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "org_id": {
+                        "description": "OrgID holds the value of the \"orgID\" field.",
                         "type": "string"
                     },
                     "removed": {
@@ -4686,7 +4710,7 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
-                    "orgID": {
+                    "org_id": {
                         "description": "OrgID holds the value of the \"orgID\" field.",
                         "type": "string"
                     },
@@ -4745,6 +4769,10 @@
                     },
                     "name": {
                         "description": "Name holds the value of the \"name\" field.",
+                        "type": "string"
+                    },
+                    "org_id": {
+                        "description": "OrgID holds the value of the \"orgID\" field.",
                         "type": "string"
                     },
                     "removed": {
@@ -4820,6 +4848,10 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
+                    "org_id": {
+                        "description": "OrgID holds the value of the \"orgID\" field.",
+                        "type": "string"
+                    },
                     "removed": {
                         "description": "Removed holds the value of the \"removed\" field.",
                         "type": "string"
@@ -4876,7 +4908,7 @@
                         "description": "Name holds the value of the \"name\" field.",
                         "type": "string"
                     },
-                    "orgID": {
+                    "org_id": {
                         "description": "OrgID holds the value of the \"orgID\" field.",
                         "type": "string"
                     },

@@ -13,6 +13,7 @@ import (
 
 type ModelCommon struct {
 	ID          types.String `tfsdk:"id" json:"id"`
+	OrgID       types.String `tfsdk:"org_id"`
 	Name        types.String `tfsdk:"name" json:"name"`
 	Description types.String `tfsdk:"description" json:"description"`
 	Created     types.String `tfsdk:"created" json:"created"`

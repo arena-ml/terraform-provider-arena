@@ -96,6 +96,9 @@ type EntAgent struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
+
 	// Removed Removed holds the value of the "removed" field.
 	Removed *string `json:"removed,omitempty"`
 
@@ -151,8 +154,8 @@ type EntBasis struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
-	// OrgID OrgID holds the value of the "orgID" field.
-	OrgID *string `json:"orgID,omitempty"`
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
 
 	// Removed Removed holds the value of the "removed" field.
 	Removed *string `json:"removed,omitempty"`
@@ -200,6 +203,9 @@ type EntDrone struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
+
 	// Removed Removed holds the value of the "removed" field.
 	Removed *string `json:"removed,omitempty"`
 
@@ -246,6 +252,9 @@ type EntDroneProfile struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
+
 	// Removed Removed holds the value of the "removed" field.
 	Removed *string `json:"removed,omitempty"`
 
@@ -283,8 +292,11 @@ type EntEnv struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
-	// OrgID OrgID holds the value of the "orgID" field.
-	OrgID *string `json:"orgID,omitempty"`
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
+
+	// Removed Removed holds the value of the "removed" field.
+	Removed *string `json:"removed,omitempty"`
 
 	// Updated Updated holds the value of the "updated" field.
 	Updated *string `json:"updated,omitempty"`
@@ -486,8 +498,8 @@ type EntPipeline struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
-	// OrgID OrgID holds the value of the "orgID" field.
-	OrgID *string `json:"orgID,omitempty"`
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
 
 	// Paused paused pipeline queue new runs but dont shcedule them
 	Paused *bool `json:"paused,omitempty"`
@@ -535,6 +547,9 @@ type EntSensor struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
+
 	// Removed Removed holds the value of the "removed" field.
 	Removed *string `json:"removed,omitempty"`
 
@@ -580,6 +595,9 @@ type EntSensorProfile struct {
 
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
+
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
 
 	// Removed Removed holds the value of the "removed" field.
 	Removed *string `json:"removed,omitempty"`
@@ -669,8 +687,8 @@ type EntStorage struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
-	// OrgID OrgID holds the value of the "orgID" field.
-	OrgID *string `json:"orgID,omitempty"`
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
 
 	// Readonly Readonly holds the value of the "readonly" field.
 	Readonly *bool `json:"readonly,omitempty"`
@@ -711,6 +729,9 @@ type EntSwarm struct {
 
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
+
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
 
 	// Removed Removed holds the value of the "removed" field.
 	Removed *string `json:"removed,omitempty"`
@@ -755,6 +776,9 @@ type EntTeam struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
+
 	// Removed Removed holds the value of the "removed" field.
 	Removed *string `json:"removed,omitempty"`
 
@@ -791,8 +815,8 @@ type EntTrigger struct {
 	// Name Name holds the value of the "name" field.
 	Name *string `json:"name,omitempty"`
 
-	// OrgID OrgID holds the value of the "orgID" field.
-	OrgID *string `json:"orgID,omitempty"`
+	// OrgId OrgID holds the value of the "orgID" field.
+	OrgId *string `json:"org_id,omitempty"`
 
 	// Paused Paused holds the value of the "paused" field.
 	Paused *bool `json:"paused,omitempty"`

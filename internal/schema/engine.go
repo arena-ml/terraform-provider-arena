@@ -90,8 +90,8 @@ func EngineResourceSchema(ctx context.Context) rschema.Schema {
 				MarkdownDescription: "Whether the engine is inactive",
 			},
 			"kind": rschema.StringAttribute{
-				Optional:            true,
 				Computed:            true,
+				Optional:            true,
 				Default:             stringdefault.StaticString("nomad"),
 				Description:         "The kind of engine",
 				MarkdownDescription: "The kind of engine",

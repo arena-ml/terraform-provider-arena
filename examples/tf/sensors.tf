@@ -15,7 +15,8 @@
 # },
 
 
-resource "arenaml_sensor_profile" "a" {
+resource "arena_sensor_profile" "a" {
   name = "STL27L-LDRobot"
   kind = "2d_lidar"
+  spec = {}
 }

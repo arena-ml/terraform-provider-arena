@@ -501,7 +501,7 @@ func DroneResourceSchema() rschema.Schema {
 	attrs := ResAttributes(droneAttrs())
 	attrs["spec"] = rschema.SingleNestedAttribute{
 		Attributes:  ResAttributes(droneSpecAttrs()),
-		Optional:    true,
+		Required:    true,
 		Description: "drone device specification",
 	}
 	return rschema.Schema{
@@ -515,7 +515,7 @@ func DroneProfileResourceSchema() rschema.Schema {
 	attrs := ResAttributes(droneProfileAttrs())
 	attrs["spec"] = rschema.SingleNestedAttribute{
 		Attributes:  ResAttributes(droneSpecAttrs()),
-		Optional:    true,
+		Required:    true,
 		Description: "drone device specification",
 	}
 	return rschema.Schema{

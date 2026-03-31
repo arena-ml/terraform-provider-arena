@@ -2,19 +2,19 @@
 
 terraform {
   required_providers {
-    arenaml = {
+    arena = {
       source  = "arena-io/arena"
       version = "0.0.8"
     }
   }
 }
 
-provider "arenaml" {
+provider "arena" {
   server_url = "http://localhost:18080/api/v1"
 }
 
 
-resource "arenaml_cluster_manager" "def" {
+resource "arena_cluster_manager" "def" {
   name = "tf_test_engine"
   kind = "nomad"
   spec = file("${path.module}/default-engine-spec.json")
