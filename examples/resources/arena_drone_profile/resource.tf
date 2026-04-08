@@ -1,4 +1,4 @@
-resource "arena_drone_profile" "rpi_5" {
+resource "arenaml_drone_profile" "rpi_5" {
   name        = "rpi-5"
   kind        = "sbc"
   description = "ugv with rpi-5 as controller"
@@ -39,7 +39,7 @@ resource "arena_drone_profile" "rpi_5" {
   }
 }
 
-resource "arena_drone_profile" "radxa_5T" {
+resource "arenaml_drone_profile" "radxa_5T" {
   name        = "radxa-5T"
   kind        = "sbc"
   description = "ugv with radxa 5T as controller"

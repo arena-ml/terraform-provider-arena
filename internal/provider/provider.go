@@ -32,7 +32,7 @@ type ArenamlProviderModel struct {
 }
 
 func (p *ArenamlProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "arena"
+	resp.TypeName = "arenaml"
 	resp.Version = p.version
 }
 

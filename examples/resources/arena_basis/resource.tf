@@ -1,4 +1,4 @@
-resource "arena_basis" "test_basis" {
+resource "arenaml_basis" "test_basis" {
   description = "bi-gram training and prompt"
   kind        = "git"
   name        = "tf_test"

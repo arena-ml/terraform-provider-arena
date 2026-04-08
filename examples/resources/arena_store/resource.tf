@@ -1,5 +1,5 @@
 
-resource "arena_store" "ais_staging" {
+resource "arenaml_store" "ais_staging" {
   name     = "ais-staging"
   kind     = "aistore"
   basepath = "/arena-ml"

@@ -33,7 +33,7 @@
 # },
 # }
 
-resource "arena_sensor_profile" "lidar_STL27L" {
+resource "arenaml_sensor_profile" "lidar_STL27L" {
   name        = "STL27L-LDRobot"
   kind        = "2d_liadar"
   description = "2d lidar with 360 deg coverage"
@@ -76,7 +76,7 @@ resource "arena_sensor_profile" "lidar_STL27L" {
 }
 
 
-resource "arena_sensor_profile" "lidar_VL53L0X" {
+resource "arenaml_sensor_profile" "lidar_VL53L0X" {
   name        = "VL53L0X"
   kind        = "point_liadar"
   description = "range finding point lidar"
@@ -108,15 +108,15 @@ resource "arena_sensor_profile" "lidar_VL53L0X" {
   }
 }
 
-resource "arena_sensor" "lidar_2D" {
+resource "arenaml_sensor" "lidar_2D" {
   name        = "STL27L-LDRobot"
   kind        = "2d_liadar"
   description = "2d lidar with 360 deg coverage"
-  profile_id  = arena_sensor_profile.lidar_STL27L.id
+  profile_id  = arenaml_sensor_profile.lidar_STL27L.id
 }
 
 
-resource "arena_sensor" "range_lidar" {
+resource "arenaml_sensor" "range_lidar" {
   name        = "VL53L0X"
   kind        = "point_liadar"
   description = "range finding point lidar"

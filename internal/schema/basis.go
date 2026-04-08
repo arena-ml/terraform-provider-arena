@@ -64,7 +64,8 @@ type BasisWatcher struct {
 
 func (w *BasisWatcher) FillFromResp(ctx context.Context, resp client.EntBasis) (err error) {
 	if resp.Config == nil || resp.Config.Watcher == nil {
-		return fmt.Errorf("required field watcher in basis config is nill")
+		return fmt.Errorf("required field watcher in basis config is ni:w" +
+			"l")
 	}
 
 	respWatcher := resp.Config.Watcher
@@ -202,7 +203,7 @@ func BasisWatcherAttrs() []BaseSchema {
 			Optional:  true,
 			AttrType:  TfMap,
 			SubType:   TfString,
-			Sensitive: true,
+			Sensitive: false,
 			Desc:      "auth for registry if image is not public",
 		},
 		{

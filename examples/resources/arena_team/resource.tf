@@ -1,9 +1,9 @@
-resource "arena_org" "nav_dev" {
+resource "arenaml_org" "nav_dev" {
   name        = "nav-dev"
   description = "developer group for navigation systems"
 }
 
-resource "arena_team" "auto_flight" {
+resource "arenaml_team" "auto_flight" {
   name        = "path-planning"
   role        = "devs"
   org_id      = arena_org.nav_dev.id // teams must have a parent org

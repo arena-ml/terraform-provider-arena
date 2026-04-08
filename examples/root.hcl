@@ -4,13 +4,13 @@ generate "provider" {
   contents = <<EOF
 terraform {
   required_providers {
-    arena = {
-      source  = "arena-io/arena"
+    arenaml = {
+      source  = "arena-ml/arenaml"
     }
   }
 }
 
-provider "arena" {
+provider "arenaml" {
   server_url = "http://localhost:18080/api/v1"
 }
 

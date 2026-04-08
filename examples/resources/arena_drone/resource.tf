@@ -1,10 +1,10 @@
-resource "arena_drone" "ugv_0" {
+resource "arenaml_drone" "ugv_0" {
   name       = "ugv-0"
   kind       = "sbc"
   profile_id = "ugv-profile-id" // the spec values are then used from this drone profile
 }
 
-resource "arena_drone" "ugv_special" {
+resource "arenaml_drone" "ugv_special" {
   name        = "ugv-rpi-5"
   kind        = "sbc"
   description = "ugv with rpi-5 as controller"

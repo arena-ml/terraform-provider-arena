@@ -1,8 +1,8 @@
-data "arena_basis" "model_repo" {
+data "arenaml_basis" "model_repo" {
   id = "b14bf594-52e6-4aa8-92b3-99bc6389069c"
 }
 
-resource "arena_basis" "test_basis" {
+resource "arenaml_basis" "test_basis" {
   description = "bi-gram training and prompt"
   kind        = "git"
   name        = "tf_test"
@@ -21,6 +21,6 @@ resource "arena_basis" "test_basis" {
 
   watcher = {
     image      = "reg.arenaml.dev/basis-contrib/git:latest"
-    no_collect = false
+    no_collect = true
   }
 }

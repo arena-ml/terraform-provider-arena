@@ -1,4 +1,4 @@
-resource "arena_sensor" "lidar_2D" {
+resource "arenaml_sensor" "lidar_2D" {
   name        = "STL27L-LDRobot"
   kind        = "2d_liadar"
   description = "2d lidar with 360 deg coverage"
@@ -6,7 +6,7 @@ resource "arena_sensor" "lidar_2D" {
 }
 
 
-resource "arena_sensor" "range_lidar" {
+resource "arenaml_sensor" "range_lidar" {
   name        = "VL53L0X"
   kind        = "point_liadar"
   description = "range finding point lidar"

@@ -36,7 +36,8 @@ tasks:
   build-tf:
     cmds:
       - go mod tidy
-      - go build -o ./bin/terraform-provider-arena
+      - go generate ./...
+      - go build -o ./bin/terraform-provider-arenaml
   gen-rest-client:
     cmds:
       - cp {{.ROOT_DIR}}/../control/docs/swag/openapi.json ./openapi.json

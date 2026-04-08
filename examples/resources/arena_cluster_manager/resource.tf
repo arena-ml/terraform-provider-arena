@@ -2,7 +2,7 @@
 
 
 // adding a local server for demo with `nomad agent -dev`
-resource "arena_cluster_manager" "local" {
+resource "arenaml_cluster_manager" "local" {
   name = "eg-nomad-local"
   kind = "nomad"
   spec = jsonencode({
@@ -10,7 +10,7 @@ resource "arena_cluster_manager" "local" {
   })
 }
 
-resource "arena_cluster_manager" "pass_protected" {
+resource "arenaml_cluster_manager" "pass_protected" {
   name = "eg-nomad-http-auth"
   kind = "nomad"
   spec = jsonencode({
@@ -22,7 +22,7 @@ resource "arena_cluster_manager" "pass_protected" {
   })
 }
 
-resource "arena_cluster_manager" "tls_certs" {
+resource "arenaml_cluster_manager" "tls_certs" {
   name = "eg-nomad-tls"
   kind = "nomad"
   spec = jsonencode({

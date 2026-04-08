@@ -1,4 +1,4 @@
-resource "arena_drone_profile" "rpi_5" {
+resource "arenaml_drone_profile" "rpi_5" {
   name        = "rpi-5"
   kind        = "sbc"
   description = "ugv with rpi-5 as controller"
@@ -39,7 +39,7 @@ resource "arena_drone_profile" "rpi_5" {
   }
 }
 
-resource "arena_drone_profile" "radxa_5T" {
+resource "arenaml_drone_profile" "radxa_5T" {
   name        = "radxa-5T"
   kind        = "sbc"
   description = "ugv with radxa 5T as controller"
@@ -94,13 +94,13 @@ resource "arena_drone_profile" "radxa_5T" {
 }
 
 
-resource "arena_drone" "ugv_0" {
+resource "arenaml_drone" "ugv_0" {
   name       = "ugv-0"
   kind       = "sbc"
-  profile_id = arena_drone_profile.rpi_5.id
+  profile_id = arenaml_drone_profile.rpi_5.id
 }
 
-resource "arena_drone" "ugv_special" {
+resource "arenaml_drone" "ugv_special" {
   name        = "ugv-rpi-5"
   kind        = "sbc"
   description = "ugv with rpi-5 as controller"
