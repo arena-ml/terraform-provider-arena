@@ -40,9 +40,9 @@ resource "arenaml_user" "super_dev" {
 }
 
 
-resource "arenaml_store" "ais_staging" {
+resource "arenaml_artifact_store" "ais_staging" {
   name     = "ais-staging"
-  kind     = "aistore"
+  kind     = "ais"
   basepath = "/arena-ml"
   endpoint = "http://10.1.1.2:51080"
   config = {

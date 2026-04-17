@@ -24,13 +24,13 @@ team resource
 
 - `config` (Attributes) configuration for the team (see [below for nested schema](#nestedatt--config))
 - `description` (String) A description of the basis
+- `id` (String) The unique identifier for the basis
 - `inactive` (Boolean) whether the team is inactive
 - `role` (String) role of the team
 
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created
-- `id` (String) The unique identifier for the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis
 

@@ -21,15 +21,17 @@ Manages a drone profile resource.
 
 ### Optional
 
+- `agents` (Set of String) agents to be deployed to this drone
 - `description` (String) A description of the basis
+- `id` (String) The unique identifier for the basis
 - `kind` (String) drone kind
 - `links` (String) device interface links
+- `sensor_profiles` (Set of String) sensor profiles applied to this drones
 - `spec` (Attributes) drone device specification, values are inherited from drone profile instead if profile-id is set (see [below for nested schema](#nestedatt--spec))
 
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created
-- `id` (String) The unique identifier for the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis
 

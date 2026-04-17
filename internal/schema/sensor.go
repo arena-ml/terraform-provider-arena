@@ -128,7 +128,8 @@ func (sm *SensorModel) FillFromResp(ctx context.Context, r client.EntSensor) (er
 	}
 
 	if r.Edges != nil && r.Edges.Profile != nil && r.Edges.Profile.Id != nil {
-		sm.ProfileID = types.StringValue(*r.Edges.Profile.Id)
+		id := r.Edges.Profile.Id
+		sm.ProfileID = types.StringValue(*id)
 	}
 
 	return

@@ -26,6 +26,7 @@ user resource
 - `created` (String) The timestamp when the basis was created
 - `description` (String) A description of the basis
 - `email` (String) email address of the user
+- `kind` (String) user kind e.g. member, drone, agent
 - `name` (String) The unique name of the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis

@@ -25,11 +25,12 @@ user resource
 - `active` (Boolean) whether the user is active
 - `config` (Block, Optional) configuration for the user (see [below for nested schema](#nestedblock--config))
 - `description` (String) A description of the basis
+- `id` (String) The unique identifier for the basis
+- `kind` (String) user kind e.g. member, drone, agent
 
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created
-- `id` (String) The unique identifier for the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis
 

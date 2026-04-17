@@ -19,6 +19,12 @@ Fetches a drone by ID.
 
 - `id` (String) The unique identifier for the basis
 
+### Optional
+
+- `agents` (Set of String) agents to be deployed to this drone
+- `sensor_profiles` (Set of String) sensor profiles applied to this drones
+- `sensors` (Set of String) sensors used by this drones
+
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created

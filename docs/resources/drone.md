@@ -21,18 +21,21 @@ Manages a drone resource.
 
 ### Optional
 
+- `agents` (Set of String) agents to be deployed to this drone
 - `description` (String) A description of the basis
+- `id` (String) The unique identifier for the basis
 - `inactive` (Boolean) whether the drone is inactive
 - `kind` (String) drone kind
 - `links` (String) device interface links
 - `profile_id` (String) id of drone profile
+- `sensor_profiles` (Set of String) sensor profiles applied to this drones
+- `sensors` (Set of String) sensors used by this drones
 - `spec` (Attributes) drone device specification (see [below for nested schema](#nestedatt--spec))
 - `swarm_id` (String) id of swarm the drone belongs to
 
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created
-- `id` (String) The unique identifier for the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis
 

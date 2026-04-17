@@ -23,13 +23,13 @@ Manages a sensor profile resource.
 ### Optional
 
 - `description` (String) A description of the basis
+- `id` (String) The unique identifier for the basis
 - `interface` (Attributes) sensor interface (see [below for nested schema](#nestedatt--interface))
 - `kind` (String) sensor kind
 
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created
-- `id` (String) The unique identifier for the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis
 

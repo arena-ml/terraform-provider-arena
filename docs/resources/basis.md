@@ -28,11 +28,11 @@ description: |-
 - `collector` (Attributes) collector config when artifact are fetched by a different process instead of watcher (see [below for nested schema](#nestedatt--collector))
 - `description` (String) A description of the basis
 - `frozen` (Boolean) Whether the basis is frozen
+- `id` (String) The unique identifier for the basis
 
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created
-- `id` (String) The unique identifier for the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis
 

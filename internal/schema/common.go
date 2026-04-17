@@ -24,6 +24,7 @@ func giveCommonAttributes() []BaseSchema {
 	return []BaseSchema{
 		{
 			Name:     "id",
+			Optional: true,
 			Computed: true,
 			AttrType: TfString,
 			Desc:     "The unique identifier for the basis",

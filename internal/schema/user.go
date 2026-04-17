@@ -19,6 +19,7 @@ import (
 
 type User struct {
 	ModelCommon
+	Kind   types.String `tfsdk:"kind"`
 	EMail  types.String `tfsdk:"email"`
 	Active types.Bool   `tfsdk:"active"`
 	Config *UserConfig  `tfsdk:"config"`
@@ -220,9 +221,15 @@ func resUserSchemaBlocks() map[string]rschema.Block {
 	}
 }
 
-func userAttrs() []BaseSchema {
+func UserAttrs() []BaseSchema {
 	attrs := giveCommonAttributes()
 	userAttrs := []BaseSchema{
+		{
+			Name:     "kind",
+			AttrType: TfString,
+			Optional: true,
+			Desc:     "user kind e.g. member, drone, agent",
+		},
 		{
 			Name:     "email",
 			AttrType: TfString,
@@ -243,7 +250,7 @@ func userAttrs() []BaseSchema {
 }
 
 func UserDSchema() dschema.Schema {
-	attrs := DSAttributes(userAttrs())
+	attrs := DSAttributes(UserAttrs())
 
 	return dschema.Schema{
 		Attributes:  attrs,
@@ -253,7 +260,7 @@ func UserDSchema() dschema.Schema {
 }
 
 func UserResourceSchema() rschema.Schema {
-	attrs := ResAttributes(userAttrs())
+	attrs := ResAttributes(UserAttrs())
 
 	return rschema.Schema{
 		Attributes:  attrs,

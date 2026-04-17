@@ -18,7 +18,7 @@ import (
 
 // Defines values for FixedDriverKind.
 const (
-	DriverDefault FixedDriverKind = "docker"
+	DriverDefault FixedDriverKind = "default"
 	DriverDocker  FixedDriverKind = "docker"
 	DriverExec    FixedDriverKind = "exec"
 	DriverGo      FixedDriverKind = "go"
@@ -106,10 +106,7 @@ type EntAgent struct {
 }
 
 // EntAgentEdges defines model for ent.AgentEdges.
-type EntAgentEdges struct {
-	// Host Host holds the value of the host edge.
-	Host *EntDrone `json:"host,omitempty"`
-}
+type EntAgentEdges = map[string]interface{}
 
 // EntBasis defines model for ent.Basis.
 type EntBasis struct {
@@ -205,11 +202,17 @@ type EntDrone struct {
 
 // EntDroneEdges defines model for ent.DroneEdges.
 type EntDroneEdges struct {
+	// Agents Agents holds the value of the agents edge.
+	Agents *[]EntAgent `json:"agents,omitempty"`
+
 	// Profile a device can only have one profiles
 	Profile *EntDroneProfile `json:"profile,omitempty"`
 
-	// Swarm device can only belong to one swarm
-	Swarm *EntSwarm `json:"swarm,omitempty"`
+	// SensorProfiles SensorProfiles holds the value of the sensor_profiles edge.
+	SensorProfiles *[]EntSensorProfile `json:"sensor_profiles,omitempty"`
+
+	// Sensors Sensors holds the value of the sensors edge.
+	Sensors *[]EntSensor `json:"sensors,omitempty"`
 }
 
 // EntDroneProfile defines model for ent.DroneProfile.
@@ -250,7 +253,13 @@ type EntDroneProfile struct {
 }
 
 // EntDroneProfileEdges defines model for ent.DroneProfileEdges.
-type EntDroneProfileEdges = map[string]interface{}
+type EntDroneProfileEdges struct {
+	// Agents Agents holds the value of the agents edge.
+	Agents *[]EntAgent `json:"agents,omitempty"`
+
+	// SensorProfiles SensorProfiles holds the value of the sensor_profiles edge.
+	SensorProfiles *[]EntSensorProfile `json:"sensor_profiles,omitempty"`
+}
 
 // EntEnv defines model for ent.Env.
 type EntEnv struct {
@@ -537,9 +546,6 @@ type EntSensor struct {
 
 // EntSensorEdges defines model for ent.SensorEdges.
 type EntSensorEdges struct {
-	// Device Device holds the value of the device edge.
-	Device *EntDrone `json:"device,omitempty"`
-
 	// Profile Profile holds the value of the profile edge.
 	Profile *EntSensorProfile `json:"profile,omitempty"`
 }
@@ -711,8 +717,8 @@ type EntSwarm struct {
 
 // EntSwarmEdges defines model for ent.SwarmEdges.
 type EntSwarmEdges struct {
-	// Environment Environment holds the value of the environment edge.
-	Environment *[]EntEnv `json:"environment,omitempty"`
+	// Units Units holds the value of the units edge.
+	Units *[]EntDrone `json:"units,omitempty"`
 }
 
 // EntTeam defines model for ent.Team.
@@ -1118,6 +1124,9 @@ type SchemaSensorInterface struct {
 
 // SchemaSensorSpec defines model for schema.SensorSpec.
 type SchemaSensorSpec struct {
+	// Args sensor related args to passed on to the collector
+	Args *map[string]string `json:"args,omitempty"`
+
 	// Comm details about communication interface such as protocol, baud rate, etc.
 	Comm *map[string]string `json:"comm,omitempty"`
 

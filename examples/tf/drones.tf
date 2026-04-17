@@ -95,15 +95,25 @@ resource "arenaml_drone_profile" "radxa_5T" {
 
 
 resource "arenaml_drone" "ugv_0" {
+  id         = "d27059c5-2a50-49fd-bafe-f6cdc1afba3d"
   name       = "ugv-0"
   kind       = "sbc"
   profile_id = arenaml_drone_profile.rpi_5.id
+  sensors = [
+    arenaml_sensor.lidar_2D.id
+  ]
+  sensor_profiles = [
+    arenaml_sensor_profile.lidar_STL27L.id
+  ]
 }
 
 resource "arenaml_drone" "ugv_special" {
   name        = "ugv-rpi-5"
   kind        = "sbc"
   description = "ugv with rpi-5 as controller"
+  sensors = [
+    arenaml_sensor.range_lidar.id
+  ]
   spec = {
     arch         = "arm64"
     memory_in_gb = 8

@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	rschema "github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
@@ -23,6 +24,7 @@ type DroneModel struct {
 	ProfileID types.String `tfsdk:"profile_id"`
 	SwarmID   types.String `tfsdk:"swarm_id"`
 	Inactive  types.Bool   `tfsdk:"inactive"`
+	Sensors   types.Set    `tfsdk:"sensors"`
 }
 
 type DroneProfileModel struct {
@@ -31,9 +33,64 @@ type DroneProfileModel struct {
 }
 
 type DroneCommon struct {
-	Kind  types.String         `tfsdk:"kind"`
-	Spec  *DroneSpec           `tfsdk:"spec"`
-	Links jsontypes.Normalized `tfsdk:"links"`
+	Kind           types.String         `tfsdk:"kind"`
+	Spec           *DroneSpec           `tfsdk:"spec"`
+	Links          jsontypes.Normalized `tfsdk:"links"`
+	Agents         types.Set            `tfsdk:"agents"`
+	SensorProfiles types.Set            `tfsdk:"sensor_profiles"` // list of id's of sensor or sensor profiles
+}
+
+func (dc *DroneCommon) FillFromRespEdge(ctx context.Context, sProfiles *[]client.EntSensorProfile, agents *[]client.EntAgent) (err error) {
+	dc.Agents = basetypes.NewSetNull(types.StringType)
+	if agents != nil {
+		var sensorIDs []string
+		for _, s := range *agents {
+			sensorIDs = append(sensorIDs, *s.Id)
+		}
+		dc.Agents, err = helper.FromGoStrSliceToTfSet(ctx, sensorIDs)
+		if err != nil {
+			return
+		}
+	}
+	dc.SensorProfiles = basetypes.NewSetNull(types.StringType)
+	if sProfiles != nil {
+		var sensorProfileIDs []string
+		for _, s := range *sProfiles {
+			sensorProfileIDs = append(sensorProfileIDs, *s.Id)
+		}
+		dc.SensorProfiles, err = helper.FromGoStrSliceToTfSet(ctx, sensorProfileIDs)
+		if err != nil {
+			return
+		}
+	}
+
+	return nil
+}
+
+func (dc *DroneCommon) GetEntCommonEdges(ctx context.Context) (agents []client.EntAgent, sProfiles []client.EntSensorProfile, err error) {
+	if !dc.Agents.IsNull() && !dc.Agents.IsUnknown() {
+		agentIDs, ok := helper.TfSetStrToGoSlice(ctx, dc.Agents)
+		if !ok {
+			err = fmt.Errorf("unable to parse agent id for drone profile")
+			return
+		}
+		for _, id := range agentIDs {
+			agents = append(agents, client.EntAgent{Id: &id})
+		}
+	}
+
+	if !dc.SensorProfiles.IsNull() && !dc.SensorProfiles.IsUnknown() {
+		sProfileIDs, ok := helper.TfSetStrToGoSlice(ctx, dc.SensorProfiles)
+		if !ok {
+			err = fmt.Errorf("unable to parse agent id for drone profile")
+			return
+		}
+		for _, id := range sProfileIDs {
+			sProfiles = append(sProfiles, client.EntSensorProfile{Id: &id})
+		}
+	}
+
+	return
 }
 
 type DroneSpec struct {
@@ -120,14 +177,28 @@ func (d *DroneModel) FillFromResp(ctx context.Context, r client.EntDrone) (err e
 	if err != nil {
 		return
 	}
+	if r.Edges != nil {
+		err = dc.FillFromRespEdge(ctx, r.Edges.SensorProfiles, r.Edges.Agents)
+		if err != nil {
+			tflog.Error(ctx, "unable to parse drone edges"+fmt.Sprintf("\n\n%+v\n\n", r))
+			return
+		}
+	}
 	d.DroneCommon = *dc
 
 	if r.Edges != nil {
 		if r.Edges.Profile != nil && r.Edges.Profile.Id != nil {
 			d.ProfileID = types.StringValue(*r.Edges.Profile.Id)
 		}
-		if r.Edges.Swarm != nil && r.Edges.Swarm.Id != nil {
-			d.SwarmID = types.StringValue(*r.Edges.Swarm.Id)
+		if r.Edges.Sensors != nil {
+			var sensorIDs []string
+			for _, s := range *r.Edges.Sensors {
+				sensorIDs = append(sensorIDs, *s.Id)
+			}
+			d.Sensors, err = helper.FromGoStrSliceToTfSet(ctx, sensorIDs)
+			if err != nil {
+				return
+			}
 		}
 	}
 
@@ -143,6 +214,12 @@ func (d *DroneProfileModel) FillFromResp(ctx context.Context, r client.EntDroneP
 	err = dc.FillFromResp(ctx, r.Kind, r.Spec, r.Links)
 	if err != nil {
 		return
+	}
+	if r.Edges != nil {
+		err = dc.FillFromRespEdge(ctx, r.Edges.SensorProfiles, r.Edges.Agents)
+		if err != nil {
+			return
+		}
 	}
 	d.DroneCommon = *dc
 
@@ -280,19 +357,47 @@ func (d *DroneModel) ToModelJSON(ctx context.Context) (jsonDrone client.EntDrone
 		}
 		jsonDrone.Links = &links
 	}
-	jsonDrone.Edges = &client.EntDroneEdges{}
+
+	jsonDrone.Edges, err = d.ToEntEdges(ctx)
+
+	return
+}
+
+func (d *DroneModel) ToEntEdges(ctx context.Context) (edges *client.EntDroneEdges, err error) {
+	edges = &client.EntDroneEdges{}
 
 	if !d.ProfileID.IsNull() && !d.ProfileID.IsUnknown() {
 		id := d.ProfileID.ValueString()
-		jsonDrone.Edges.Profile = &client.EntDroneProfile{Id: &id}
+		edges.Profile = &client.EntDroneProfile{Id: &id}
 	}
 
-	if !d.SwarmID.IsNull() && !d.SwarmID.IsUnknown() {
-		id := d.SwarmID.ValueString()
-		jsonDrone.Edges.Swarm = &client.EntSwarm{Id: &id}
+	var sensors []client.EntSensor
+	if !d.Sensors.IsNull() && !d.Sensors.IsUnknown() {
+		sensorIDs, ok := helper.TfSetStrToGoSlice(ctx, d.Sensors)
+		if !ok {
+			err = fmt.Errorf("unable to parse agent id for drone profile")
+			return
+		}
+		for _, id := range sensorIDs {
+			sensors = append(sensors, client.EntSensor{Id: &id})
+		}
+		edges.Sensors = &sensors
 	}
 
-	return
+	agents, sProfiles, eErr := d.GetEntCommonEdges(ctx)
+	if eErr != nil {
+		err = eErr
+		return
+	}
+	if agents != nil {
+		edges.Agents = &agents
+	}
+
+	if sProfiles != nil {
+		edges.SensorProfiles = &sProfiles
+	}
+
+	return edges, nil
 }
 
 func (d *DroneProfileModel) ToModelJSON(ctx context.Context) (jsonProfile client.EntDroneProfile, err error) {
@@ -326,6 +431,16 @@ func (d *DroneProfileModel) ToModelJSON(ctx context.Context) (jsonProfile client
 			return
 		}
 	}
+
+	agents, sProfiles, err := d.GetEntCommonEdges(ctx)
+	edges := &client.EntDroneProfileEdges{}
+	if agents != nil {
+		edges.Agents = &agents
+	}
+	if sProfiles != nil {
+		edges.SensorProfiles = &sProfiles
+	}
+	jsonProfile.Edges = edges
 
 	return
 }
@@ -499,6 +614,9 @@ func droneAttrs() []BaseSchema {
 		{Name: "profile_id", AttrType: TfString, Optional: true, Desc: "id of drone profile"},
 		{Name: "swarm_id", AttrType: TfString, Optional: true, Desc: "id of swarm the drone belongs to"},
 		{Name: "inactive", AttrType: TfBoolean, Optional: true, Desc: "whether the drone is inactive"},
+		{Name: "agents", AttrType: TFSet, SubType: TfString, Optional: true, Desc: "agents to be deployed to this drone"},
+		{Name: "sensors", AttrType: TFSet, SubType: TfString, Optional: true, Desc: "sensors used by this drones"},
+		{Name: "sensor_profiles", AttrType: TFSet, SubType: TfString, Optional: true, Desc: "sensor profiles applied to this drones"},
 	}
 	return append(attrs, droneSpecific...)
 }
@@ -508,6 +626,8 @@ func droneProfileAttrs() []BaseSchema {
 	droneProfileSpecific := []BaseSchema{
 		{Name: "kind", AttrType: TfString, Optional: true, Desc: "drone kind"},
 		{Name: "links", AttrType: TfJSON, Optional: true, Desc: "device interface links"},
+		{Name: "agents", AttrType: TFSet, SubType: TfString, Optional: true, Desc: "agents to be deployed to this drone"},
+		{Name: "sensor_profiles", AttrType: TFSet, SubType: TfString, Optional: true, Desc: "sensor profiles applied to this drones"},
 	}
 	return append(attrs, droneProfileSpecific...)
 }

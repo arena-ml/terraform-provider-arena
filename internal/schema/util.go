@@ -216,7 +216,7 @@ func (s BaseSchema) ResourceAttr() rschema.Attribute {
 
 	if s.AttrType == TFSet {
 		return rschema.SetAttribute{
-			ElementType:         types.StringType,
+			ElementType:         toNativeTFType(s.SubType),
 			Required:            s.Required,
 			Computed:            s.Computed,
 			Optional:            s.Optional,
@@ -265,6 +265,7 @@ func (s BaseSchema) ResourceAttr() rschema.Attribute {
 		}
 	}
 
+	// panic here otherwise terraform plugin will crash with not so helpful error logs
 	panic(fmt.Sprintf("unreachable code for attr type = \n%+v", s))
 }
 
@@ -413,7 +414,20 @@ func (s BaseSchema) DataSourceAttr() dschema.Attribute {
 		}
 	}
 
-	return nil
+	if s.AttrType == TFSet {
+		return dschema.SetAttribute{
+			ElementType:         toNativeTFType(s.SubType),
+			Required:            s.Required,
+			Computed:            s.Computed,
+			Optional:            s.Optional,
+			Sensitive:           s.Sensitive,
+			Description:         s.Desc,
+			MarkdownDescription: s.MdDesc,
+		}
+	}
+
+	// panic here otherwise terraform plugin will crash with not so helpful error logs
+	panic(fmt.Sprintf("unreachable code for attr type = \n%+v", s))
 }
 
 func ResAttributes(attrs []BaseSchema) map[string]rschema.Attribute {

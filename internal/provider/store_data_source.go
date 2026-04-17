@@ -20,12 +20,14 @@ type storeDataSource struct {
 var _ datasource.DataSource = (*storeDataSource)(nil)
 var _ datasource.DataSourceWithConfigure = (*storeDataSource)(nil)
 
+const storeTypeName = "artifact_store"
+
 func NewStoreDatasource() datasource.DataSource {
 	return &storeDataSource{}
 }
 
 func (d *storeDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_store"
+	resp.TypeName = req.ProviderTypeName + "_" + storeTypeName
 }
 
 func (d *storeDataSource) Schema(ctx context.Context, request datasource.SchemaRequest, response *datasource.SchemaResponse) {

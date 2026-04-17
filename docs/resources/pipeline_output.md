@@ -23,11 +23,11 @@ node of type output
 ### Optional
 
 - `description` (String) A description of the basis
+- `id` (String) The unique identifier for the basis
 - `store_id` (String) override for store to be used in place of default store for that env
 
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created
-- `id` (String) The unique identifier for the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis

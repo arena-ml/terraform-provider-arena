@@ -26,12 +26,12 @@ node of type step
 
 - `description` (String) A description of the basis
 - `engine_id` (String) engine to use for executing this step
+- `id` (String) The unique identifier for the basis
 - `store_id` (String) override for store to be used in place of default store for that env
 
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created
-- `id` (String) The unique identifier for the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis
 

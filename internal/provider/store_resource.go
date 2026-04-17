@@ -39,7 +39,7 @@ func (r *storeResource) Configure(ctx context.Context, req resource.ConfigureReq
 }
 
 func (r *storeResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_store"
+	resp.TypeName = req.ProviderTypeName + "_" + storeTypeName
 }
 
 func (r *storeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {

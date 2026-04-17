@@ -65,6 +65,7 @@
       <excludeFolder url="file://$MODULE_DIR$/examples/resources/store/.terragrunt-cache/cBNDJUPB-O3fo4nWpGDiUU09w3A/8r9lUltdDNYNCeUK8U-YfIjnH74/.terraform" />
       <excludeFolder url="file://$MODULE_DIR$/examples/resources/team/.terragrunt-cache/8dMZ_v3WQxGCR9c3gVbrUzhjZ1Q/vIaDTql6KCTg7I1KRevRGY4uhOQ/.terraform" />
       <excludeFolder url="file://$MODULE_DIR$/examples/resources/user/.terragrunt-cache/DxpZ4S5_6MKoZXcgAjkwRxWl7q8/JqM4gp_b8bjjqbYh9u-SJLkR51s/.terraform" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/resources/arena_artifact_store/.terragrunt-cache/C4goiWk26DbgZ6zqGwVMW6Pul3w/Kfe-D3tPTQU6Go0Xq9rnOyDVw1A/.terraform" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

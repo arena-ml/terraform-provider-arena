@@ -23,6 +23,7 @@ Manages a sensor resource.
 ### Optional
 
 - `description` (String) A description of the basis
+- `id` (String) The unique identifier for the basis
 - `inactive` (Boolean) whether the sensor is inactive
 - `interface` (Attributes) sensor interface (see [below for nested schema](#nestedatt--interface))
 - `profile_id` (String) id of sensor profile
@@ -31,7 +32,6 @@ Manages a sensor resource.
 ### Read-Only
 
 - `created` (String) The timestamp when the basis was created
-- `id` (String) The unique identifier for the basis
 - `updated` (String) The timestamp when the basis was last updated
 - `version` (Number) The version of the basis
 

@@ -1,6 +1,6 @@
-data "arenaml_basis" "model_repo" {
-  id = "b14bf594-52e6-4aa8-92b3-99bc6389069c"
-}
+# data "arenaml_basis" "model_repo" {
+#   id = "b14bf594-52e6-4aa8-92b3-99bc6389069c"
+# }
 
 resource "arenaml_basis" "test_basis" {
   description = "bi-gram training and prompt"

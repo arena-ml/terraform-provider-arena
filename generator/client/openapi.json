@@ -3840,17 +3840,7 @@
                 }
             },
             "ent.AgentEdges": {
-                "type": "object",
-                "properties": {
-                    "host": {
-                        "description": "Host holds the value of the host edge.",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/ent.Drone"
-                            }
-                        ]
-                    }
-                }
+                "type": "object"
             },
             "ent.Basis": {
                 "type": "object",
@@ -3996,6 +3986,13 @@
             "ent.DroneEdges": {
                 "type": "object",
                 "properties": {
+                    "agents": {
+                        "description": "Agents holds the value of the agents edge.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ent.Agent"
+                        }
+                    },
                     "profile": {
                         "description": "a device can only have one profiles",
                         "allOf": [
@@ -4004,13 +4001,19 @@
                             }
                         ]
                     },
-                    "swarm": {
-                        "description": "device can only belong to one swarm",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/ent.Swarm"
-                            }
-                        ]
+                    "sensor_profiles": {
+                        "description": "SensorProfiles holds the value of the sensor_profiles edge.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ent.SensorProfile"
+                        }
+                    },
+                    "sensors": {
+                        "description": "Sensors holds the value of the sensors edge.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ent.Sensor"
+                        }
                     }
                 }
             },
@@ -4076,7 +4079,23 @@
                 }
             },
             "ent.DroneProfileEdges": {
-                "type": "object"
+                "type": "object",
+                "properties": {
+                    "agents": {
+                        "description": "Agents holds the value of the agents edge.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ent.Agent"
+                        }
+                    },
+                    "sensor_profiles": {
+                        "description": "SensorProfiles holds the value of the sensor_profiles edge.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ent.SensorProfile"
+                        }
+                    }
+                }
             },
             "ent.Env": {
                 "type": "object",
@@ -4520,14 +4539,6 @@
             "ent.SensorEdges": {
                 "type": "object",
                 "properties": {
-                    "device": {
-                        "description": "Device holds the value of the device edge.",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/ent.Drone"
-                            }
-                        ]
-                    },
                     "profile": {
                         "description": "Profile holds the value of the profile edge.",
                         "allOf": [
@@ -4791,11 +4802,11 @@
             "ent.SwarmEdges": {
                 "type": "object",
                 "properties": {
-                    "environment": {
-                        "description": "Environment holds the value of the environment edge.",
+                    "units": {
+                        "description": "Units holds the value of the units edge.",
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ent.Env"
+                            "$ref": "#/components/schemas/ent.Drone"
                         }
                     }
                 }
@@ -5058,7 +5069,7 @@
             "fixed.DriverKind": {
                 "type": "string",
                 "enum": [
-                    "docker",
+                    "default",
                     "docker",
                     "podman",
                     "exec",
@@ -5090,8 +5101,8 @@
                     ""
                 ],
                 "x-enum-varnames": [
-                    "DriverDocker",
                     "DriverDefault",
+                    "DriverDocker",
                     "DriverPodman",
                     "DriverExec",
                     "DriverRaw",
@@ -5884,6 +5895,13 @@
             "schema.SensorSpec": {
                 "type": "object",
                 "properties": {
+                    "args": {
+                        "description": "sensor related args to passed on to the collector",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
                     "comm": {
                         "description": "details about communication interface such as protocol, baud rate, etc.",
                         "type": "object",
